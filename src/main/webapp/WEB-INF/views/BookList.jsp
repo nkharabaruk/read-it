@@ -22,7 +22,7 @@
       <tr>
         <td>${status.index + 1}</td>
         <td>${book.author}</td>
-        <td>${book.name}</td>
+        <td><a href="book/${book.id}">${book.name}</a></td>
         <td>${book.year}</td>
         <td>${book.description}</td>
       </tr>

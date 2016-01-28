@@ -25,7 +25,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     public Book get(long id) {
-        return null;
+        return sessionFactory.getCurrentSession().get(Book.class,id);
     }
 
     public void saveOrUpdate(Book book) {
