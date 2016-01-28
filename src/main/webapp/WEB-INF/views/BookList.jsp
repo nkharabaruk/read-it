@@ -1,4 +1,3 @@
-<%@ page import="com.readit.entity.Book" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -9,6 +8,8 @@
 <div align="center">
   <h1>Books List</h1>
   <h2><a href="/new">New Book</a></h2>
+
+  <c:out value="${hello}"></c:out>
 
   <table border="1">
     <th>No</th>

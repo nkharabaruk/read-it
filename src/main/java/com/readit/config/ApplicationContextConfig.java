@@ -9,12 +9,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.readit")
+@EnableTransactionManagement
 public class ApplicationContextConfig {
     @Bean(name = "viewResolver")
     public InternalResourceViewResolver getViewResolver() {
@@ -29,7 +31,7 @@ public class ApplicationContextConfig {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/readit");
         dataSource.setUsername("root");
-        dataSource.setPassword("Yfnecz123");
+        dataSource.setPassword("root");
         return dataSource;
     }
     @Autowired
