@@ -8,6 +8,8 @@ import java.util.Set;
 
 @Entity
 public class Book {
+    @Id
+    private long id;
     private String author;
     private String name;
     private int year;
@@ -21,6 +23,14 @@ public class Book {
         this.name = name;
         this.year = year;
         this.description = description;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -53,16 +63,5 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    private String id;
-
-    @Id
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }
