@@ -1,6 +1,7 @@
 package com.readit.config;
 
 import com.readit.entity.Book;
+import com.readit.entity.Author;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,29 +2,29 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title></title>
+  <title></title>
 </head>
 <body>
 <div align="center">
-  <h1>Books List</h1>
-  <h2><a href="/new">New Book</a></h2>
+  <h1>Authors List</h1>
+  <h2><a href="/new">New Author</a></h2>
 
   <c:out value="${hello}"></c:out>
 
   <table border="1">
     <th>No</th>
-    <th>Author</th>
     <th>Name</th>
     <th>Year</th>
-    <th>Description</th>
+    <th>Biography</th>
+    <th>Books</th>
 
-    <c:forEach var="book" items="${bookList}" varStatus="status">
+    <c:forEach var="author" items="${authorList}" varStatus="status">
       <tr>
         <td>${status.index + 1}</td>
-        <td><a href="author/${book.id}">${book.author}</a></td>
-        <td><a href="book/${book.id}">${book.name}</a></td>
-        <td>${book.year}</td>
-        <td>${book.description}</td>
+        <td><a href="author/${author.id}">${author.name}</a></td>
+        <td>${author.dateOfBirth} - ${author.dateOfDeath}</td>
+        <td>${author.biography}</td>
+        <td>${author.book}</td>
       </tr>
     </c:forEach>
   </table>
