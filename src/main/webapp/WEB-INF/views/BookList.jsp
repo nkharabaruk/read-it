@@ -21,10 +21,14 @@
     <c:forEach var="book" items="${bookList}" varStatus="status">
       <tr>
         <td>${status.index + 1}</td>
-        <td><a href="author/${book.id}">${book.author}</a></td>
-        <td><a href="book/${book.id}">${book.name}</a></td>
-        <td>${book.year}</td>
-        <td>${book.description}</td>
+        <td>
+        <c:forEach var="author" items="${book.value}">
+          <a href="author/${author.id}">${author.name}</a>
+        </c:forEach>
+        </td>
+        <td><a href="book/${book.key.id}">${book.key.title}</a></td>
+        <td>${book.key.year}</td>
+        <td>${book.key.description}</td>
       </tr>
     </c:forEach>
   </table>
