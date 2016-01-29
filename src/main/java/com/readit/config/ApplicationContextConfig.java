@@ -33,6 +33,12 @@ public class ApplicationContextConfig {
         dataSource.setUrl("jdbc:mysql://localhost:3306/readit");
         dataSource.setUsername("root");
         dataSource.setPassword("Yfnecz123");
+        //For OpenShift
+        /*String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
+        String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+        dataSource.setUrl("jdbc:mysql://"+ host + ":" + port+ "/readit");
+        dataSource.setUsername("adminuUmSRpg");
+        dataSource.setPassword("cS28mX5I755J");*/
         return dataSource;
     }
     @Autowired
