@@ -2,32 +2,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-  <title></title>
+    <title></title>
 </head>
 <body>
 <div align="center">
-  <h1>Authors List</h1>
-  <h2><a href="/new">New Author</a></h2>
+    <h1>Authors List</h1>
 
-  <c:out value="${hello}"></c:out>
+    <table border="1">
+        <th>No</th>
+        <th>Name</th>
+        <th>Year</th>
+        <th>Biography</th>
+        <th>Books</th>
 
-  <table border="1">
-    <th>No</th>
-    <th>Name</th>
-    <th>Year</th>
-    <th>Biography</th>
-    <th>Books</th>
-
-    <c:forEach var="author" items="${authorList}" varStatus="status">
-      <tr>
-        <td>${status.index + 1}</td>
-        <td><a href="author/${author.id}">${author.name}</a></td>
-        <td>${author.dateOfBirth} - ${author.dateOfDeath}</td>
-        <td>${author.biography}</td>
-        <td>${author.book}</td>
-      </tr>
-    </c:forEach>
-  </table>
+        <c:forEach var="author" items="${authorList}" varStatus="status">
+            <tr>
+                <td>${status.index + 1}</td>
+                <td><a href="author/${author.id}">${author.name}</a></td>
+                <td>${author.dateOfBirth} - ${author.dateOfDeath}</td>
+                <td>${author.biography}</td>
+                <td>
+                    <c:forEach var="book" items="${author.books}">
+                        <a href="book/${book.id}">${book.title}</a><br>
+                    </c:forEach>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </div>
 </body>
 </html>

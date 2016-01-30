@@ -3,6 +3,7 @@ package com.readit.dao.impl;
 import com.readit.dao.BookDAO;
 import com.readit.entity.Author;
 import com.readit.entity.Book;
+import lombok.NoArgsConstructor;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,11 @@ import java.util.List;
 
 @Repository
 @Transactional
+@NoArgsConstructor
 public class BookDAOImpl implements BookDAO {
 
     @Autowired
     SessionFactory sessionFactory;
-
-    public BookDAOImpl() {
-    }
 
     @SuppressWarnings("unchecked")
     public List<Book> list() {

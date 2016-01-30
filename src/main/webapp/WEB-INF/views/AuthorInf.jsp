@@ -12,11 +12,11 @@
     <title></title>
 </head>
 <body>
-  <h1>${autor.name}</h1>
+  <h1>${author.name}</h1>
   <h2>${author.dateOfBirth} - ${author.dateOfDeath}</h2>
   <h4>${author.biography}</h4>
   <c:forEach var="book" items="${author.books}">
-  <h3>${book}</h3>
+  <h3>${book.title}</h3>
   </c:forEach>
 </body>
 </html>

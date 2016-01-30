@@ -2,6 +2,7 @@ package com.readit.dao.impl;
 
 import com.readit.dao.AuthorDAO;
 import com.readit.entity.Author;
+import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,14 +12,13 @@ import java.util.List;
 
 @Repository
 @Transactional
+@NoArgsConstructor
 public class AuthorDAOImpl implements AuthorDAO {
 
     @Autowired
     SessionFactory sessionFactory;
 
-    public AuthorDAOImpl() {
-    }
-
+    @SuppressWarnings("unchecked")
     public List<Author> list() {
         return sessionFactory.getCurrentSession().createQuery("from Author ").list();
     }
