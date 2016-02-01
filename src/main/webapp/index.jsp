@@ -2,6 +2,7 @@
 <html>
 <body>
 <h2>Hello World!</h2>
+<img src="images/logo.png" alt="">
 <c:set var="myName" value="Andrii + Nataliia = "/>
 <h1>${myName}
 <c:if test="${10 > 9}">

@@ -12,6 +12,7 @@
     <title></title>
 </head>
 <body>
+  <img src="/images/${author.image}" alt="">
   <h1>${author.name}</h1>
   <h2>${author.dateOfBirth} - ${author.dateOfDeath}</h2>
   <h4>${author.biography}</h4>

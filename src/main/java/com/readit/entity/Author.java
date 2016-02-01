@@ -18,6 +18,8 @@ public class Author {
 
     private String name;
 
+    private String image;
+
     private Integer dateOfBirth;
 
     private Integer dateOfDeath;
