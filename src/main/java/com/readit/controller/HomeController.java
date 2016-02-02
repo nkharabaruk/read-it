@@ -14,17 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Controller
 @PropertySource(value = "classpath:db.properties")
@@ -74,7 +69,6 @@ public class HomeController {
         Author author = authorDAO.get(id);
         ModelAndView model = new ModelAndView("AuthorInf");
         model.addObject(author);
-        Thread t = new Thread();
         return model;
     }
 
