@@ -16,7 +16,8 @@ public class Author {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String firstName;
+    private String secondName;
 
     private String image;
 
@@ -29,8 +30,9 @@ public class Author {
 
     private String biography;
 
-    public Author(String name, Integer dateOfBirth, Integer dateOfDeath, List<Book> book, String biography) {
-        this.name = name;
+    public Author(String firstName, String secondName, Integer dateOfBirth, Integer dateOfDeath, List<Book> book, String biography) {
+        this.firstName = firstName;
+        this.secondName = secondName;
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
         this.books = book;

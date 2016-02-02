@@ -15,7 +15,7 @@
   <img src="/images/${book.image}" alt="">
   <h1>${book.title}</h1>
   <c:forEach var="author" items="${authors}">
-      <h2>${author.name}</h2>
+      <h2>${author.firstName} ${author.secondName}</h2>
   </c:forEach>
   <h3>${book.year}</h3>
   <h4>${book.description}</h4>

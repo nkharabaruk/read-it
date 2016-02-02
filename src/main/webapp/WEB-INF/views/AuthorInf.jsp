@@ -13,7 +13,7 @@
 </head>
 <body>
   <img src="/images/${author.image}" alt="">
-  <h1>${author.name}</h1>
+  <h1>${author.firstName} ${author.secondName}</h1>
   <h2>${author.dateOfBirth} - ${author.dateOfDeath}</h2>
   <h4>${author.biography}</h4>
   <c:forEach var="book" items="${author.books}">
