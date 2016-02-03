@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: nataliia
@@ -11,6 +12,17 @@
     <title></title>
 </head>
 <body>
-
+<table>
+<c:forEach var="category" items="${categoryList}" varStatus="status">
+  <tr>
+    <td>${category.key.name}</td>
+    <td>
+      <c:forEach var="book" items="${category.value}">
+        <a href="book/${book.id}">${book.title}</a>
+      </c:forEach>
+    </td>
+  </tr>
+</c:forEach>
+</table>
 </body>
 </html>

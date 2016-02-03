@@ -2,8 +2,10 @@ package com.readit.controller;
 
 import com.readit.dao.BookDAO;
 import com.readit.dao.AuthorDAO;
+import com.readit.dao.CategoryDAO;
 import com.readit.entity.Author;
 import com.readit.entity.Book;
+import com.readit.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -28,6 +30,9 @@ public class HomeController {
     private BookDAO bookDAO;
 
     @Autowired
+    private CategoryDAO categoryDAO;
+
+    @Autowired
     private AuthorDAO authorDAO;
 
     @Autowired
@@ -43,6 +48,19 @@ public class HomeController {
         }
         ModelAndView model = new ModelAndView("BookList");
         model.addObject("bookList", listBooks);
+        return model;
+    }
+
+    @RequestMapping("/categories")
+    public ModelAndView listCategories() throws Exception {
+        Map<Category, List<Book>> listCategories = new HashMap<Category, List<Book>>();
+
+        List<Category> categories = categoryDAO.list();
+        for (Category category : categories) {
+            listCategories.put(category, categoryDAO.getBooks(category.getId()));
+        }
+        ModelAndView model = new ModelAndView("CategoryList");
+        model.addObject("categoryList", listCategories);
         return model;
     }
 

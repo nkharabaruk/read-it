@@ -16,4 +16,4 @@ INSERT INTO `Category` (`id`, `name`, `parent_id`) VALUES
 
 INSERT INTO `Book_Category` (`Book_id`, `category_id`) VALUES
   (1, 1),
-  (1, 2);
+  (2, 2);
