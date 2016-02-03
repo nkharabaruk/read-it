@@ -12,7 +12,7 @@
     <title></title>
 </head>
 <body>
-  <img src="/images/${book.image}" alt="">
+  <img src="../images/${book.image}" alt="">
   <h1>${book.title}</h1>
   <c:forEach var="author" items="${authors}">
       <h2>${author.firstName} ${author.secondName}</h2>

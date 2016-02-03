@@ -74,7 +74,7 @@ public class HomeController {
 
     @RequestMapping("/images/**")
     public void getImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String fileName = request.getRequestURI().substring(7, request.getRequestURI().length());
+        String fileName = request.getServletPath().substring("/images/".length(), request.getServletPath().length());
         String imagesPath;
         if (System.getenv("OPENSHIFT_DATA_DIR") != null) {
             imagesPath = System.getenv("OPENSHIFT_DATA_DIR") + "/images/";
