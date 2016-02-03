@@ -23,7 +23,7 @@
         <td>${status.index + 1}</td>
         <td>
         <c:forEach var="author" items="${book.value}">
-          <a href="author/${author.id}">${author.secondName} ${author.firstName}</a>
+          <a href="author/${author.id}">${author.lastName} ${author.firstName}</a>
         </c:forEach>
         </td>
         <td><a href="book/${book.key.id}">${book.key.title}</a></td>

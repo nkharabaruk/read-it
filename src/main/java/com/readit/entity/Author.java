@@ -17,7 +17,10 @@ public class Author {
     private Long id;
 
     private String firstName;
-    private String secondName;
+
+    private String lastName;
+
+    private String middleName;
 
     private String image;
 
@@ -30,9 +33,10 @@ public class Author {
 
     private String biography;
 
-    public Author(String firstName, String secondName, Integer dateOfBirth, Integer dateOfDeath, List<Book> book, String biography) {
+    public Author(String firstName, String lastName, String middleName, Integer dateOfBirth, Integer dateOfDeath, List<Book> book, String biography) {
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = lastName;
+        this.middleName = middleName;
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
         this.books = book;

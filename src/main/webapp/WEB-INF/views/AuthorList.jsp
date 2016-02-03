@@ -18,7 +18,7 @@
         <c:forEach var="author" items="${authorList}" varStatus="status">
             <tr>
                 <td>${status.index + 1}</td>
-                <td><a href="author/${author.id}">${author.firstName} ${author.secondName}</a></td>
+                <td><a href="author/${author.id}">${author.firstName} ${author.lastName}</a></td>
                 <td>${author.dateOfBirth} - ${author.dateOfDeath}</td>
                 <td>${author.biography}</td>
                 <td>

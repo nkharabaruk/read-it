@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +23,9 @@ public class Book {
     private Integer year;
 
     private String description;
+
+    @ManyToMany
+    private List<Category> category;
 
     public Book(String title, Integer year, String description) {
         this.title = title;
