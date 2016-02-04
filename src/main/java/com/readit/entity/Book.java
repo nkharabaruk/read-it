@@ -24,7 +24,7 @@ public class Book {
 
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> category;
 
     public Book(String title, Integer year, String description) {

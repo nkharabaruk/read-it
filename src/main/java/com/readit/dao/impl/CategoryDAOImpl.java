@@ -38,4 +38,8 @@ public class CategoryDAOImpl implements CategoryDAO {
     public void delete(Long id) {
 
     }
+
+    public List<Category> getChildren(Long parentId) {
+        return sessionFactory.getCurrentSession().createQuery("select c from Category c join c.parent p where p.id = :id").setParameter("id", parentId).list();
+    }
 }

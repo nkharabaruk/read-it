@@ -64,6 +64,13 @@ public class HomeController {
         return model;
     }
 
+    @RequestMapping("/parent/{id}")
+    public ModelAndView getParent(@PathVariable long id) {
+        ModelAndView model = new ModelAndView("CategoryChildren");
+        model.addObject("children",categoryDAO.getChildren(id));
+        return model;
+    }
+
     @RequestMapping("/authors")
     public ModelAndView handleRequest() throws Exception {
         List<Author> listAuthors = authorDAO.list();

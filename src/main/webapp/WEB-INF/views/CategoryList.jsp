@@ -15,7 +15,7 @@
 <table>
 <c:forEach var="category" items="${categoryList}" varStatus="status">
   <tr>
-    <td>${category.key.name}</td>
+    <td><a href="parent/${category.key.id}">${category.key.name}</a></td>
     <td>
       <c:forEach var="book" items="${category.value}">
         <a href="book/${book.id}">${book.title}</a>

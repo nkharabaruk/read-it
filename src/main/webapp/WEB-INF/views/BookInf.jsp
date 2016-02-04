@@ -19,5 +19,9 @@
   </c:forEach>
   <h3>${book.year}</h3>
   <h4>${book.description}</h4>
+  <c:forEach var="category" items="${book.category}">
+    <h5>${category.name}</h5>
+  </c:forEach>
+
 </body>
 </html>
