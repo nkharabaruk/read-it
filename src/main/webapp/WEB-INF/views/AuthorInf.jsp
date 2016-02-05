@@ -12,12 +12,14 @@
     <title></title>
 </head>
 <body>
-  <img src="../images/${author.image}" alt="">
-  <h1>${author.firstName} ${author.middleName} ${author.lastName}</h1>
-  <h2>${author.dateOfBirth} - ${author.dateOfDeath}</h2>
-  <h4>${author.biography}</h4>
-  <c:forEach var="book" items="${author.books}">
-  <h3>${book.title}</h3>
-  </c:forEach>
+<img src="../images/${author.image}" alt="">
+
+<h1>${author.firstName} ${author.middleName} ${author.lastName}</h1>
+
+<h2>${author.dateOfBirth} - ${author.dateOfDeath}</h2>
+<h4>${author.biography}</h4>
+<c:forEach var="book" items="${author.books}">
+    <h3>${book.title}</h3>
+</c:forEach>
 </body>
 </html>

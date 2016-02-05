@@ -1,7 +1,12 @@
 package com.readit.service;
 
-/**
- * Created by cam on 04.02.16.
- */
+import com.readit.entity.Author;
+
+import java.util.List;
+
 public interface AuthorService {
+
+    List<Author> getAll();
+
+    Author getById(Long id);
 }

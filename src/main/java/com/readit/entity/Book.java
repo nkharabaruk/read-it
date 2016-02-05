@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "BOOK")
 public class Book {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -24,8 +25,11 @@ public class Book {
 
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Category> category;
+    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
+    private List<Author> authors;
+
+    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
+    private List<Category> categories;
 
     public Book(String title, Integer year, String description) {
         this.title = title;

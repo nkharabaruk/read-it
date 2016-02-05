@@ -1,12 +1,11 @@
 package com.readit.controller;
 
-import com.readit.dao.BookDAO;
-import com.readit.dao.AuthorDAO;
-import com.readit.dao.CategoryDAO;
-import com.readit.dto.CategoryDTO;
 import com.readit.entity.Author;
 import com.readit.entity.Book;
 import com.readit.entity.Category;
+import com.readit.service.AuthorService;
+import com.readit.service.BookService;
+import com.readit.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -20,42 +19,34 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @PropertySource(value = "classpath:db.properties")
 public class HomeController {
     @Autowired
-    private BookDAO bookDAO;
+    private BookService bookService;
 
     @Autowired
-    private CategoryDAO categoryDAO;
+    private CategoryService categoryService;
 
     @Autowired
-    private AuthorDAO authorDAO;
+    private AuthorService authorService;
 
     @Autowired
     private Environment env;
 
     @RequestMapping("/list")
     public ModelAndView listBooks() {
-        Map<Book, List<Author>> listBooks = new HashMap<Book, List<Author>>();
-
-        List<Book> books = bookDAO.list();
-        for (Book book : books) {
-            listBooks.put(book, bookDAO.getAuthors(book.getId()));
-        }
+        List<Book> books = bookService.getAll();
         ModelAndView model = new ModelAndView("BookList");
-        model.addObject("bookList", listBooks);
+        model.addObject("bookList", books);
         return model;
     }
 
     @RequestMapping("/categories")
     public ModelAndView listCategories() {
-        List<Category> rootCategories = categoryDAO.getRootCategories();
+        List<Category> rootCategories = categoryService.getRootCategories();
         ModelAndView model = new ModelAndView("CategoryList");
         model.addObject("rootCategories", rootCategories);
         return model;
@@ -63,7 +54,7 @@ public class HomeController {
 
     @RequestMapping("/category/{id}")
     public ModelAndView getCategory(@PathVariable long id) {
-        List<Book> books = categoryDAO.getBooks(id);
+        List<Book> books = categoryService.getById(id).getBooks();
         ModelAndView model = new ModelAndView("CategoryInf");
         model.addObject("books",books);
         return model;
@@ -71,7 +62,7 @@ public class HomeController {
 
     @RequestMapping("/authors")
     public ModelAndView handleRequest() {
-        List<Author> listAuthors = authorDAO.list();
+        List<Author> listAuthors = authorService.getAll();
         ModelAndView model = new ModelAndView("AuthorList");
         model.addObject("authorList", listAuthors);
         return model;
@@ -79,17 +70,15 @@ public class HomeController {
 
     @RequestMapping("/book/{id}")
     public ModelAndView viewBookInfo(@PathVariable long id) {
-        Book book = bookDAO.get(id);
+        Book book = bookService.getById(id);
         ModelAndView model = new ModelAndView("BookInf");
         model.addObject(book);
-        List<Author> authors = bookDAO.getAuthors(book.getId());
-        model.addObject("authors", authors);
         return model;
     }
 
     @RequestMapping("/author/{id}")
     public ModelAndView viewAuthorInfo(@PathVariable long id) {
-        Author author = authorDAO.get(id);
+        Author author = authorService.getById(id);
         ModelAndView model = new ModelAndView("AuthorInf");
         model.addObject(author);
         return model;

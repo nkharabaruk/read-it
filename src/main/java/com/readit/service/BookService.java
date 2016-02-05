@@ -1,7 +1,12 @@
 package com.readit.service;
 
-/**
- * Created by cam on 04.02.16.
- */
+import com.readit.entity.Book;
+
+import java.util.List;
+
 public interface BookService {
+
+    List<Book> getAll();
+
+    Book getById(Long id);
 }

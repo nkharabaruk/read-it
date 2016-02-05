@@ -22,13 +22,13 @@
       <tr>
         <td>${status.index + 1}</td>
         <td>
-        <c:forEach var="author" items="${book.value}">
+        <c:forEach var="author" items="${book.authors}">
           <a href="author/${author.id}">${author.lastName} ${author.firstName}</a>
         </c:forEach>
         </td>
-        <td><a href="book/${book.key.id}">${book.key.title}</a></td>
-        <td>${book.key.year}</td>
-        <td>${book.key.description}</td>
+        <td><a href="book/${book.id}">${book.title}</a></td>
+        <td>${book.year}</td>
+        <td>${book.description}</td>
       </tr>
     </c:forEach>
   </table>

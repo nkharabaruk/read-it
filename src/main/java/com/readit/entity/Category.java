@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "CATEGORY")
 public class Category {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -23,4 +24,12 @@ public class Category {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
     private List<Category> children;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "CATEGORY_BOOK",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
+    List<Book> books;
 }

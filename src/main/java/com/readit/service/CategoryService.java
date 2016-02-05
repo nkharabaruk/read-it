@@ -1,7 +1,14 @@
 package com.readit.service;
 
-/**
- * Created by cam on 04.02.16.
- */
+import com.readit.entity.Category;
+
+import java.util.List;
+
 public interface CategoryService {
+
+    List<Category> getAll();
+
+    Category getById(Long id);
+
+    List<Category> getRootCategories();
 }

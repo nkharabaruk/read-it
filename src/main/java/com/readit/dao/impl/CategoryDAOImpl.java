@@ -27,10 +27,6 @@ public class CategoryDAOImpl implements CategoryDAO {
         return sessionFactory.getCurrentSession().get(Category.class,id);
     }
 
-    public List<Book> getBooks(Long id) {
-        return sessionFactory.getCurrentSession().createQuery("select b from Book b join b.category c where c.id = :id").setParameter("id", id).list();
-    }
-
     public void saveOrUpdate(Category category) {
 
     }

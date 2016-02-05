@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "AUTHOR")
 public class Author {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -28,7 +29,12 @@ public class Author {
 
     private Integer dateOfDeath;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "AUTHOR_BOOK",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
     private List<Book> books;
 
     private String biography;
