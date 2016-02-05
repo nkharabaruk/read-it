@@ -12,8 +12,10 @@
     <title></title>
 </head>
 <body>
-  <c:forEach var="category" items="${children}">
-      <a href="/parent/${category.id}">${category.name}</a>
-  </c:forEach>
+  <ul>
+    <c:forEach var="book" items="${books}">
+      <li><a href="/book/${book.id}">${book.title}</a></li>
+    </c:forEach>
+  </ul>
 </body>
 </html>

@@ -39,7 +39,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     }
 
-    public List<Category> getChildren(Long parentId) {
-        return sessionFactory.getCurrentSession().createQuery("select c from Category c join c.parent p where p.id = :id").setParameter("id", parentId).list();
+    public List<Category> getRootCategories() {
+        return sessionFactory.getCurrentSession().createQuery("select c from Category c where c.parent = null").list();
     }
 }

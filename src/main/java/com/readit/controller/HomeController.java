@@ -3,6 +3,7 @@ package com.readit.controller;
 import com.readit.dao.BookDAO;
 import com.readit.dao.AuthorDAO;
 import com.readit.dao.CategoryDAO;
+import com.readit.dto.CategoryDTO;
 import com.readit.entity.Author;
 import com.readit.entity.Book;
 import com.readit.entity.Category;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +41,7 @@ public class HomeController {
     private Environment env;
 
     @RequestMapping("/list")
-    public ModelAndView listBooks() throws Exception {
+    public ModelAndView listBooks() {
         Map<Book, List<Author>> listBooks = new HashMap<Book, List<Author>>();
 
         List<Book> books = bookDAO.list();
@@ -52,27 +54,23 @@ public class HomeController {
     }
 
     @RequestMapping("/categories")
-    public ModelAndView listCategories() throws Exception {
-        Map<Category, List<Book>> listCategories = new HashMap<Category, List<Book>>();
-
-        List<Category> categories = categoryDAO.list();
-        for (Category category : categories) {
-            listCategories.put(category, categoryDAO.getBooks(category.getId()));
-        }
+    public ModelAndView listCategories() {
+        List<Category> rootCategories = categoryDAO.getRootCategories();
         ModelAndView model = new ModelAndView("CategoryList");
-        model.addObject("categoryList", listCategories);
+        model.addObject("rootCategories", rootCategories);
         return model;
     }
 
-    @RequestMapping("/parent/{id}")
-    public ModelAndView getParent(@PathVariable long id) {
-        ModelAndView model = new ModelAndView("CategoryChildren");
-        model.addObject("children",categoryDAO.getChildren(id));
+    @RequestMapping("/category/{id}")
+    public ModelAndView getCategory(@PathVariable long id) {
+        List<Book> books = categoryDAO.getBooks(id);
+        ModelAndView model = new ModelAndView("CategoryInf");
+        model.addObject("books",books);
         return model;
     }
 
     @RequestMapping("/authors")
-    public ModelAndView handleRequest() throws Exception {
+    public ModelAndView handleRequest() {
         List<Author> listAuthors = authorDAO.list();
         ModelAndView model = new ModelAndView("AuthorList");
         model.addObject("authorList", listAuthors);

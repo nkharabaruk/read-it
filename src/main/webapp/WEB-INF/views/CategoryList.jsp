@@ -12,17 +12,13 @@
     <title></title>
 </head>
 <body>
-<table>
-<c:forEach var="category" items="${categoryList}" varStatus="status">
-  <tr>
-    <td><a href="parent/${category.key.id}">${category.key.name}</a></td>
-    <td>
-      <c:forEach var="book" items="${category.value}">
-        <a href="book/${book.id}">${book.title}</a>
-      </c:forEach>
-    </td>
-  </tr>
+<ul>
+<c:forEach var="node" items="${rootCategories}">
+    <li><a href="category/${node.id}">${node.name}</a></li>
+    <%--${node.children}--%>
+    <c:set var="node" value="${node}" scope="request"/>
+    <jsp:include page="node.jsp"/>
 </c:forEach>
-</table>
+</ul>
 </body>
 </html>

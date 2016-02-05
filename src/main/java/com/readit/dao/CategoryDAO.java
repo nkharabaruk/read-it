@@ -15,5 +15,5 @@ public interface CategoryDAO {
 
     void delete(Long id);
 
-    List<Category> getChildren (Long id);
+    List<Category> getRootCategories ();
 }
