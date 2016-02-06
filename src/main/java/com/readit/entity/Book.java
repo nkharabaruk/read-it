@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,11 +26,12 @@ public class Book {
 
     private String description;
 
+    //TODO: fix multiple insertion
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
-    private List<Author> authors;
+    private Set<Author> authors;
 
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
-    private List<Category> categories;
+    private Set<Category> categories;
 
     public Book(String title, Integer year, String description) {
         this.title = title;

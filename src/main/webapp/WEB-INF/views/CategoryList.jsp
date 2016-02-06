@@ -12,6 +12,7 @@
     <title></title>
 </head>
 <body>
+<h1>Categories: </h1>
 <ul>
 <c:forEach var="node" items="${rootCategories}">
     <li><a href="category/${node.id}">${node.name}</a></li>

@@ -54,8 +54,10 @@ public class HomeController {
 
     @RequestMapping("/category/{id}")
     public ModelAndView getCategory(@PathVariable long id) {
-        List<Book> books = categoryService.getById(id).getBooks();
+        Category category = categoryService.getById(id);
+        List<Book> books = category.getBooks();
         ModelAndView model = new ModelAndView("CategoryInf");
+        model.addObject(category);
         model.addObject("books",books);
         return model;
     }

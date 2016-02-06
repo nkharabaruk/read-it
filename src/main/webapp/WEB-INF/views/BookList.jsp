@@ -13,20 +13,20 @@
 
   <table border="1">
     <th>No</th>
-    <th>Author</th>
     <th>Name</th>
+    <th>Author</th>
     <th>Year</th>
     <th>Description</th>
 
     <c:forEach var="book" items="${bookList}" varStatus="status">
       <tr>
         <td>${status.index + 1}</td>
+        <td><a href="book/${book.id}">${book.title}</a></td>
         <td>
         <c:forEach var="author" items="${book.authors}">
           <a href="author/${author.id}">${author.lastName} ${author.firstName}</a>
         </c:forEach>
         </td>
-        <td><a href="book/${book.id}">${book.title}</a></td>
         <td>${book.year}</td>
         <td>${book.description}</td>
       </tr>

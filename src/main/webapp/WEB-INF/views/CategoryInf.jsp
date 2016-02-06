@@ -12,10 +12,12 @@
     <title></title>
 </head>
 <body>
+<h1>${category.name}</h1>
   <ul>
     <c:forEach var="book" items="${books}">
       <li><a href="/book/${book.id}">${book.title}</a></li>
     </c:forEach>
   </ul>
+<h4><a href="/categories">All categories</a></h4>
 </body>
 </html>

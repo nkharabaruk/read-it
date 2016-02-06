@@ -12,15 +12,15 @@
     <title></title>
 </head>
 <body>
-  <img src="../images/${book.image}" alt="">
   <h1>${book.title}</h1>
+  <img src="../images/${book.image}" alt="${book.title}">
   <c:forEach var="author" items="${book.authors}">
-      <h2>${author.firstName} ${author.lastName}</h2>
+      <h2><a href="/author/${id}">${author.firstName} ${author.lastName}</a></h2>
   </c:forEach>
   <h3>${book.year}</h3>
   <h4>${book.description}</h4>
   <c:forEach var="category" items="${book.categories}">
-    ${category.name}
+    <a href="/category/${id}">${category.name}</a>
   </c:forEach>
 
 </body>
