@@ -6,6 +6,7 @@ import com.readit.entity.Category;
 import com.readit.service.AuthorService;
 import com.readit.service.BookService;
 import com.readit.service.CategoryService;
+import com.readit.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -22,7 +23,6 @@ import java.io.InputStream;
 import java.util.List;
 
 @Controller
-@PropertySource(value = "classpath:db.properties")
 public class HomeController {
     @Autowired
     private BookService bookService;
@@ -34,7 +34,7 @@ public class HomeController {
     private AuthorService authorService;
 
     @Autowired
-    private Environment env;
+    private FilesService filesService;
 
     @RequestMapping("/list")
     public ModelAndView listBooks() {
@@ -89,16 +89,7 @@ public class HomeController {
     @RequestMapping("/images/**")
     public void getImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String fileName = request.getServletPath().substring("/images/".length(), request.getServletPath().length());
-        String imagesPath;
-        if (System.getenv("OPENSHIFT_DATA_DIR") != null) {
-            imagesPath = System.getenv("OPENSHIFT_DATA_DIR") + "/images/";
-        }
-        else {
-            imagesPath = env.getProperty("images.path");
-        }
-        InputStream inputStream = new FileInputStream(imagesPath + fileName);
-        byte[] imageBytes = new byte[inputStream.available()];
-        inputStream.read(imageBytes);
+        byte [] imageBytes = filesService.getImageByteArray(fileName);
         response.setContentType("image/jpeg");
         response.setContentLength(imageBytes.length);
         response.getOutputStream().write(imageBytes);
