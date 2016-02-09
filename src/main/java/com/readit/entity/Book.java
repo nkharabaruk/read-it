@@ -1,17 +1,18 @@
 package com.readit.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"authors", "categories"})
 @Table(name = "BOOK")
 public class Book {
     @Id
@@ -26,7 +27,6 @@ public class Book {
 
     private String description;
 
-    //TODO: fix multiple insertion
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
     private Set<Author> authors;
 

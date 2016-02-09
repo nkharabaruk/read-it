@@ -1,16 +1,19 @@
 package com.readit.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "books")
 @Table(name = "CATEGORY")
 public class Category {
     @Id
@@ -31,5 +34,5 @@ public class Category {
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id")
     )
-    List<Book> books;
+    Set<Book> books;
 }

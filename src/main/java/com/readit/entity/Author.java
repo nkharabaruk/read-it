@@ -1,16 +1,18 @@
 package com.readit.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "books")
 @Table(name = "AUTHOR")
 public class Author {
     @Id
@@ -35,11 +37,11 @@ public class Author {
             joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id")
     )
-    private List<Book> books;
+    private Set<Book> books;
 
     private String biography;
 
-    public Author(String firstName, String lastName, String middleName, Integer dateOfBirth, Integer dateOfDeath, List<Book> book, String biography) {
+    public Author(String firstName, String lastName, String middleName, Integer dateOfBirth, Integer dateOfDeath, Set<Book> book, String biography) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;

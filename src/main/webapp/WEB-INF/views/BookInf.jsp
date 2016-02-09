@@ -20,7 +20,7 @@
   <h3>${book.year}</h3>
   <h4>${book.description}</h4>
   <c:forEach var="category" items="${book.categories}">
-    <a href="/category/${id}">${category.name}</a>
+    <a href="/category/${category.id}">${category.name}</a>
   </c:forEach>
 
 </body>
