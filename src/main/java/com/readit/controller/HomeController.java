@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -71,7 +73,14 @@ public class HomeController {
     public ModelAndView viewBookInfo(@PathVariable long id) {
         Book book = bookService.getById(id);
         ModelAndView model = new ModelAndView("BookInf");
-        model.addObject(book);
+        List<Category> categories = new ArrayList<Category>();
+        for (Category c : book.getCategories()) {
+            categories.add(c);
+            categories.addAll(categoryService.getParents(c.getId()));
+        }
+        Collections.reverse(categories);
+        model.addObject("book", book);
+        model.addObject("categories",categories);
         return model;
     }
 

@@ -18,16 +18,21 @@ public class FilesServiceImpl implements FilesService {
     private Environment env;
 
     public byte[] getImageByteArray(String fileName) throws IOException {
-        String pathToFile;
-        if (System.getenv("OPENSHIFT_DATA_DIR") != null) {
-            pathToFile = System.getenv("OPENSHIFT_DATA_DIR") + "/images/";
-        }
-        else {
-            pathToFile = env.getProperty("images.path");
-        }
-        InputStream inputStream = new FileInputStream(pathToFile + fileName);
+        InputStream inputStream = new FileInputStream(getImagesDir() + fileName);
         byte[] fileBytes = new byte[inputStream.available()];
         inputStream.read(fileBytes);
         return fileBytes;
+    }
+
+    private String getDataDir() {
+        return System.getenv("OPENSHIFT_DATA_DIR");
+    }
+
+    private String getImagesDir() {
+        if (getDataDir() != null) {
+            return getDataDir() + "/images/";
+        } else {
+            return env.getProperty("images.path");
+        }
     }
 }

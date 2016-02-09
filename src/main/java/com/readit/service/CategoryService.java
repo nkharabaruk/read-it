@@ -11,4 +11,6 @@ public interface CategoryService {
     Category getById(Long id);
 
     List<Category> getRootCategories();
+
+    List<Category> getParents(Long id);
 }

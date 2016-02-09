@@ -17,7 +17,7 @@
 <h2>${author.dateOfBirth} - ${author.dateOfDeath}</h2>
 <h4>${author.biography}</h4>
 <c:forEach var="book" items="${author.books}">
-    <h3><a href="/book/${id}">${book.title}</a></h3>
+    <h3><a href="/book/${book.id}">${book.title}</a></h3>
 </c:forEach>
 </body>
 </html>
