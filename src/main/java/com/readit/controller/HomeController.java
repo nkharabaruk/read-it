@@ -8,11 +8,9 @@ import com.readit.service.BookService;
 import com.readit.service.CategoryService;
 import com.readit.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +20,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-@Controller
+@EnableWebMvc
+@RestController
 public class HomeController {
 
     @Autowired
@@ -111,5 +110,10 @@ public class HomeController {
         response.setContentType("image/jpeg");
         response.setContentLength(imageBytes.length);
         response.getOutputStream().write(imageBytes);
+    }
+
+    @RequestMapping("/b/{id}")
+    public Book getBook(@PathVariable long id) {
+        return bookService.getById(id);
     }
 }
