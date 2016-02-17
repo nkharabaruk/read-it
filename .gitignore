@@ -4,3 +4,6 @@ read-it.iml
 
 # Compiled sources
 target
+
+# bower_components
+/src/main/webapp/resources/bower_components
