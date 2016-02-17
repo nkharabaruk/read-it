@@ -24,6 +24,7 @@ import java.util.Set;
 
 @Controller
 public class HomeController {
+
     @Autowired
     private BookService bookService;
 
@@ -44,20 +45,11 @@ public class HomeController {
         return model;
     }
 
-    @RequestMapping(value = "/admin**", method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin**", "/dba**"}, method = RequestMethod.GET)
     public ModelAndView adminPage() {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Hello World");
         model.addObject("message", "This is protected page - Admin Page!");
-        model.setViewName("admin");
-        return model;
-    }
-
-    @RequestMapping(value = "/dba**", method = RequestMethod.GET)
-    public ModelAndView dbaPage() {
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Spring Security Hello World");
-        model.addObject("message", "This is protected page - Database Page!");
         model.setViewName("admin");
         return model;
     }
@@ -75,12 +67,7 @@ public class HomeController {
     public ModelAndView getCategory(@PathVariable long id) {
         Category category = categoryService.getById(id);
         ModelAndView model = new ModelAndView("CategoryInf");
-        Set<Book> books = category.getBooks();
-        for (Book b : category.getBooks()) {
-            books.add(b);
-            books.addAll(booksService.getParents(b.getId()));
-        }
-        Collections.reverse(books);
+        Set<Book> books = bookService.getAllByCategory(id);
         model.addObject(category);
         model.addObject("books",books);
         return model;

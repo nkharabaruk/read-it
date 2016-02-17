@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -38,13 +40,20 @@ public class CategoryServiceImpl implements CategoryService {
         return parents;
     }
 
-    public List<Category> getChildren(Long id) {
-        List<Category> children = new ArrayList<Category>();
-        Category parent = getById(id);
-        while (parent.getChildren() != null) {
-            Category child = (Category) parent.getChildren();
-            children.add(child);
-            parent = child;
+    public Set<Category> getChildren(Long id) {
+        Set<Category> children = new HashSet<Category>();
+        children.addAll(getById(id).getChildren());
+        boolean repeat = true;
+        while (repeat) {
+            repeat = false;
+            Set<Category> temp = new HashSet<Category>();
+            for (Category c : children) {
+                if (!children.containsAll(c.getChildren()) && c.getChildren().size() != 0) {
+                    repeat = true;
+                    temp.addAll(c.getChildren());
+                }
+            }
+            children.addAll(temp);
         }
         return children;
     }
