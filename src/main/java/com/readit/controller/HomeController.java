@@ -74,8 +74,13 @@ public class HomeController {
     @RequestMapping("/category/{id}")
     public ModelAndView getCategory(@PathVariable long id) {
         Category category = categoryService.getById(id);
-        Set<Book> books = category.getBooks();
         ModelAndView model = new ModelAndView("CategoryInf");
+        Set<Book> books = category.getBooks();
+        for (Book b : category.getBooks()) {
+            books.add(b);
+            books.addAll(booksService.getParents(b.getId()));
+        }
+        Collections.reverse(books);
         model.addObject(category);
         model.addObject("books",books);
         return model;

@@ -1,10 +1,8 @@
 package com.readit.service.impl;
 
 import com.readit.dao.CategoryDAO;
-import com.readit.entity.Book;
 import com.readit.entity.Category;
 import com.readit.service.CategoryService;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +36,16 @@ public class CategoryServiceImpl implements CategoryService {
             child = parent;
         }
         return parents;
+    }
+
+    public List<Category> getChildren(Long id) {
+        List<Category> children = new ArrayList<Category>();
+        Category parent = getById(id);
+        while (parent.getChildren() != null) {
+            Category child = (Category) parent.getChildren();
+            children.add(child);
+            parent = child;
+        }
+        return children;
     }
 }
