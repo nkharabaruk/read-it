@@ -6,4 +6,4 @@ read-it.iml
 target
 
 # bower_components
-/src/main/webapp/resources/bower_components
+/src/main/webapp/resources/assets
