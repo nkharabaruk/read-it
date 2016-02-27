@@ -15,19 +15,20 @@
 <h4>{{ 1 + 1 }}</h4>
 <h4>{{ string }}</h4>
 <button ng-click="showAllBooks()">Show all books</button>
-<button ng-click="books = {}">Clear books</button>
+<button ng-click="books = []">Clear books</button>
 <p>{{books}}</p>
 <table>
     <tr>
         <td ng-repeat="book in books">
             <img src="images/{{book.image}}" height="100px"/>
             <h4>{{book.title}}</h4>
+            <h5 ng-repeat="author in book.authors">{{author.firstName + " " + author.lastName}}</h5>
         </td>
     </tr>
 </table>
 <script>
     angular.module('readit', [])
-            .service('BookService', ['$http', '$q', function ($http, $q) {
+            .service('BookService', ['$http', function ($http) {
                 return {
                     getAllBooks: function () {
                         return $http.get("/getAllBooks")
@@ -39,17 +40,13 @@
             }])
             .controller('Controller', ['$scope', 'BookService', function ($scope, bookService) {
                 $scope.string = "Hello from Angular Controller";
-                $scope.books = "boooooks";
+                $scope.books = [];
 
                 $scope.showAllBooks = function () {
                     bookService.getAllBooks().then(function(data) {
                         $scope.books = data;
                     });
                 };
-
-                $scope.clearBooks = function () {
-                    $scope.books = "booooobs";
-                }
             }]);
 </script>
 </body>

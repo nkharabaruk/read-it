@@ -6,7 +6,7 @@ INSERT INTO `BOOK` (`id`, `description`, `image`, `title`, `year`) VALUES
 (1, 'Shevchenko''s Kobzar', 'books/kobzar.jpg', 'Kobzar', 1840),
 (2, 'Lys Mykyta', 'books/farbovanyi_lys.jpg', 'Farbovanyi lys', 1890);
 
-INSERT INTO `AUTHOR_BOOK` (`author_id`, `book_id`) VALUES
+INSERT INTO `BOOK_AUTHOR` (`author_id`, `book_id`) VALUES
 (1, 1),
 (2, 2);
 
@@ -32,7 +32,7 @@ INSERT INTO `CATEGORY` (`id`, `name`, `parent_id`) VALUES
   (20, 'Poems', 3),
   (21, 'Autobiography', 6);
 
-INSERT INTO `CATEGORY_BOOK` (`category_id`, `book_id`) VALUES
+INSERT INTO `BOOK_CATEGORY` (`category_id`, `book_id`) VALUES
   (1, 1),
   (2, 2),
   (20, 1),

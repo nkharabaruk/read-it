@@ -1,8 +1,10 @@
 package com.readit.dao;
 
+import com.readit.entity.Book;
 import com.readit.entity.Category;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CategoryDAO {
     List<Category> list();
@@ -14,4 +16,6 @@ public interface CategoryDAO {
     void delete(Long id);
 
     List<Category> getRootCategories ();
+
+    List<Book> getBooksFromCategory(Long categoryId);
 }

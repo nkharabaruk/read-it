@@ -7,13 +7,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "books")
+@EqualsAndHashCode
 @Table(name = "CATEGORY")
 public class Category {
     @Id
@@ -27,12 +26,4 @@ public class Category {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
     private List<Category> children;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "CATEGORY_BOOK",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id")
-    )
-    Set<Book> books;
 }

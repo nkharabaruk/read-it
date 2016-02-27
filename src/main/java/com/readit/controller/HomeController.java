@@ -66,7 +66,7 @@ public class HomeController {
     public ModelAndView getCategory(@PathVariable long id) {
         Category category = categoryService.getById(id);
         ModelAndView model = new ModelAndView("CategoryInf");
-        Set<Book> books = bookService.getAllByCategory(id);
+        Set<Book> books = bookService.getFromCategoryAndParents(id);
         model.addObject(category);
         model.addObject("books",books);
         return model;

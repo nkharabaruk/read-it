@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -29,12 +28,19 @@ public class Book {
 
     private String description;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="BOOK_AUTHOR",
+            joinColumns=@JoinColumn(name="book_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="author_id", referencedColumnName="id"))
     private Set<Author> authors;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="BOOK_CATEGORY",
+            joinColumns=@JoinColumn(name="book_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="category_id", referencedColumnName="id"))
     private Set<Category> categories;
 
     public Book(String title, Integer year, String description) {

@@ -11,5 +11,5 @@ public interface BookService {
 
     Book getById(Long id);
 
-    Set<Book> getAllByCategory(Long categoryId);
+    Set<Book> getFromCategoryAndParents(Long categoryId);
 }

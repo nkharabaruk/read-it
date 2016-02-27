@@ -29,12 +29,13 @@ public class BookServiceImpl implements BookService {
         return bookDAO.get(id);
     }
 
-    public Set<Book> getAllByCategory(Long categoryId) {
-        Set<Book> books = categoryService.getById(categoryId).getBooks();
-        Set<Category> categories = categoryService.getChildren(categoryId);
-        for (Category c : categories) {
-            books.addAll(c.getBooks());
-        }
-        return books;
+    public Set<Book> getFromCategoryAndParents(Long categoryId) {
+//        Set<Book> books = categoryService.getById(categoryId).getBooks();
+//        Set<Category> categories = categoryService.getChildren(categoryId);
+//        for (Category c : categories) {
+//            books.addAll(c.getBooks());
+//        }
+//        return books;
+        return null;
     }
 }
