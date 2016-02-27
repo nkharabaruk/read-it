@@ -111,9 +111,4 @@ public class HomeController {
         response.setContentLength(imageBytes.length);
         response.getOutputStream().write(imageBytes);
     }
-
-    @RequestMapping("/b/{id}")
-    public Book getBook(@PathVariable long id) {
-        return bookService.getById(id);
-    }
 }
