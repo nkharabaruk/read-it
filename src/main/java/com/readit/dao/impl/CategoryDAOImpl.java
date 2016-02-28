@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings("unchecked")
 @Repository
 @Transactional
 @NoArgsConstructor
@@ -20,7 +21,6 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Autowired
     SessionFactory sessionFactory;
 
-    @SuppressWarnings("unchecked")
     public List<Category> list() {
         return sessionFactory.getCurrentSession().createQuery("from Category ").list();
     }
@@ -29,21 +29,19 @@ public class CategoryDAOImpl implements CategoryDAO {
         return sessionFactory.getCurrentSession().get(Category.class,id);
     }
 
+    public List<Category> getRootCategories() {
+        return sessionFactory.getCurrentSession().createQuery("select c from Category c where c.parent = null").list();
+    }
+
+    public List<Category> getChildren(Long categoryId) {
+        return sessionFactory.getCurrentSession().createQuery("select c from Category c where c.parent = :id").setParameter("id", categoryId).list();
+    }
+
     public void saveOrUpdate(Category category) {
 
     }
 
     public void delete(Long id) {
 
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Category> getRootCategories() {
-        return sessionFactory.getCurrentSession().createQuery("select c from Category c where c.parent = null").list();
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Book> getBooksFromCategory(Long categoryId) {
-        return sessionFactory.getCurrentSession().createQuery("select b from Book b join b.categories c where c.id = :id").setParameter("id", categoryId).list();
     }
 }

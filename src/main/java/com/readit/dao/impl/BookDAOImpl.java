@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 @Repository
 @Transactional
 @NoArgsConstructor
@@ -20,7 +21,6 @@ public class BookDAOImpl implements BookDAO {
     @Autowired
     SessionFactory sessionFactory;
 
-    @SuppressWarnings("unchecked")
     public List<Book> list() {
         return sessionFactory.getCurrentSession().createQuery("from Book").list();
     }
@@ -29,9 +29,12 @@ public class BookDAOImpl implements BookDAO {
         return sessionFactory.getCurrentSession().get(Book.class,id);
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Author> getAuthors(Long id) {
-        return sessionFactory.getCurrentSession().createQuery("select a from Author a join a.books b where b.id = :id").setParameter("id", id).list();
+    public List<Book> getByAuthor(Long authorId) {
+        return sessionFactory.getCurrentSession().createQuery("select b from Book b join b.authors a where a.id = :id").setParameter("id", authorId).list();
+    }
+
+    public List<Book> getFromCategory(Long categoryId) {
+        return sessionFactory.getCurrentSession().createQuery("select b from Book b join b.categories c where c.id = :id").setParameter("id", categoryId).list();
     }
 
     public void saveOrUpdate(Book book) {

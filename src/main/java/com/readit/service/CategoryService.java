@@ -3,7 +3,6 @@ package com.readit.service;
 import com.readit.entity.Category;
 
 import java.util.List;
-import java.util.Set;
 
 public interface CategoryService {
 
@@ -13,7 +12,7 @@ public interface CategoryService {
 
     List<Category> getRootCategories();
 
-    List<Category> getParents(Long id);
+    List<Category> getAscendants(Long id);
 
-    Set<Category> getChildren(Long id);
+    List<Category> getDescendants(Long id);
 }

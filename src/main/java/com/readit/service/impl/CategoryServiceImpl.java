@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDAO.getRootCategories();
     }
 
-    public List<Category> getParents(Long id) {
+    public List<Category> getAscendants(Long id) {
         List<Category> parents = new ArrayList<Category>();
         Category child = getById(id);
         while (child.getParent() != null) {
@@ -40,8 +40,8 @@ public class CategoryServiceImpl implements CategoryService {
         return parents;
     }
 
-    public Set<Category> getChildren(Long id) {
-        Set<Category> children = new HashSet<Category>();
+    public List<Category> getDescendants(Long id) {
+        List<Category> children = new ArrayList<Category>();
         children.addAll(getById(id).getChildren());
         boolean repeat = true;
         while (repeat) {

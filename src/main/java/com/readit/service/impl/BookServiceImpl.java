@@ -1,6 +1,7 @@
 package com.readit.service.impl;
 
 import com.readit.dao.BookDAO;
+import com.readit.entity.Author;
 import com.readit.entity.Book;
 import com.readit.entity.Category;
 import com.readit.service.BookService;
@@ -29,7 +30,15 @@ public class BookServiceImpl implements BookService {
         return bookDAO.get(id);
     }
 
-    public Set<Book> getFromCategoryAndParents(Long categoryId) {
+    public List<Book> getByAuthor(Long authorId) {
+        return bookDAO.getByAuthor(authorId);
+    }
+
+    public List<Book> getFromCategory(Long categoryId) {
+        return bookDAO.getFromCategory(categoryId);
+    }
+
+    public List<Book> getFromCategoryAndParents(Long categoryId) {
 //        Set<Book> books = categoryService.getById(categoryId).getBooks();
 //        Set<Category> categories = categoryService.getChildren(categoryId);
 //        for (Category c : categories) {

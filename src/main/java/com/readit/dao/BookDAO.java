@@ -1,6 +1,5 @@
 package com.readit.dao;
 
-import com.readit.entity.Author;
 import com.readit.entity.Book;
 
 import java.util.List;
@@ -10,7 +9,9 @@ public interface BookDAO {
 
     Book get(Long id);
 
-    List<Author> getAuthors(Long id);
+    List<Book> getByAuthor(Long authorId);
+
+    List<Book> getFromCategory(Long categoryId);
 
     void saveOrUpdate(Book book);
 

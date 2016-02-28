@@ -1,15 +1,18 @@
 package com.readit.dao;
 
 import com.readit.entity.Author;
+import com.readit.entity.Book;
 
 import java.util.List;
 
 public interface AuthorDAO {
-    public List<Author> list();
+    List<Author> list();
 
-    public Author get(long id);
+    Author get(Long id);
 
-    public void saveOrUpdate(Author author);
+    List<Author> getBookAuthors(Long bookId);
 
-    public void delete(long id);
+    void saveOrUpdate(Author author);
+
+    void delete(Long id);
 }

@@ -3,7 +3,6 @@ package com.readit.service;
 import com.readit.entity.Book;
 
 import java.util.List;
-import java.util.Set;
 
 public interface BookService {
 
@@ -11,5 +10,9 @@ public interface BookService {
 
     Book getById(Long id);
 
-    Set<Book> getFromCategoryAndParents(Long categoryId);
+    List<Book> getByAuthor(Long authorId);
+
+    List<Book> getFromCategory(Long categoryId);
+
+    List<Book> getFromCategoryAndParents(Long categoryId);
 }

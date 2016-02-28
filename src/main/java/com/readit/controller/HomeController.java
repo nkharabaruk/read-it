@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @EnableWebMvc
 @RestController
@@ -66,9 +65,9 @@ public class HomeController {
     public ModelAndView getCategory(@PathVariable long id) {
         Category category = categoryService.getById(id);
         ModelAndView model = new ModelAndView("CategoryInf");
-        Set<Book> books = bookService.getFromCategoryAndParents(id);
+//        Set<Book> books = bookService.getFromCategoryAndParents(id);
         model.addObject(category);
-        model.addObject("books",books);
+//        model.addObject("books",books);
         return model;
     }
 
@@ -87,7 +86,7 @@ public class HomeController {
         List<Category> categories = new ArrayList<Category>();
         for (Category c : book.getCategories()) {
             categories.add(c);
-            categories.addAll(categoryService.getParents(c.getId()));
+            categories.addAll(categoryService.getAscendants(c.getId()));
         }
         Collections.reverse(categories);
         model.addObject("book", book);
