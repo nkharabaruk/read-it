@@ -21,8 +21,4 @@ public class AuthorServiceImpl implements AuthorService {
     public Author getById(Long id) {
         return authorDAO.get(id);
     }
-
-    public List<Author> getBookAuthors(Long bookId) {
-        return authorDAO.getBookAuthors(bookId);
-    }
 }

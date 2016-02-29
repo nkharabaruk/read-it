@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "BOOK")
 public class Book {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
@@ -30,17 +30,17 @@ public class Book {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="BOOK_AUTHOR",
-            joinColumns=@JoinColumn(name="book_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="author_id", referencedColumnName="id"))
+            name = "BOOK_AUTHOR",
+            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
     private Set<Author> authors;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="BOOK_CATEGORY",
-            joinColumns=@JoinColumn(name="book_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="category_id", referencedColumnName="id"))
+            name = "BOOK_CATEGORY",
+            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
     private Set<Category> categories;
 
     public Book(String title, Integer year, String description) {

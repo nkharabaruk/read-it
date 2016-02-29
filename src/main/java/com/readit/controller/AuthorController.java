@@ -24,9 +24,4 @@ public class AuthorController {
     public Author getAuthorById(@PathVariable Long authorId) {
         return authorService.getById(authorId);
     }
-
-    @RequestMapping("/getBookAuthors/{bookId}")
-    public List<Author> getBookAuthors(@PathVariable Long bookId) {
-        return authorService.getBookAuthors(bookId);
-    }
 }

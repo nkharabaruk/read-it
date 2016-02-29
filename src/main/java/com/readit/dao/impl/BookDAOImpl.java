@@ -1,10 +1,8 @@
 package com.readit.dao.impl;
 
 import com.readit.dao.BookDAO;
-import com.readit.entity.Author;
 import com.readit.entity.Book;
 import lombok.NoArgsConstructor;
-import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,7 +24,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     public Book get(Long id) {
-        return sessionFactory.getCurrentSession().get(Book.class,id);
+        return sessionFactory.getCurrentSession().get(Book.class, id);
     }
 
     public List<Book> getByAuthor(Long authorId) {

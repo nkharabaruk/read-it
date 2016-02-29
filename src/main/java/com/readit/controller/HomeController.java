@@ -8,7 +8,10 @@ import com.readit.service.BookService;
 import com.readit.service.CategoryService;
 import com.readit.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -65,7 +68,7 @@ public class HomeController {
     public ModelAndView getCategory(@PathVariable long id) {
         Category category = categoryService.getById(id);
         ModelAndView model = new ModelAndView("CategoryInf");
-//        Set<Book> books = bookService.getFromCategoryAndParents(id);
+//        Set<Book> books = bookService.getFromCategoryAndDescendants(id);
         model.addObject(category);
 //        model.addObject("books",books);
         return model;
@@ -90,7 +93,7 @@ public class HomeController {
         }
         Collections.reverse(categories);
         model.addObject("book", book);
-        model.addObject("categories",categories);
+        model.addObject("categories", categories);
         return model;
     }
 
@@ -105,7 +108,7 @@ public class HomeController {
     @RequestMapping("/images/**")
     public void getImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String fileName = request.getServletPath().substring("/images/".length(), request.getServletPath().length());
-        byte [] imageBytes = filesService.getImageByteArray(fileName);
+        byte[] imageBytes = filesService.getImageByteArray(fileName);
         response.setContentType("image/jpeg");
         response.setContentLength(imageBytes.length);
         response.getOutputStream().write(imageBytes);

@@ -1,7 +1,6 @@
 package com.readit.service.impl;
 
 import com.readit.dao.BookDAO;
-import com.readit.entity.Author;
 import com.readit.entity.Book;
 import com.readit.entity.Category;
 import com.readit.service.BookService;
@@ -9,9 +8,8 @@ import com.readit.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -38,13 +36,12 @@ public class BookServiceImpl implements BookService {
         return bookDAO.getFromCategory(categoryId);
     }
 
-    public List<Book> getFromCategoryAndParents(Long categoryId) {
-//        Set<Book> books = categoryService.getById(categoryId).getBooks();
-//        Set<Category> categories = categoryService.getChildren(categoryId);
-//        for (Category c : categories) {
-//            books.addAll(c.getBooks());
-//        }
-//        return books;
-        return null;
+    public List<Book> getFromCategoryAndDescendants(Long categoryId) {
+        List<Book> books = new ArrayList<Book>();
+        List<Category> categories = categoryService.getDescendants(categoryId);
+        for (Category c : categories) {
+            books.addAll(bookDAO.getFromCategory(c.getId()));
+        }
+        return books;
     }
 }

@@ -1,7 +1,6 @@
 package com.readit.dao.impl;
 
 import com.readit.dao.CategoryDAO;
-import com.readit.entity.Book;
 import com.readit.entity.Category;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 @SuppressWarnings("unchecked")
 @Repository
@@ -26,7 +24,7 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     public Category get(Long id) {
-        return sessionFactory.getCurrentSession().get(Category.class,id);
+        return sessionFactory.getCurrentSession().get(Category.class, id);
     }
 
     public List<Category> getRootCategories() {

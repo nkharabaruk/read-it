@@ -16,12 +16,12 @@ import java.util.List;
 @Table(name = "CATEGORY")
 public class Category {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
-    @ManyToOne(cascade={CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Category parent;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")

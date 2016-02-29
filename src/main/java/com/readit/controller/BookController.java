@@ -36,4 +36,9 @@ public class BookController {
     public List<Book> getBooksFromCategory(@PathVariable Long categoryId) {
         return bookService.getFromCategory(categoryId);
     }
+
+    @RequestMapping("/getBooksFromCategoryAndDescendants/{categoryId}")
+    public List<Book> getBooksFromCategoryAndDescendants(@PathVariable Long categoryId) {
+        return bookService.getFromCategoryAndDescendants(categoryId);
+    }
 }

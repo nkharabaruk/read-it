@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JsonPropertyFilterMixIn {
 
-    public String processObject(Object object, String...propertiesToExclude) throws JsonProcessingException {
+    public String processObject(Object object, String... propertiesToExclude) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.addMixIn(Object.class, Filter.class);
 
@@ -26,5 +26,6 @@ public class JsonPropertyFilterMixIn {
     }
 
     @JsonFilter("filter")
-    class Filter {}
+    class Filter {
+    }
 }

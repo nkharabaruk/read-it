@@ -14,5 +14,5 @@ public interface BookService {
 
     List<Book> getFromCategory(Long categoryId);
 
-    List<Book> getFromCategoryAndParents(Long categoryId);
+    List<Book> getFromCategoryAndDescendants(Long categoryId);
 }
