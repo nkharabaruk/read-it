@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html ng-app="readit">
+<html ng-app="mainModule">
 <head>
-    <script src="resources/assets/bower_components/angular/angular.min.js" type="text/javascript"></script>
+
 </head>
-<body ng-controller="Controller">
+<body ng-controller="BookController">
 <h2>Hello World!</h2>
 <img src="images/logo.png" alt="">
 
@@ -26,29 +26,11 @@
         </td>
     </tr>
 </table>
-<script>
-    angular.module('readit', [])
-            .service('BookService', ['$http', function ($http) {
-                return {
-                    getAllBooks: function () {
-                        return $http.get("/getAllBooks")
-                                .then(function(response) {
-                                    return response.data;
-                                });
-                    }
-                }
-            }])
-            .controller('Controller', ['$scope', 'BookService', function ($scope, bookService) {
-                $scope.string = "Hello from Angular Controller";
-                $scope.books = [];
-
-                $scope.showAllBooks = function () {
-                    bookService.getAllBooks().then(function(data) {
-                        $scope.books = data;
-                    });
-                };
-            }]);
-</script>
 </body>
-
+<script src="resources/assets/bower_components/angular/angular.min.js" type="text/javascript"></script>
+<script src="resources/app/mainModule.js"></script>
+<script src="resources/app/bookService.js"></script>
+<script src="resources/app/bookController.js"></script>
+<%--<script src="resources/assets/bower_components/requirejs/require.js"></script>--%>
+<%--<script src="resources/app/runApp.js"></script>--%>
 </html>
