@@ -1,0 +1,10 @@
+<button ng-click="showAllAuthors()">Show all authors</button>
+<button ng-click="authors = []">Clear authors</button>
+<table>
+    <tr>
+        <td ng-repeat="author in authors">
+            <img src="images/{{author.image}}" height="100px"/>
+            <h4>{{author.firstName + " " + author.lastName}}</h4>
+        </td>
+    </tr>
+</table>
