@@ -14,9 +14,9 @@ mainModule.config(['$routeProvider',
     }]);
 
 
-//define([
-//    'app/bookController',
-//    'app/bookService'
-//], function () {
-//});
-//})();
+define([
+    'resources/app/BookService',
+    'resources/app/BookController',
+    'resources/app/AuthorService',
+    'resources/app/AuthorController'
+]);

@@ -1,20 +1,26 @@
-//require.config({
-//    paths: {
-//        angular: '../assets/bower_components/angular/angular.min',
-//        mainModule: '../app/mainModule'
-//    },
-//    shim: {
-//
-//        angular: {
-//            exports: "angular"
-//        },
-//
-//        mainModule: {
-//            deps: ['angular']
-//        }
-//    }
-//});
-//
-//require(['mainModule'], function () {
-//    angular.bootstrap(document.getElementById('mainModule'), ['mainModule']);
-//});
+require.config({
+    paths: {
+        angular: 'resources/assets/bower_components/angular/angular.min',
+        ngRoute: 'resources/assets/bower_components/angular-route/angular-route.min',
+        mainModule: 'resources/app/mainModule'
+    },
+    shim: {
+
+        angular: {
+            exports: 'angular'
+        },
+
+        ngRoute: {
+            deps : [ 'angular' ],
+            exports: 'ngRoute'
+        },
+
+        mainModule: {
+            deps: ['angular', 'ngRoute']
+        }
+    }
+});
+
+require(['mainModule'], function () {
+    angular.bootstrap(document.getElementById('mainModule'), ['mainModule']);
+});

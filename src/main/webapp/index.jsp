@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html ng-app="mainModule">
+<html>
 <head>
 
 </head>
-<body>
+<body id="mainModule">
 <img src="images/logo.png" alt="">
 
 <h3><a href="list">All books</a></h3>
@@ -18,13 +18,6 @@
 <div><a href="#authors">Show Authors View</a></div>
 <ng-view></ng-view>
 </body>
-<script src="resources/assets/bower_components/angular/angular.min.js" type="text/javascript"></script>
-<script src="resources/assets/bower_components/angular-route/angular-route.min.js" type="text/javascript"></script>
-<script src="resources/app/mainModule.js"></script>
-<script src="resources/app/BookService.js"></script>
-<script src="resources/app/BookController.js"></script>
-<script src="resources/app/AuthorService.js"></script>
-<script src="resources/app/AuthorController.js"></script>
-<%--<script src="resources/assets/bower_components/requirejs/require.js"></script>--%>
-<%--<script src="resources/app/runApp.js"></script>--%>
+<script src="resources/assets/bower_components/requirejs/require.js"></script>
+<script src="resources/app/runApp.js"></script>
 </html>
