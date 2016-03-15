@@ -1,9 +1,11 @@
-mainModule.controller('BookController', ['$scope', 'BookService', function ($scope, bookService) {
-    $scope.books = [];
+mainModule.controller('BookController', ['$scope', '$routeParams', 'BookService', function ($scope, $routeParams, bookService) {
+    $scope.book = {};
 
-    $scope.showAllBooks = function () {
-        bookService.getAllBooks().then(function (data) {
-            $scope.books = data;
+    $scope.loadThisBook = function (bookId) {
+        bookService.getBook(bookId).then(function (data) {
+            $scope.book = data;
         });
     };
+
+    $scope.loadThisBook($routeParams.id);
 }]);

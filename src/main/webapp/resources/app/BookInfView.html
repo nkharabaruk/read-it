@@ -1,0 +1,7 @@
+<h1>{{book.title}}</h1>
+<img src="../images/{{book.image}}" alt="{{book.title}}">
+<ul ng-repeat="author in book.authors">
+    <a href="#author/{{author.id}}"><li>{{author.firstName + " " + author.lastName}}</li></a>
+</ul>
+<h3>{{book.year}}</h3>
+<h4>{{book.description}}</h4>

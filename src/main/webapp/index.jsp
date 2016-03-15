@@ -4,19 +4,20 @@
 
 </head>
 <body id="mainModule">
-<img src="images/logo.png" alt="">
-
-<h3><a href="list">All books</a></h3>
-
-<h3><a href="authors">All authors</a></h3>
-
-<h3><a href="categories">All categories</a></h3>
-
-<h4>{{ string }}</h4>
-<p>{{books}}</p>
-<div><a href="#books">Show Books View</a></div>
-<div><a href="#authors">Show Authors View</a></div>
-<ng-view></ng-view>
+<div id="header">
+    <div id="main-nav">
+        <table>
+            <tr>
+                <td><a href="/"><img src="images/logo.png" alt=""></a></td>
+                <td><a ng-click="showAllBooks()" href="/">Main</a></td>
+                <td><a href="#books">Books</a></td>
+                <td><a href="#authors">Authors</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="ng-view" id="container">
+</div>
 </body>
 <script src="resources/assets/bower_components/requirejs/require.js"></script>
 <script src="resources/app/runApp.js"></script>
