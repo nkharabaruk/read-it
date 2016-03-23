@@ -1,15 +1,11 @@
 package com.readit.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.readit.entity.Category;
 import com.readit.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Set;
 
 @RestController
 public class CategoryController {
@@ -32,7 +28,7 @@ public class CategoryController {
 
     @RequestMapping("/getBookCategories/{bookId}")
     public String getBookCategories(@PathVariable Long bookId) throws JsonProcessingException {
-        return jsonFilter.processObject(categoryService.getBookCategories(bookId), "children");
+        return jsonFilter.processObject(categoryService.getBookCategories(bookId), "parent");
     }
 
     @RequestMapping("/getCategoryWithChildren/{categoryId}")

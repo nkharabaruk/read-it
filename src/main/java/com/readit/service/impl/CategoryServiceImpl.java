@@ -7,10 +7,7 @@ import com.readit.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -29,8 +26,37 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDAO.get(id);
     }
 
-    public Set<Category> getBookCategories(Long bookId) {
-        return bookDAO.get(bookId).getCategories();
+    /** Returns list of categories.
+    Each category is a simple tree which starts from root
+    and ends with the last leaf which book belongs to. **/
+    public List<Category> getBookCategories(Long bookId) {
+        Set<Category> bookCategories = bookDAO.get(bookId).getCategories();
+        List<Category> bookCategoriesInverse = new ArrayList<Category>();
+        for (Category category : bookCategories) {
+            List<Category> parents = new ArrayList<Category>();
+            parents.add(category);
+            while (category.getParent() != null) {
+                category = category.getParent();
+                parents.add(category);
+            }
+            Category categoryTree = parents.get(0);
+            categoryTree.setChildren(null);
+            for (int i = 1; i < parents.size(); i++) {
+                List<Category> children = new ArrayList<Category>();
+                children.add(categoryTree);
+                categoryTree.setParent(parents.get(i));
+                categoryTree = categoryTree.getParent();
+                categoryTree.setChildren(children);
+            }
+            categoryTree = new Category(categoryTree);
+            bookCategoriesInverse.add(categoryTree);
+        }
+        Collections.sort(bookCategoriesInverse, new Comparator<Category>() {
+            public int compare(Category c1, Category c2) {
+                return (c1.getId() > c2.getId()) ? 1 : -1;
+            }
+        });
+        return bookCategoriesInverse;
     }
 
     public List<Category> getRootCategories() {

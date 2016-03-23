@@ -26,4 +26,12 @@ public class Category {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
     private List<Category> children;
+
+    /** Constructor for cloning **/
+    public Category(Category toClone) {
+        this.id = toClone.getId();
+        this.name = toClone.getName();
+        this.parent = toClone.getParent();
+        this.children = toClone.getChildren();
+    }
 }

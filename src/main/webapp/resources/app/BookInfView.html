@@ -1,12 +1,8 @@
-<script type="text/ng-template" id="parent.html">
-    {{parent.name}}
-    <ul ng-if="parent.parent != null">
-        <li ng-init="parent = parent.parent" ng-include="'parent.html'"></li>
-    </ul>
+<script type="text/ng-template"  id="categories_tree.html">
+    {{category.name}}
+    <span ng-repeat="category in category.children" ng-include="'categories_tree.html'"></span>
 </script>
-<ul ng-repeat="parent in categories">
-    <li ng-include="'parent.html'"></li>
-</ul>
+    <div ng-repeat="category in categories" ng-include="'categories_tree.html'"></div>
 <h1>{{book.title}}</h1>
 <img src="images/{{book.image}}" alt="{{book.title}}">
 <ul ng-repeat="author in book.authors">
