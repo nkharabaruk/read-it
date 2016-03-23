@@ -1,5 +1,6 @@
 package com.readit.service.impl;
 
+import com.readit.dao.BookDAO;
 import com.readit.dao.CategoryDAO;
 import com.readit.entity.Category;
 import com.readit.service.CategoryService;
@@ -17,12 +18,19 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryDAO categoryDAO;
 
+    @Autowired
+    BookDAO bookDAO;
+
     public List<Category> getAll() {
         return categoryDAO.list();
     }
 
     public Category getById(Long id) {
         return categoryDAO.get(id);
+    }
+
+    public Set<Category> getBookCategories(Long bookId) {
+        return bookDAO.get(bookId).getCategories();
     }
 
     public List<Category> getRootCategories() {

@@ -28,5 +28,6 @@ define([
     'resources/app/BookController',
     'resources/app/AuthorService',
     'resources/app/AllAuthorsController',
-    'resources/app/AuthorController'
+    'resources/app/AuthorController',
+    'resources/app/CategoryService'
 ]);

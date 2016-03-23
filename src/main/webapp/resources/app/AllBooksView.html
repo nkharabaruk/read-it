@@ -1,9 +1,26 @@
 <table>
     <tr>
-        <td ng-repeat="book in books">
-            <a href="#book/{{book.id}}" ><img src="images/{{book.image}}" height="100px"/></a>
-            <h4>{{book.title}}</h4>
-            <h5 ng-repeat="author in book.authors">{{author.firstName + " " + author.lastName}}</h5>
+        <td>
+            <script type="text/ng-template"  id="categories_tree.html">
+                {{category.name}}
+                <ul>
+                    <li ng-repeat="category in category.children" ng-include="'categories_tree.html'"></li>
+                </ul>
+            </script>
+            <ul>
+                <li ng-repeat="category in categories" ng-include="'categories_tree.html'"></li>
+            </ul>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td ng-repeat="book in books">
+                        <a href="#book/{{book.id}}"><img src="images/{{book.image}}" height="100px"/></a>
+                        <h4>{{book.title}}</h4>
+                        <h5 ng-repeat="author in book.authors">{{author.firstName + " " + author.lastName}}</h5>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
 </table>

@@ -9,7 +9,7 @@
         <table>
             <tr>
                 <td><a href="/"><img src="images/logo.png" alt=""></a></td>
-                <td><a ng-click="showAllBooks()" href="/">Main</a></td>
+                <td><a href="/">Main</a></td>
                 <td><a href="#books">Books</a></td>
                 <td><a href="#authors">Authors</a></td>
             </tr>

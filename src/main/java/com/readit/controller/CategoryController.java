@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class CategoryController {
@@ -19,9 +20,19 @@ public class CategoryController {
     @Autowired
     JsonPropertyFilterMixIn jsonFilter;
 
+    @RequestMapping("/getRootCategories")
+    public String getRootCategories() throws JsonProcessingException {
+        return jsonFilter.processObject(categoryService.getRootCategories(), "parent");
+    }
+
     @RequestMapping("/getAllCategories")
-    public List<Category> getAllCategories() {
-        return categoryService.getAll();
+    public String getAllCategories() throws JsonProcessingException {
+        return jsonFilter.processObject(categoryService.getAll(), "parent");
+    }
+
+    @RequestMapping("/getBookCategories/{bookId}")
+    public String getBookCategories(@PathVariable Long bookId) throws JsonProcessingException {
+        return jsonFilter.processObject(categoryService.getBookCategories(bookId), "children");
     }
 
     @RequestMapping("/getCategoryWithChildren/{categoryId}")
