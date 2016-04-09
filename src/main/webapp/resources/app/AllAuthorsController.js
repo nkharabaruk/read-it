@@ -2,11 +2,8 @@ mainModule.controller('AllAuthorsController', ['$scope', 'AuthorService', functi
 
     $scope.authors = [];
 
-    $scope.showAllAuthors = function () {
-        authorService.getAllAuthors().then(function (data) {
-            $scope.authors = data;
-        });
-    };
+    authorService.getAllAuthors().then(function (data) {
+        $scope.authors = data;
+    });
 
-    $scope.showAllAuthors();
 }]);

@@ -3,18 +3,12 @@ mainModule.controller('BookController', ['$scope', '$routeParams', 'BookService'
         $scope.book = {};
         $scope.categories = [];
 
-        $scope.loadThisBook = function (bookId) {
-            bookService.getBook(bookId).then(function (data) {
-                $scope.book = data;
-            });
-        };
+        bookService.getBook($routeParams.id).then(function (data) {
+            $scope.book = data;
+        });
 
-        $scope.loadThisBook($routeParams.id);
+        categoryService.getBookCategories($routeParams.id).then(function (data) {
+            $scope.categories = data;
+        });
 
-        $scope.getBookCategories = function (bookId) {
-            categoryService.getBookCategories(bookId).then(function (data) {
-                $scope.categories = data;
-            });
-        };
-        $scope.getBookCategories($routeParams.id);
     }]);

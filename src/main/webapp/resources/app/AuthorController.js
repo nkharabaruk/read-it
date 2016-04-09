@@ -3,18 +3,12 @@ mainModule.controller('AuthorController', ['$scope', '$routeParams', 'AuthorServ
     $scope.author = {};
     $scope.books = [];
 
-    $scope.loadThisAuthor = function (authorId) {
-        authorService.getAuthor(authorId).then(function (data) {
-            $scope.author = data;
-        });
-    };
+    authorService.getAuthor($routeParams.id).then(function (data) {
+        $scope.author = data;
+    });
 
-    $scope.getBooksByAuthor = function (authorId) {
-        bookService.getBooksByAuthor(authorId).then(function (data) {
-            $scope.books = data;
-        })
-    };
+    bookService.getBooksByAuthor($routeParams.id).then(function (data) {
+        $scope.books = data;
+    });
 
-    $scope.loadThisAuthor($routeParams.id);
-    $scope.getBooksByAuthor($routeParams.id);
 }]);
