@@ -1,5 +1,8 @@
 mainModule.controller('AllBooksController', ['$scope', 'BookService', 'CategoryService', function ($scope, bookService, categoryService) {
     $scope.books = [];
+    categoryService.getRootCategories().then(function (data) {
+        $scope.categories = data;
+    });
 
     $scope.showAllBooks = function () {
         bookService.getAllBooks().then(function (data) {
@@ -9,11 +12,15 @@ mainModule.controller('AllBooksController', ['$scope', 'BookService', 'CategoryS
 
     $scope.showAllBooks();
 
-    $scope.loadCategories = function () {
-        categoryService.getRootCategories().then(function (data) {
-            $scope.categories = data;
-        })
-    };
+    //$scope.loadCategories = function () {
+    //
+    //};
+    //
+    //$scope.loadCategories();
 
-    $scope.loadCategories();
+    $scope.getBooksFromCategoryAndDescendants = function (categoryId) {
+        bookService.getBooksFromCategoryAndDescendants(categoryId).then(function (data) {
+            $scope.books = data;
+        });
+    }
 }]);

@@ -2,7 +2,9 @@
     <tr>
         <td>
             <script type="text/ng-template"  id="categories_tree.html">
-                {{category.name}}
+                <a href="" ng-click="getBooksFromCategoryAndDescendants(category.id)">
+                    {{category.name}}
+                </a>
                 <ul>
                     <li ng-repeat="category in category.children" ng-include="'categories_tree.html'"></li>
                 </ul>

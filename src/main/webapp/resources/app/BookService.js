@@ -19,6 +19,13 @@ mainModule.service('BookService', ['$http', function ($http) {
                 .then(function (response) {
                     return response.data;
                 });
+        },
+
+        getBooksFromCategoryAndDescendants: function (categoryId) {
+            return $http.get("getBooksFromCategoryAndDescendants/" + categoryId)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
     }

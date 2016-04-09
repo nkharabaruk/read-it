@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
+import java.util.Set;
 
 @EnableWebMvc
 @RestController
@@ -38,7 +39,7 @@ public class BookController {
     }
 
     @RequestMapping("/getBooksFromCategoryAndDescendants/{categoryId}")
-    public List<Book> getBooksFromCategoryAndDescendants(@PathVariable Long categoryId) {
+    public Set<Book> getBooksFromCategoryAndDescendants(@PathVariable Long categoryId) {
         return bookService.getFromCategoryAndDescendants(categoryId);
     }
 }
