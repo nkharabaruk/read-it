@@ -18,6 +18,10 @@ mainModule.config(['$routeProvider',
         when('/author/:id', {
             templateUrl: 'resources/app/AuthorInfView.html',
             controller: 'AuthorController'
+        }).
+        when('/search', {
+            templateUrl: 'resources/app/Search.html',
+            controller: 'SearchController'
         });
     }]);
 
@@ -29,5 +33,7 @@ define([
     'resources/app/AuthorService',
     'resources/app/AllAuthorsController',
     'resources/app/AuthorController',
-    'resources/app/CategoryService'
+    'resources/app/CategoryService',
+    'resources/app/SearchService',
+    'resources/app/SearchController'
 ]);

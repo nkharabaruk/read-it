@@ -13,6 +13,8 @@ public interface BookDAO {
 
     List<Book> getFromCategory(Long categoryId);
 
+    List<Book> getByTitle(String title);
+
     void saveOrUpdate(Book book);
 
     void delete(Long id);

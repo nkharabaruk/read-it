@@ -35,6 +35,10 @@ public class BookDAOImpl implements BookDAO {
         return sessionFactory.getCurrentSession().createQuery("select b from Book b join b.categories c where c.id = :id").setParameter("id", categoryId).list();
     }
 
+    public List<Book> getByTitle(String title) {
+        return sessionFactory.getCurrentSession().createQuery("select b from Book b where b.title like :title").setString("title", "%" + title + "%").list();
+    }
+
     public void saveOrUpdate(Book book) {
 
     }

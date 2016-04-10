@@ -27,6 +27,12 @@ public class AuthorDAOImpl implements AuthorDAO {
         return sessionFactory.getCurrentSession().get(Author.class, id);
     }
 
+    public List<Author> getByName(String name) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("select a from Author a where a.firstName like :firstName or a.lastName like :lastName")
+                .setString("firstName", "%" + name + "%").setString("lastName", "%" + name + "%").list();
+    }
+
     public void saveOrUpdate(Author author) {
 
     }

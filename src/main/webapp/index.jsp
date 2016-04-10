@@ -12,6 +12,7 @@
                 <td><a href="/">Main</a></td>
                 <td><a href="#books">Books</a></td>
                 <td><a href="#authors">Authors</a></td>
+                <td><a href="#search">Search</a></td>
             </tr>
         </table>
     </div>
