@@ -39,9 +39,9 @@ public class ApplicationContextConfig {
         if (System.getenv("OPENSHIFT_MYSQL_DB_HOST") != null) {
             String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
             String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
-            dataSource.setUrl("jdbc:mysql://" + host + ":" + port + "/" + env.getProperty("jdbc.dbname"));
+            dataSource.setUrl("jdbc:mysql://" + host + ":" + port + "/" + env.getProperty("jdbc.dbname") + env.getProperty("jdbc.encoding"));
         } else {
-            dataSource.setUrl(env.getProperty("jdbc.host") + ":" + env.getProperty("jdbc.port") + "/" + env.getProperty("jdbc.dbname"));
+            dataSource.setUrl(env.getProperty("jdbc.host") + ":" + env.getProperty("jdbc.port") + "/" + env.getProperty("jdbc.dbname") + env.getProperty("jdbc.encoding"));
         }
         dataSource.setUsername(env.getProperty("jdbc.username"));
         dataSource.setPassword(env.getProperty("jdbc.password"));
