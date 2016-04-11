@@ -43,6 +43,14 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
     private Set<Category> categories;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "BOOK_TAG",
+            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
+    private Set<Tag> tags;
+
+
     public Book(String title, Integer year, String description) {
         this.title = title;
         this.year = year;

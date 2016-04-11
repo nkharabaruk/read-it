@@ -37,3 +37,16 @@ INSERT INTO `BOOK_CATEGORY` (`category_id`, `book_id`) VALUES
   (2, 2),
   (20, 1),
   (20, 2);
+
+INSERT INTO `TAG` (`id`, `title`) VALUES
+  (1, 'tag1'),
+  (2, 'tag2'),
+  (3, 'tag3'),
+  (4, 'tag4');
+
+INSERT INTO `BOOK_TAG` (`tag_id`, `book_id`) VALUES
+  (1, 2),
+  (2, 1),
+  (3, 1),
+  (4, 1);
+

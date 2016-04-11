@@ -10,3 +10,6 @@
 </ul>
 <h3>{{book.year}}</h3>
 <h4>{{book.description}}</h4>
+<span ng-repeat="tag in book.tags">
+    <span>{{tag.title}} </span>
+</span>
