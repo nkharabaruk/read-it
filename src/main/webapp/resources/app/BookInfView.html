@@ -10,6 +10,6 @@
 </ul>
 <h3>{{book.year}}</h3>
 <h4>{{book.description}}</h4>
-<span ng-repeat="tag in book.tags">
-    <span>{{tag.title}} </span>
+<span ng-repeat="tag in book.tags" ng-controller="SearchController">
+    <a href="" ng-click="searchBooksByTag(tag.title)">{{tag.title}}</a>
 </span>

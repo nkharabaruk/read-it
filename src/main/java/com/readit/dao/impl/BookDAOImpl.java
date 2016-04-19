@@ -2,6 +2,7 @@ package com.readit.dao.impl;
 
 import com.readit.dao.BookDAO;
 import com.readit.entity.Book;
+import com.readit.entity.Tag;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public class BookDAOImpl implements BookDAO {
 
     public List<Book> getByTitle(String title) {
         return sessionFactory.getCurrentSession().createQuery("select b from Book b where b.title like :title").setString("title", "%" + title + "%").list();
+    }
+
+    public List<Book> getByTag(String tag) {
+        return sessionFactory.getCurrentSession().createQuery("select b from Book b join b.tags t where t.title = :tag").setParameter("tag", tag).list();
     }
 
     public void saveOrUpdate(Book book) {

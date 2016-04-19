@@ -23,6 +23,10 @@ public class SearchServiceImpl implements SearchService {
         return bookDAO.getByTitle(title);
     }
 
+    public List<Book> searchBooksByTag(String tag) {
+        return bookDAO.getByTag(tag);
+    }
+
     public List<Author> searchAuthorsByName(String name) {
         return authorDAO.getByName(name);
     }

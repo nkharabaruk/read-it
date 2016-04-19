@@ -21,6 +21,11 @@ public class SearchController {
         return searchService.searchBooksByTitle(title);
     }
 
+    @RequestMapping("/searchBooksByTag/{tag}")
+    public List<Book> searchBooksByTag(@PathVariable String tag) {
+        return searchService.searchBooksByTag(tag);
+    }
+
     @RequestMapping("/searchAuthorsByName/{name}")
     public List<Author> searchAuthorsByName(@PathVariable String name) {
         return searchService.searchAuthorsByName(name);

@@ -1,12 +1,15 @@
 <table>
     <tr>
-        <td>
-            <p>Search books by title</p>
+        <td colspan="3">
+            <span>Search all by keyword</span>
+            <input ng-model="keyWord" type="text">
+            <input type="button" value="Search" ng-click="searchAll()">
+
+            <span>Search books by title</span>
             <input ng-model="bookTitle" type="text">
             <input type="button" value="Search" ng-click="searchBooksByTitle()">
-        </td>
-        <td>
-            <p>Search authors by name</p>
+
+            <span>Search authors by name</span>
             <input ng-model="authorName" type="text">
             <input type="button" value="Search" ng-click="searchAuthorsByName()">
         </td>

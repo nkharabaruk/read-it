@@ -6,6 +6,12 @@ mainModule.service('SearchService', ['$http', function ($http) {
                     return response.data;
                 });
         },
+        searchBooksByTag: function (tag) {
+            return $http.get("searchBooksByTag/" + tag)
+                .then(function (response) {
+                    return response.data;
+                });
+        },
         searchAuthorsByName: function (name) {
             return $http.get("searchAuthorsByName/" + name)
                 .then(function (response) {
