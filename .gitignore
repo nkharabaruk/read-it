@@ -1,6 +1,6 @@
 # IDEA files
 .idea
-read-it.iml
+*.iml
 
 # Compiled sources
 target
