@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Collection;
 
 @Entity
 @Getter
@@ -25,13 +25,12 @@ public class Category {
     private Category parent;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
-    private List<Category> children;
+    private Collection<Category> children;
 
-    /** Constructor for cloning **/
-    public Category(Category toClone) {
-        this.id = toClone.getId();
-        this.name = toClone.getName();
-        this.parent = toClone.getParent();
-        this.children = toClone.getChildren();
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "BOOK_CATEGORY",
+            joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
+    private Collection<Book> books;
 }

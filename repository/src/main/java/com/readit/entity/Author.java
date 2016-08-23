@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Getter
@@ -24,11 +25,23 @@ public class Author {
 
     private String middleName;
 
-    private String image;
+    private Integer yearOfBirth;
 
-    private Integer dateOfBirth;
-
-    private Integer dateOfDeath;
+    private Integer yearOfDeath;
 
     private String biography;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "AUTHOR_IMAGE",
+            joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id", referencedColumnName = "id"))
+    private Collection<Image> image;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "BOOK_AUTHOR",
+            joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
+    private Collection<Book> books;
 }

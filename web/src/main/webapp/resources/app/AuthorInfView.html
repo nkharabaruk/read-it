@@ -1,6 +1,6 @@
 <h1>{{author.firstName + " " + author.middleName + " " + author.lastName}}</h1>
 <img src="images/{{author.image}}" alt="{{author.firstName + ' ' + author.lastName}}">
-<h2>{{author.dateOfBirth}} - {{author.dateOfDeath}}</h2>
+<h2>{{author.yearOfBirth}} - {{author.yearOfDeath}}</h2>
 <h4>{{author.biography}}</h4>
 <div ng-repeat="book in books">
     <h3><a href="#book/{{book.id}}">{{book.title}}</a></h3>
