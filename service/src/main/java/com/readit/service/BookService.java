@@ -2,18 +2,23 @@ package com.readit.service;
 
 import com.readit.entity.Book;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 public interface BookService {
 
-    List<Book> getAll();
-
     Book getById(Long id);
 
-    List<Book> getByAuthor(Long authorId);
+    Collection<Book> getAll();
 
-    List<Book> getFromCategory(Long categoryId);
+    Collection<Book> getByAuthor(Long authorId);
 
-    Set<Book> getFromCategoryAndDescendants(Long categoryId);
+    Collection<Book> getFromCategory(Long categoryId);
+
+    Collection<Book> getFromCategoryAndDescendants(Long categoryId);
+
+    void save(Book book);
+
+    void saveAll(Collection<Book> books);
 }
