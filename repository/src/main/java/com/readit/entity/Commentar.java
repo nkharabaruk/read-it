@@ -7,16 +7,25 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * Created by nataliia on 28.09.16.
+ */
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "IMAGE")
-public class Image {
+@Table(name = "COMMENTAR")
+public class Commentar {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String path;
+    @ManyToOne(cascade = {CascadeType.DETACH})
+    private User author;
+
+    private String theme;
+    private String text;
 }
