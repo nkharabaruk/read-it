@@ -1,9 +1,9 @@
-INSERT INTO `AUTHOR` (`id`, `biography`, `dateOfBirth`, `dateOfDeath`, `image`, `firstName`, `middleName`, `lastName`)
+INSERT INTO `AUTHOR` (`id`, `biography`, `dateOfBirth`, `dateOfDeath`, `file`, `firstName`, `middleName`, `lastName`)
 VALUES
   (1, 'Народився в Моринцях', 1814, 1861, 'authors/shevchenko.jpg', 'Тарас', 'Григорович', 'Шевченко'),
   (2, 'Народився в Нагуєвичах', 1856, 1916, 'authors/franko.gif', 'Іван', 'Якович', 'Франко');
 
-INSERT INTO `BOOK` (`id`, `description`, `image`, `title`, `year`) VALUES
+INSERT INTO `BOOK` (`id`, `description`, `file`, `title`, `year`) VALUES
   (1, 'Шевченків Кобзар', 'books/kobzar.jpg', 'Кобзар', 1840),
   (2, 'Лис Микита', 'books/farbovanyi_lys.jpg', 'Фарбований лис', 1890);
 

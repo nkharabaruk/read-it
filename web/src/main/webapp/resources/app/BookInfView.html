@@ -4,7 +4,7 @@
 </script>
     <div ng-repeat="category in categories" ng-include="'categories_tree.html'"></div>
 <h1>{{book.title}}</h1>
-<img src="images/{{book.image}}" alt="{{book.title}}">
+<img src="images/{{book.file}}" alt="{{book.title}}">
 <ul ng-repeat="author in book.authors">
     <a href="#author/{{author.id}}"><li>{{author.firstName + " " + author.lastName}}</li></a>
 </ul>

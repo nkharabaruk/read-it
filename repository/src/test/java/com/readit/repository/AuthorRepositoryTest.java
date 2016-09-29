@@ -11,6 +11,9 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,16 +39,16 @@ public class AuthorRepositoryTest {
         shevchenko.setFirstName("Тарас");
         shevchenko.setMiddleName("Григорович");
         shevchenko.setLastName("Шевченко");
-        shevchenko.setYearOfBirth(1814);
-        shevchenko.setYearOfDeath(1861);
+        shevchenko.setDateOfBirth(LocalDate.of(1814, Month.MARCH, 9));
+        shevchenko.setDateOfDeath(LocalDate.of(1861, Month.MARCH, 10));
         shevchenko.setBiography("Народився в Моринцях");
 
         franko = new Author();
         franko.setFirstName("Іван");
         franko.setMiddleName("Якович");
         franko.setLastName("Франко");
-        franko.setYearOfBirth(1856);
-        franko.setYearOfDeath(1916);
+        franko.setDateOfBirth(LocalDate.of(1856, 8, 27));
+        franko.setDateOfDeath(LocalDate.of(1916, 5, 28));
         franko.setBiography("Народився в Нагуєвичах");
 
         authors.add(shevchenko);
