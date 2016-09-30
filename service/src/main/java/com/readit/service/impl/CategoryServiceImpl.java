@@ -1,8 +1,8 @@
 package com.readit.service.impl;
 
-import com.readit.dao.BookDAO;
-import com.readit.dao.CategoryDAO;
 import com.readit.entity.Category;
+import com.readit.repository.BookRepository;
+import com.readit.repository.CategoryRepository;
 import com.readit.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,24 +13,24 @@ import java.util.*;
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    CategoryDAO categoryDAO;
+    CategoryRepository categoryRepository;
 
     @Autowired
-    BookDAO bookDAO;
+    BookRepository bookRepository;
 
     public List<Category> getAll() {
-        return categoryDAO.list();
+        return categoryRepository.findAll();
     }
 
     public Category getById(Long id) {
-        return categoryDAO.get(id);
+        return categoryRepository.findOne(id);
     }
 
     /** Returns list of categories.
     Each category is a simple tree which starts from root
     and ends with the last leaf which book belongs to. **/
     public List<Category> getBookCategories(Long bookId) {
-        Set<Category> bookCategories = bookDAO.get(bookId).getCategories();
+        Collection<Category> bookCategories = bookRepository.findOne(bookId).getCategories();
         List<Category> bookCategoriesInverse = new ArrayList<Category>();
         for (Category category : bookCategories) {
             List<Category> parents = new ArrayList<Category>();
@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
                 categoryTree = categoryTree.getParent();
                 categoryTree.setChildren(children);
             }
-            categoryTree = new Category(categoryTree);
+//            categoryTree = new Category(categoryTree);
             bookCategoriesInverse.add(categoryTree);
         }
         Collections.sort(bookCategoriesInverse, new Comparator<Category>() {
@@ -60,7 +60,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public List<Category> getRootCategories() {
-        return categoryDAO.getRootCategories();
+//        return categoryRepository.getRootCategories();
+        return null;
     }
 
     public List<Category> getAscendants(Long id) {

@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
 
 @EnableWebMvc
 @RestController
@@ -19,7 +18,7 @@ public class BookController {
     BookService bookService;
 
     @RequestMapping("/getAllBooks")
-    List<Book> getAllBooks() {
+    Collection<Book> getAllBooks() {
         return bookService.getAll();
     }
 
@@ -29,17 +28,20 @@ public class BookController {
     }
 
     @RequestMapping("/getBooksByAuthor/{authorId}")
-    public List<Book> getBooksByAuthor(@PathVariable Long authorId) {
-        return bookService.getByAuthor(authorId);
+    public Collection<Book> getBooksByAuthor(@PathVariable Long authorId) {
+//        return bookService.getByAuthor(authorId);
+        return null;
     }
 
     @RequestMapping("/getBooksFromCategory/{categoryId}")
-    public List<Book> getBooksFromCategory(@PathVariable Long categoryId) {
-        return bookService.getFromCategory(categoryId);
+    public Collection<Book> getBooksFromCategory(@PathVariable Long categoryId) {
+//        return bookService.getFromCategory(categoryId);
+        return null;
     }
 
     @RequestMapping("/getBooksFromCategoryAndDescendants/{categoryId}")
-    public Set<Book> getBooksFromCategoryAndDescendants(@PathVariable Long categoryId) {
-        return bookService.getFromCategoryAndDescendants(categoryId);
+    public Collection<Book> getBooksFromCategoryAndDescendants(@PathVariable Long categoryId) {
+//        return bookService.getFromCategoryAndDescendants(categoryId);
+        return null;
     }
 }

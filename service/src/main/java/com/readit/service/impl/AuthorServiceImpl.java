@@ -1,24 +1,24 @@
 package com.readit.service.impl;
 
-import com.readit.dao.AuthorDAO;
 import com.readit.entity.Author;
+import com.readit.repository.AuthorRepository;
 import com.readit.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Collection;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
-    AuthorDAO authorDAO;
+    AuthorRepository authorRepository;
 
-    public List<Author> getAll() {
-        return authorDAO.list();
+    public Collection<Author> getAll() {
+        return authorRepository.findAll();
     }
 
     public Author getById(Long id) {
-        return authorDAO.get(id);
+        return authorRepository.findOne(id);
     }
 }

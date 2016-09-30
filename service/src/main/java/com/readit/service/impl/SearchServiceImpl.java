@@ -1,9 +1,9 @@
 package com.readit.service.impl;
 
-import com.readit.dao.AuthorDAO;
-import com.readit.dao.BookDAO;
 import com.readit.entity.Author;
 import com.readit.entity.Book;
+import com.readit.repository.AuthorRepository;
+import com.readit.repository.BookRepository;
 import com.readit.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,20 +14,23 @@ import java.util.List;
 public class SearchServiceImpl implements SearchService {
 
     @Autowired
-    BookDAO bookDAO;
+    BookRepository bookRepository;
 
     @Autowired
-    AuthorDAO authorDAO;
+    AuthorRepository authorRepository;
 
     public List<Book> searchBooksByTitle(String title) {
-        return bookDAO.getByTitle(title);
+//        return bookRepository.getByTitle(title);
+        return null;
     }
 
     public List<Book> searchBooksByTag(String tag) {
-        return bookDAO.getByTag(tag);
+//        return bookRepository.getByTag(tag);
+        return null;
     }
 
     public List<Author> searchAuthorsByName(String name) {
-        return authorDAO.getByName(name);
+//        return authorRepository.getByName(name);
+        return null;
     }
 }
