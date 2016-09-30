@@ -1,8 +1,7 @@
 package com.readit.service.impl;
 
-import com.readit.dao.BookDAO;
 import com.readit.entity.Book;
-import com.readit.entity.Category;
+import com.readit.repository.BookRepository;
 import com.readit.service.BookService;
 import com.readit.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,34 +13,27 @@ import java.util.*;
 public class BookServiceImpl implements BookService {
 
     @Autowired
-    BookDAO bookDAO;
+    BookRepository bookRepository;
 
     @Autowired
     CategoryService categoryService;
 
     public List<Book> getAll() {
-        return bookDAO.list();
+        return bookRepository.findAll();
+    }
+
+    @Override
+    public Book save(Book book) {
+        return bookRepository.save(book);
+    }
+
+    @Override
+    public Collection<Book> saveAll(Collection<Book> books) {
+        return bookRepository.save(books);
     }
 
     public Book getById(Long id) {
-        return bookDAO.get(id);
+        return bookRepository.findOne(id);
     }
 
-    public List<Book> getByAuthor(Long authorId) {
-        return bookDAO.getByAuthor(authorId);
-    }
-
-    public List<Book> getFromCategory(Long categoryId) {
-        return bookDAO.getFromCategory(categoryId);
-    }
-
-    public Set<Book> getFromCategoryAndDescendants(Long categoryId) {
-        Set<Book> books = new HashSet<Book>();
-        books.addAll(bookDAO.getFromCategory(categoryId));
-        List<Category> categories = categoryService.getDescendants(categoryId);
-        for (Category c : categories) {
-            books.addAll(bookDAO.getFromCategory(c.getId()));
-        }
-        return books;
-    }
 }

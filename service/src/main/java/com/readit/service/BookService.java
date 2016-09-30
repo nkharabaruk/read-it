@@ -12,13 +12,7 @@ public interface BookService {
 
     Collection<Book> getAll();
 
-    Collection<Book> getByAuthor(Long authorId);
+    Book save(Book book);
 
-    Collection<Book> getFromCategory(Long categoryId);
-
-    Collection<Book> getFromCategoryAndDescendants(Long categoryId);
-
-    void save(Book book);
-
-    void saveAll(Collection<Book> books);
+    Collection<Book> saveAll(Collection<Book> books);
 }
