@@ -30,13 +30,13 @@ public class Author {
 
     private String biography;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     @JoinTable(name = "AUTHOR_FILE",
             joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "file_id", referencedColumnName = "id"))
     private Collection<File> file;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "BOOK_AUTHOR",
             joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))

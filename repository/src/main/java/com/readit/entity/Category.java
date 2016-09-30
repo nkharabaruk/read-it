@@ -25,10 +25,10 @@ public class Category {
     @ManyToOne(cascade = {CascadeType.ALL})
     private Category parent;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent")
+    @OneToMany(mappedBy = "parent")
     private Collection<Category> children;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "BOOK_CATEGORY",
             joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
