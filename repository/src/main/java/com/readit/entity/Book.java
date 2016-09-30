@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.Year;
+import java.util.Calendar;
 import java.util.Collection;
 
 @Entity
@@ -16,43 +18,34 @@ import java.util.Collection;
 @EqualsAndHashCode(exclude = {"authors", "categories"})
 @Table(name = "BOOK")
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
-
-    private Integer year;
-
+    private Year yearOfrelease;
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "BOOK_IMAGE",
-            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "image_id", referencedColumnName = "id"))
-    private Collection<Image> cover;
+    @OneToOne
+    private File cover;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "BOOK_AUTHOR",
+    @JoinTable(name = "BOOK_AUTHOR",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
     private Collection<Author> authors;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "BOOK_CATEGORY",
+    @JoinTable(name = "BOOK_CATEGORY",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
     private Collection<Category> categories;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "BOOK_TAG",
+    @JoinTable(name = "BOOK_TAG",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
     private Collection<Tag> tags;
-
 }

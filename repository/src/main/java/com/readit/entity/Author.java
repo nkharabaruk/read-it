@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
@@ -15,32 +16,28 @@ import java.util.Collection;
 @EqualsAndHashCode
 @Table(name = "AUTHOR")
 public class Author {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String firstName;
-
     private String lastName;
-
     private String middleName;
 
-    private Integer yearOfBirth;
-
-    private Integer yearOfDeath;
+    private LocalDate dateOfBirth;
+    private LocalDate dateOfDeath;
 
     private String biography;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "AUTHOR_IMAGE",
+    @JoinTable(name = "AUTHOR_FILE",
             joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "image_id", referencedColumnName = "id"))
-    private Collection<Image> image;
+            inverseJoinColumns = @JoinColumn(name = "file_id", referencedColumnName = "id"))
+    private Collection<File> file;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "BOOK_AUTHOR",
+    @JoinTable(name = "BOOK_AUTHOR",
             joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
     private Collection<Book> books;

@@ -15,6 +15,7 @@ import java.util.Collection;
 @EqualsAndHashCode
 @Table(name = "CATEGORY")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,8 +29,7 @@ public class Category {
     private Collection<Category> children;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "BOOK_CATEGORY",
+    @JoinTable(name = "BOOK_CATEGORY",
             joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
     private Collection<Book> books;

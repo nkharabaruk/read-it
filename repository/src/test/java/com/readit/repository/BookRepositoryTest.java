@@ -11,7 +11,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,11 +38,11 @@ public class BookRepositoryTest {
         kobzar = new Book();
         kobzar.setTitle("Кобзар");
         kobzar.setDescription("Шевченків Кобзар");
-        kobzar.setYear(1840);
+        kobzar.setYearOfrelease(Year.of(1840));
 
         farbovanyiLys = new Book();
         farbovanyiLys.setTitle("Лис Микита");
-        farbovanyiLys.setYear(1890);
+        farbovanyiLys.setYearOfrelease(Year.of(1890));
 
         books.add(kobzar);
         books.add(farbovanyiLys);

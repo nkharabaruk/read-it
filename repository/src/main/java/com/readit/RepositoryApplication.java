@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RepositoryApplication {
 
     public static void main(String[] args) {
+        System.out.println(Integer.MAX_VALUE);
         SpringApplication.run(RepositoryApplication.class, args);
     }
 }
