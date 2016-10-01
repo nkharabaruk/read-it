@@ -35,9 +35,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private File avatar;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Profile profile;
 }

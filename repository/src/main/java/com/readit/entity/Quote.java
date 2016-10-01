@@ -29,7 +29,7 @@ public class Quote {
     @OneToOne(cascade = CascadeType.ALL)
     private File background;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "QUOTE_AUTHOR",
             joinColumns = @JoinColumn(name = "quote_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
