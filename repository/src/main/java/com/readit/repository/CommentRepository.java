@@ -1,6 +1,6 @@
 package com.readit.repository;
 
-import com.readit.entity.Commentar;
+import com.readit.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface CommentarRepository extends JpaRepository<Commentar, Long> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 }

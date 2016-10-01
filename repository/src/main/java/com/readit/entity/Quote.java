@@ -29,12 +29,6 @@ public class Quote {
     @OneToOne(cascade = CascadeType.ALL)
     private File background;
 
-    @ManyToMany
-    @JoinTable(name = "QUOTE_AUTHOR",
-            joinColumns = @JoinColumn(name = "quote_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
-    private Collection<Author> authors;
-
     @ManyToOne(cascade = CascadeType.DETACH)
     private Book book;
 }

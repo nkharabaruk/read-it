@@ -17,15 +17,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Table(name = "COMMENTAR")
-public class Commentar {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.DETACH})
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="author_id")
     private User author;
 
     private String theme;
     private String text;
+
 }

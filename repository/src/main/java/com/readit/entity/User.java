@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -30,7 +31,7 @@ public class User {
 
     private String firstName;
     private String lastName;
-    private Calendar dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
