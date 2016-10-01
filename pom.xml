@@ -6,7 +6,7 @@
     <groupId>com.readit</groupId>
     <artifactId>read-it</artifactId>
     <version>0.1</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <name>read-it</name>
 
     <parent>
