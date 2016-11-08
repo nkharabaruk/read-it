@@ -1,9 +1,10 @@
 # IDEA files
 .idea
 *.iml
+.gradle
 
 # Compiled sources
-target
+build
 
 # bower_components
 /src/main/webapp/resources/assets

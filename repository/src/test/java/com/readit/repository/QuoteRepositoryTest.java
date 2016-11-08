@@ -4,7 +4,6 @@ import com.readit.RepositoryApplication;
 import com.readit.entity.Book;
 import com.readit.entity.File;
 import com.readit.entity.Quote;
-import com.readit.entity.Tag;
 import com.readit.entity.enums.FileType;
 import org.junit.Before;
 import org.junit.Test;

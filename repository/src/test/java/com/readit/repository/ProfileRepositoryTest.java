@@ -4,13 +4,10 @@ import com.readit.RepositoryApplication;
 import com.readit.entity.Book;
 import com.readit.entity.Profile;
 import com.readit.entity.Settings;
-import com.readit.entity.User;
-import com.readit.entity.enums.Gender;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,7 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by nataliia on 29.09.16.

@@ -1,7 +1,6 @@
 package com.readit.repository;
 
 import com.readit.RepositoryApplication;
-import com.readit.entity.Quote;
 import com.readit.entity.Settings;
 import org.junit.Before;
 import org.junit.Test;
