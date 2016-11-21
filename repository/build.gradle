@@ -5,4 +5,5 @@ dependencies {
     compile('mysql:mysql-connector-java')
     compile('com.fasterxml.jackson.core:jackson-annotations')
     compileOnly('org.projectlombok:lombok')
+    compile group: 'com.h2database', name: 'h2', version: '1.4.193'
 }
