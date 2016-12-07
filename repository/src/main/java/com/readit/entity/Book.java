@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Year;
-import java.util.Calendar;
 import java.util.Collection;
 
 @Entity
@@ -24,7 +23,7 @@ public class Book {
     private Long id;
 
     private String title;
-    private Year yearOfrelease;
+    private Year yearOfRelease;
     private String description;
 
     @OneToOne

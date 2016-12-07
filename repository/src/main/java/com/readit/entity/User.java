@@ -8,8 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Collection;
 
 /**
  * Created by nataliia on 28.09.16.

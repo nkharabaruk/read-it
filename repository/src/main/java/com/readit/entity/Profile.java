@@ -31,7 +31,7 @@ public class Profile {
     private Collection<Book> wantToRead;
 
     @OneToMany
-    @JoinTable(name = "PROFILE_IS_READIND",
+    @JoinTable(name = "PROFILE_IS_READING",
             joinColumns = @JoinColumn(name = "profile_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "is_reading_id", referencedColumnName = "id"))
     private Collection<Book> isReading;

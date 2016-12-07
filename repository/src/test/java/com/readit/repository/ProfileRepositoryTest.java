@@ -63,7 +63,7 @@ public class ProfileRepositoryTest {
 
         settings = new Settings();
         settings.setNotificationAboutNewBook(true);
-        settings.setNotificationAboutNewCommentar(false);
+        settings.setNotificationAboutNewComment(false);
 
         profile1 = new Profile();
         profile1.setWantToRead(books);
@@ -115,8 +115,8 @@ public class ProfileRepositoryTest {
     public void findAllByIdsTest() {
         profileRepository.save(profiles);
         List<Long> ids = profiles.stream().map(Profile::getId).collect(Collectors.toList());
-        List<Profile> foundprofiles = profileRepository.findAll(ids);
-        assertEquals(profiles, foundprofiles);
+        List<Profile> foundProfiles = profileRepository.findAll(ids);
+        assertEquals(profiles, foundProfiles);
 
     }
 

@@ -31,9 +31,9 @@ public class CategoryServiceImpl implements CategoryService {
     and ends with the last leaf which book belongs to. **/
     public List<Category> getBookCategories(Long bookId) {
         Collection<Category> bookCategories = bookRepository.findOne(bookId).getCategories();
-        List<Category> bookCategoriesInverse = new ArrayList<Category>();
+        List<Category> bookCategoriesInverse = new ArrayList<>();
         for (Category category : bookCategories) {
-            List<Category> parents = new ArrayList<Category>();
+            List<Category> parents = new ArrayList<>();
             parents.add(category);
             while (category.getParent() != null) {
                 category = category.getParent();
@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
             Category categoryTree = parents.get(0);
             categoryTree.setChildren(null);
             for (int i = 1; i < parents.size(); i++) {
-                List<Category> children = new ArrayList<Category>();
+                List<Category> children = new ArrayList<>();
                 children.add(categoryTree);
                 categoryTree.setParent(parents.get(i));
                 categoryTree = categoryTree.getParent();
@@ -51,11 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
 //            categoryTree = new Category(categoryTree);
             bookCategoriesInverse.add(categoryTree);
         }
-        Collections.sort(bookCategoriesInverse, new Comparator<Category>() {
-            public int compare(Category c1, Category c2) {
-                return (c1.getId() > c2.getId()) ? 1 : -1;
-            }
-        });
+        Collections.sort(bookCategoriesInverse, (c1, c2) -> (c1.getId() > c2.getId()) ? 1 : -1);
         return bookCategoriesInverse;
     }
 
@@ -65,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public List<Category> getAscendants(Long id) {
-        List<Category> parents = new ArrayList<Category>();
+        List<Category> parents = new ArrayList<>();
         Category child = getById(id);
         while (child.getParent() != null) {
             Category parent = child.getParent();
@@ -76,12 +72,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public List<Category> getDescendants(Long id) {
-        List<Category> children = new ArrayList<Category>();
+        List<Category> children = new ArrayList<>();
         children.addAll(getById(id).getChildren());
         boolean repeat = true;
         while (repeat) {
             repeat = false;
-            Set<Category> temp = new HashSet<Category>();
+            Set<Category> temp = new HashSet<>();
             for (Category c : children) {
                 if (!children.containsAll(c.getChildren()) && c.getChildren().size() != 0) {
                     repeat = true;

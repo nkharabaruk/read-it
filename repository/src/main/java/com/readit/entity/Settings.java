@@ -24,7 +24,7 @@ public class Settings {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private boolean notificationAboutNewCommentar;
+    private boolean notificationAboutNewComment;
     private boolean notificationAboutNewBook;
     
     // others

@@ -34,11 +34,11 @@ public class SettingsRepositoryTest {
     public void setUp() {
         settings1 = new Settings();
         settings1.setNotificationAboutNewBook(true);
-        settings1.setNotificationAboutNewCommentar(false);
+        settings1.setNotificationAboutNewComment(false);
 
         settings2 = new Settings();
         settings2.setNotificationAboutNewBook(false);
-        settings2.setNotificationAboutNewCommentar(true);
+        settings2.setNotificationAboutNewComment(true);
 
         settings.add(settings1);
         settings.add(settings2);

@@ -28,7 +28,7 @@ public class CategoryRepositoryTest {
 
     private Category category1;
     private Category category2;
-    private List<Category> categoties = new ArrayList<>();
+    private List<Category> categories = new ArrayList<>();
 
     @Before
     public void setUp() {
@@ -39,8 +39,8 @@ public class CategoryRepositoryTest {
         category2.setName("Category 2");
         category2.setParent(category1);
 
-        categoties.add(category1);
-        categoties.add(category2);
+        categories.add(category1);
+        categories.add(category2);
     }
 
     @Test
@@ -51,8 +51,8 @@ public class CategoryRepositoryTest {
 
     @Test
     public void saveIterableTest() {
-        categoryRepository.save(categoties);
-        assertTrue(categoryRepository.findAll().containsAll(categoties));
+        categoryRepository.save(categories);
+        assertTrue(categoryRepository.findAll().containsAll(categories));
     }
 
     @Test
@@ -69,24 +69,24 @@ public class CategoryRepositoryTest {
 
     @Test
     public void findAllTest() {
-        categoryRepository.save(categoties);
-        assertTrue(categoryRepository.findAll().containsAll(categoties));
+        categoryRepository.save(categories);
+        assertTrue(categoryRepository.findAll().containsAll(categories));
     }
 
     @Test
     public void findAllByIdsTest() {
-        categoryRepository.save(categoties);
-        List<Long> ids = categoties.stream().map(Category::getId).collect(Collectors.toList());
+        categoryRepository.save(categories);
+        List<Long> ids = categories.stream().map(Category::getId).collect(Collectors.toList());
         List<Category> foundCategories = categoryRepository.findAll(ids);
-        assertEquals(categoties, foundCategories);
+        assertEquals(categories, foundCategories);
 
     }
 
     @Test
     public void countTest() {
         long before = categoryRepository.count();
-        categoryRepository.save(categoties);
-        assertEquals(before + categoties.size(), categoryRepository.count());
+        categoryRepository.save(categories);
+        assertEquals(before + categories.size(), categoryRepository.count());
     }
 
     @Test
@@ -107,19 +107,19 @@ public class CategoryRepositoryTest {
 
     @Test
     public void deleteIterableTest() {
-        categoryRepository.save(categoties);
-        for (Category category : categoties) {
+        categoryRepository.save(categories);
+        for (Category category : categories) {
             assertTrue(categoryRepository.exists(category.getId()));
         }
-        categoryRepository.delete(categoties);
-        for (Category category : categoties) {
+        categoryRepository.delete(categories);
+        for (Category category : categories) {
             assertFalse(categoryRepository.exists(category.getId()));
         }
     }
 
     @Test
     public void deleteAllTest() {
-        categoryRepository.save(categoties);
+        categoryRepository.save(categories);
         assertNotEquals(0, categoryRepository.count());
         categoryRepository.deleteAll();
         assertEquals(0, categoryRepository.count());

@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "COMMENTAR")
+@Table(name = "COMMENT")
 public class Comment {
 
     @Id

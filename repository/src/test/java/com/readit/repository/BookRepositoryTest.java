@@ -36,11 +36,11 @@ public class BookRepositoryTest {
         kobzar = new Book();
         kobzar.setTitle("Кобзар");
         kobzar.setDescription("Шевченків Кобзар");
-        kobzar.setYearOfrelease(Year.of(1840));
+        kobzar.setYearOfRelease(Year.of(1840));
 
         farbovanyiLys = new Book();
         farbovanyiLys.setTitle("Лис Микита");
-        farbovanyiLys.setYearOfrelease(Year.of(1890));
+        farbovanyiLys.setYearOfRelease(Year.of(1890));
 
         books.add(kobzar);
         books.add(farbovanyiLys);
