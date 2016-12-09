@@ -1,4 +1,6 @@
 dependencies {
     compile project(':service')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-hateoas")
+    compile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.1'
 }

@@ -9,4 +9,6 @@ public interface AuthorService {
     Collection<Author> getAll();
 
     Author getById(Long id);
+
+    Author save(Author author);
 }
