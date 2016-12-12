@@ -1,6 +1,7 @@
 package com.readit.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"authors", "categories"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "BOOK")
 public class Book {
 
