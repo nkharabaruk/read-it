@@ -8,8 +8,8 @@ import javax.persistence.*;
 import java.time.Year;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @EqualsAndHashCode(exclude = {"authors", "categories"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "BOOK")

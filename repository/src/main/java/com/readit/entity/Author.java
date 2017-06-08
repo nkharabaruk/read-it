@@ -7,8 +7,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "AUTHOR")
 public class Author {

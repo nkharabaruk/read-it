@@ -4,8 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
 @Data
+@Entity
 @Table(name = "QUOTE")
 public class Quote {
 

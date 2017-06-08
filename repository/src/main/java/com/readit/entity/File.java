@@ -5,8 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
 @Data
+@Entity
 @Table(name = "FILE")
 public class File {
 

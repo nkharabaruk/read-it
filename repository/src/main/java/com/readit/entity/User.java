@@ -6,8 +6,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
+
 @Data
+@Entity
 @Table(name = "USER")
 public class User {
 

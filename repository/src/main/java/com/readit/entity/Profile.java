@@ -5,8 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @Table(name = "PROFILE")
 public class Profile {
 
