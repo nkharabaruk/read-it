@@ -1,18 +1,12 @@
 package com.readit.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode
+@Data
 @Table(name = "CATEGORY")
 public class Category {
 
@@ -26,11 +20,11 @@ public class Category {
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
-    private Collection<Category> children;
+    private List<Category> children;
 
     @ManyToMany
     @JoinTable(name = "BOOK_CATEGORY",
             joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
-    private Collection<Book> books;
+    private List<Book> books;
 }

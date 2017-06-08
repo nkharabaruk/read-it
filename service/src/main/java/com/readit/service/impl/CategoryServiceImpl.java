@@ -12,11 +12,14 @@ import java.util.*;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
-    CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+    private final BookRepository bookRepository;
 
     @Autowired
-    BookRepository bookRepository;
+    public CategoryServiceImpl(CategoryRepository categoryRepository, BookRepository bookRepository) {
+        this.categoryRepository = categoryRepository;
+        this.bookRepository = bookRepository;
+    }
 
     public List<Category> getAll() {
         return categoryRepository.findAll();
@@ -26,11 +29,13 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findOne(id);
     }
 
-    /** Returns list of categories.
-    Each category is a simple tree which starts from root
-    and ends with the last leaf which book belongs to. **/
+    /**
+     * Returns list of categories.
+     * Each category is a simple tree which starts from root
+     * and ends with the last leaf which book belongs to.
+     **/
     public List<Category> getBookCategories(Long bookId) {
-        Collection<Category> bookCategories = bookRepository.findOne(bookId).getCategories();
+        List<Category> bookCategories = bookRepository.findOne(bookId).getCategories();
         List<Category> bookCategoriesInverse = new ArrayList<>();
         for (Category category : bookCategories) {
             List<Category> parents = new ArrayList<>();

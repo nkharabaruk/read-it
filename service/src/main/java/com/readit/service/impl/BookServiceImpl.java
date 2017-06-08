@@ -5,6 +5,8 @@ import com.readit.repository.BookRepository;
 import com.readit.service.BookService;
 import com.readit.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,28 +14,34 @@ import java.util.*;
 @Service
 public class BookServiceImpl implements BookService {
 
-    @Autowired
-    BookRepository bookRepository;
+    private final BookRepository bookRepository;
+    private final CategoryService categoryService;
 
     @Autowired
-    CategoryService categoryService;
+    public BookServiceImpl(BookRepository bookRepository, CategoryService categoryService) {
+        this.bookRepository = bookRepository;
+        this.categoryService = categoryService;
+    }
 
     public List<Book> getAll() {
         return bookRepository.findAll();
     }
 
-    @Override
-    public Book save(Book book) {
-        return bookRepository.save(book);
-    }
-
-    @Override
-    public Collection<Book> saveAll(Collection<Book> books) {
-        return bookRepository.save(books);
+    public Page<Book> getBookPage(Pageable pageable) {
+        return bookRepository.findAll(pageable);
     }
 
     public Book getById(Long id) {
         return bookRepository.findOne(id);
     }
 
+    @Override
+    public List<Book> saveAll(List<Book> books) {
+        return bookRepository.save(books);
+    }
+
+    @Override
+    public Book save(Book book) {
+        return bookRepository.save(book);
+    }
 }

@@ -1,23 +1,13 @@
 package com.readit.entity;
 
 import com.readit.entity.enums.Gender;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-/**
- * Created by nataliia on 28.09.16.
- */
-
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode
+@Data
 @Table(name = "USER")
 public class User {
 

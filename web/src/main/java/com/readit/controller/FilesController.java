@@ -2,6 +2,7 @@ package com.readit.controller;
 
 import com.readit.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,10 +15,14 @@ import java.io.IOException;
 @RestController
 public class FilesController {
 
-    @Autowired
-    private FilesService filesService;
+    private final FilesService filesService;
 
-    @RequestMapping("/images/**")
+    @Autowired
+    public FilesController(FilesService filesService) {
+        this.filesService = filesService;
+    }
+
+    @GetMapping("/images/**")
     public void getImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String fileName = request.getServletPath().substring("/images/".length(), request.getServletPath().length());
         byte[] imageBytes = filesService.getImageByteArray(fileName);

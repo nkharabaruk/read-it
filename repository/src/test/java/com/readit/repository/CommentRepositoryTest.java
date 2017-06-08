@@ -21,10 +21,6 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by nataliia on 29.09.16.
- */
-
 @Rollback
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)

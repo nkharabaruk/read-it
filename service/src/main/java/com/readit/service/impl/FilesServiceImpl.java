@@ -14,8 +14,12 @@ import java.io.InputStream;
 @PropertySource(value = "classpath:db.properties")
 public class FilesServiceImpl implements FilesService {
 
+    private final Environment env;
+
     @Autowired
-    private Environment env;
+    public FilesServiceImpl(Environment env) {
+        this.env = env;
+    }
 
     public byte[] getImageByteArray(String fileName) throws IOException {
         InputStream inputStream = new FileInputStream(getImagesDir() + fileName);

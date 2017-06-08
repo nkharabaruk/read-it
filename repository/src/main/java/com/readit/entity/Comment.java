@@ -1,21 +1,11 @@
 package com.readit.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-/**
- * Created by nataliia on 28.09.16.
- */
-
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode
+@Data
 @Table(name = "COMMENT")
 public class Comment {
 
@@ -24,7 +14,7 @@ public class Comment {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="author_id")
+    @JoinColumn(name = "author_id")
     private User author;
 
     private String theme;

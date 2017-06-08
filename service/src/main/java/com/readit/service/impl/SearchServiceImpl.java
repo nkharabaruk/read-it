@@ -13,11 +13,14 @@ import java.util.List;
 @Service
 public class SearchServiceImpl implements SearchService {
 
-    @Autowired
-    BookRepository bookRepository;
+    private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
 
     @Autowired
-    AuthorRepository authorRepository;
+    public SearchServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
+        this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
+    }
 
     public List<Book> searchBooksByTitle(String title) {
 //        return bookRepository.getByTitle(title);

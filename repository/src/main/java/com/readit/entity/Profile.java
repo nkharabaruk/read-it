@@ -1,22 +1,12 @@
 package com.readit.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
-
-/**
- * Created by nataliia on 28.09.16.
- */
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode
+@Data
 @Table(name = "PROFILE")
 public class Profile {
 
@@ -28,19 +18,19 @@ public class Profile {
     @JoinTable(name = "PROFILE_WANT_TO_READ",
             joinColumns = @JoinColumn(name = "profile_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "want_to_read_id", referencedColumnName = "id"))
-    private Collection<Book> wantToRead;
+    private List<Book> wantToRead;
 
     @OneToMany
     @JoinTable(name = "PROFILE_IS_READING",
             joinColumns = @JoinColumn(name = "profile_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "is_reading_id", referencedColumnName = "id"))
-    private Collection<Book> isReading;
+    private List<Book> isReading;
 
     @OneToMany
     @JoinTable(name = "PROFILE_WAS_READ",
             joinColumns = @JoinColumn(name = "profile_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "was_read_id", referencedColumnName = "id"))
-    private Collection<Book> wasRead;
+    private List<Book> wasRead;
 
     @OneToOne(cascade = {CascadeType.ALL})
     private Settings settings;

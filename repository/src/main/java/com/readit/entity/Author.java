@@ -1,20 +1,14 @@
 package com.readit.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "AUTHOR")
 public class Author {
@@ -36,11 +30,11 @@ public class Author {
     @JoinTable(name = "AUTHOR_FILE",
             joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "file_id", referencedColumnName = "id"))
-    private Collection<File> files;
+    private List<File> files;
 
     @ManyToMany
     @JoinTable(name = "BOOK_AUTHOR",
             joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
-    private Collection<Book> books;
+    private List<Book> books;
 }

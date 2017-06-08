@@ -4,58 +4,49 @@ import com.readit.entity.Author;
 import com.readit.entity.Book;
 import com.readit.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.Resource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(value = "/books")
 public class BookController {
 
+    private final BookService bookService;
+
     @Autowired
-    BookService bookService;
-
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<List<Resource<Book>>> getAllBooks() {
-        return new ResponseEntity<>(
-                bookService.getAll().stream()
-                        .map(book -> new Resource<>(book, linkTo(methodOn(BookController.class).getBookById(book.getId())).withSelfRel()))
-                        .collect(Collectors.toList()),
-                HttpStatus.OK);
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
-    @RequestMapping(value = "/{bookId}", method = RequestMethod.GET, produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<Resource<Book>> getBookById(@PathVariable Long bookId) {
-        return new ResponseEntity<>(
-                new Resource<>(
-                        bookService.getById(bookId),
-                        linkTo(methodOn(BookController.class).getBookById(bookId)).withSelfRel()),
-                HttpStatus.OK);
+    @GetMapping("/page")
+    public Page<Book> getBooksByPage(@RequestParam(value = "page", required = false) Integer pageNumber,
+                                     @RequestParam(value = "size", required = false) Integer pageSize) {
+        return bookService.getBookPage(new PageRequest(pageNumber, pageSize));
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<Resource<Book>> saveBook(@RequestBody Book book) {
-        return new ResponseEntity<>(
-                new Resource<>(
-                        bookService.save(book),
-                        linkTo(methodOn(BookController.class).getBookById(book.getId())).withSelfRel()),
-                HttpStatus.OK);
+    @GetMapping
+    public List<Book> getAllBooks() {
+        return bookService.getAll();
     }
 
-    @RequestMapping(value = "/{bookId}/authors", method = RequestMethod.GET, produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<List<Resource<Author>>> getAuthorsOfBook(@PathVariable Long bookId) {
-        return new ResponseEntity<>(
-                bookService.getById(bookId).getAuthors().stream()
-                        .map(author -> new Resource<>(author, linkTo(methodOn(AuthorController.class).getAuthorById(author.getId())).withSelfRel()))
-                        .collect(Collectors.toList()),
-                HttpStatus.OK);
+    @GetMapping("/{bookId}")
+    public Book getBookById(@PathVariable Long bookId) {
+        return bookService.getById(bookId);
+    }
+
+    @PostMapping
+    public Book saveBook(@RequestBody Book book) {
+        return bookService.save(book);
+    }
+
+    @GetMapping("/{bookId}/authors")
+    public List<Author> getAuthorsOfBook(@PathVariable Long bookId) {
+        return bookService.getById(bookId).getAuthors();
     }
 }

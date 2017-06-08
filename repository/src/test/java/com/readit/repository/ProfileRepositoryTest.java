@@ -19,10 +19,6 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by nataliia on 29.09.16.
- */
-
 @Rollback
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,13 +32,13 @@ public class ProfileRepositoryTest {
     private Profile profile2;
 
     private List<Profile> profiles = new ArrayList<>();
-    
+
     private Book book1;
     private Book book2;
     private Book book3;
 
     private List<Book> books = new ArrayList<>();
-    
+
     private Settings settings;
 
     @Before
@@ -50,10 +46,10 @@ public class ProfileRepositoryTest {
 
         book1 = new Book();
         book1.setTitle("Every Time I go home");
-        
+
         book2 = new Book();
         book2.setTitle("Cat and kittens");
-        
+
         book3 = new Book();
         book3.setTitle("War and Peace");
 

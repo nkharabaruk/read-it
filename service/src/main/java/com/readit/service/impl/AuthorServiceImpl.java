@@ -7,15 +7,19 @@ import com.readit.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.List;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
-    @Autowired
-    AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
-    public Collection<Author> getAll() {
+    @Autowired
+    public AuthorServiceImpl(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
+
+    public List<Author> getAll() {
         return authorRepository.findAll();
     }
 

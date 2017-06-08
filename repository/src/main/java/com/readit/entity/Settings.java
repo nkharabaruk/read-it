@@ -1,21 +1,11 @@
 package com.readit.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-/**
- * Created by nataliia on 28.09.16.
- */
-
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode
+@Data
 @Table(name = "SETTINGS")
 
 public class Settings {
@@ -26,6 +16,6 @@ public class Settings {
 
     private boolean notificationAboutNewComment;
     private boolean notificationAboutNewBook;
-    
+
     // others
 }
