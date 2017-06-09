@@ -21,11 +21,12 @@ public class CategoryServiceImpl implements CategoryService {
         this.bookRepository = bookRepository;
     }
 
-    public List<Category> getAll() {
+    public List<Category> findAll() {
         return categoryRepository.findAll();
     }
 
-    public Category getById(Long id) {
+    @Override
+    public Category findById(long id) {
         return categoryRepository.findOne(id);
     }
 
@@ -34,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
      * Each category is a simple tree which starts from root
      * and ends with the last leaf which book belongs to.
      **/
-    public List<Category> getBookCategories(Long bookId) {
+    public List<Category> findBookCategories(long bookId) {
         List<Category> bookCategories = bookRepository.findOne(bookId).getCategories();
         List<Category> bookCategoriesInverse = new ArrayList<>();
         for (Category category : bookCategories) {
@@ -60,14 +61,14 @@ public class CategoryServiceImpl implements CategoryService {
         return bookCategoriesInverse;
     }
 
-    public List<Category> getRootCategories() {
-//        return categoryRepository.getRootCategories();
+    public List<Category> findRootCategories() {
+//        return categoryRepository.findRootCategories();
         return null;
     }
 
-    public List<Category> getAscendants(Long id) {
+    public List<Category> findAscendants(long id) {
         List<Category> parents = new ArrayList<>();
-        Category child = getById(id);
+        Category child = findById(id);
         while (child.getParent() != null) {
             Category parent = child.getParent();
             parents.add(parent);
@@ -76,9 +77,9 @@ public class CategoryServiceImpl implements CategoryService {
         return parents;
     }
 
-    public List<Category> getDescendants(Long id) {
+    public List<Category> findDescendants(long id) {
         List<Category> children = new ArrayList<>();
-        children.addAll(getById(id).getChildren());
+        children.addAll(findById(id).getChildren());
         boolean repeat = true;
         while (repeat) {
             repeat = false;
@@ -92,5 +93,25 @@ public class CategoryServiceImpl implements CategoryService {
             children.addAll(temp);
         }
         return children;
+    }
+
+    @Override
+    public List<Category> saveAll(List<Category> list) {
+        return categoryRepository.save(list);
+    }
+
+    @Override
+    public Category save(Category category) {
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public void deleteAll() {
+        categoryRepository.deleteAll();
+    }
+
+    @Override
+    public void delete(Category category) {
+        categoryRepository.delete(category);
     }
 }

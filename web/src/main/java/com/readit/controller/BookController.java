@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
@@ -27,17 +26,17 @@ public class BookController {
     @GetMapping("/page")
     public Page<Book> getBooksByPage(@RequestParam(value = "page", required = false) Integer pageNumber,
                                      @RequestParam(value = "size", required = false) Integer pageSize) {
-        return bookService.getBookPage(new PageRequest(pageNumber, pageSize));
+        return bookService.findPage(new PageRequest(pageNumber, pageSize));
     }
 
     @GetMapping
     public List<Book> getAllBooks() {
-        return bookService.getAll();
+        return bookService.findAll();
     }
 
     @GetMapping("/{bookId}")
-    public Book getBookById(@PathVariable Long bookId) {
-        return bookService.getById(bookId);
+    public Book getBookById(@PathVariable long bookId) {
+        return bookService.findById(bookId);
     }
 
     @PostMapping
@@ -46,7 +45,7 @@ public class BookController {
     }
 
     @GetMapping("/{bookId}/authors")
-    public List<Author> getAuthorsOfBook(@PathVariable Long bookId) {
-        return bookService.getById(bookId).getAuthors();
+    public List<Author> getAuthorsOfBook(@PathVariable long bookId) {
+        return bookService.findById(bookId).getAuthors();
     }
 }

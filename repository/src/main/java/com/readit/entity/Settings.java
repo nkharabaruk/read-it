@@ -12,7 +12,7 @@ public class Settings {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     private boolean notificationAboutNewComment;
     private boolean notificationAboutNewBook;

@@ -23,15 +23,16 @@ public class BookServiceImpl implements BookService {
         this.categoryService = categoryService;
     }
 
-    public List<Book> getAll() {
+    public List<Book> findAll() {
         return bookRepository.findAll();
     }
 
-    public Page<Book> getBookPage(Pageable pageable) {
+    public Page<Book> findPage(Pageable pageable) {
         return bookRepository.findAll(pageable);
     }
 
-    public Book getById(Long id) {
+    @Override
+    public Book findById(long id) {
         return bookRepository.findOne(id);
     }
 
@@ -43,5 +44,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book save(Book book) {
         return bookRepository.save(book);
+    }
+
+    @Override
+    public void deleteAll() {
+        bookRepository.deleteAll();
+    }
+
+    @Override
+    public void delete(Book book) {
+        bookRepository.delete(book);
     }
 }

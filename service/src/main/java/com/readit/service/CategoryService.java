@@ -6,15 +6,23 @@ import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> getAll();
+    List<Category> findAll();
 
-    Category getById(Long id);
+    Category findById(long id);
 
-    List<Category> getBookCategories(Long bookId);
+    List<Category> findBookCategories(long bookId);
 
-    List<Category> getRootCategories();
+    List<Category> findRootCategories();
 
-    List<Category> getAscendants(Long id);
+    List<Category> findAscendants(long id);
 
-    List<Category> getDescendants(Long id);
+    List<Category> findDescendants(long id);
+
+    List<Category> saveAll(List<Category> list);
+
+    Category save(Category category);
+
+    void deleteAll();
+
+    void delete(Category category);
 }

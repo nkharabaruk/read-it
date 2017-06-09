@@ -8,13 +8,17 @@ import java.util.List;
 
 public interface BookService {
 
-    List<Book> getAll();
+    List<Book> findAll();
 
-    Page<Book> getBookPage(Pageable pageable);
+    Page<Book> findPage(Pageable pageable);
 
-    Book getById(Long id);
+    Book findById(long id);
 
     List<Book> saveAll(List<Book> books);
 
     Book save(Book book);
+
+    void deleteAll();
+
+    void delete(Book book);
 }

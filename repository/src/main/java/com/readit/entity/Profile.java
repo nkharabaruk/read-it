@@ -12,7 +12,7 @@ public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     @OneToMany
     @JoinTable(name = "PROFILE_WANT_TO_READ",

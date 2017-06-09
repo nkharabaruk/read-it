@@ -21,12 +21,12 @@ public class AuthorController {
 
     @GetMapping
     public List<Author> getAllAuthors() {
-        return  authorService.getAll();
+        return  authorService.findAll();
     }
 
     @GetMapping("/{authorId}")
-    public Author getAuthorById(@PathVariable Long authorId) {
-        return authorService.getById(authorId);
+    public Author getAuthorById(@PathVariable long authorId) {
+        return authorService.findById(authorId);
     }
 
     @PostMapping
@@ -35,7 +35,7 @@ public class AuthorController {
     }
 
     @GetMapping("/{authorId}/books")
-    public List<Book> getBooksOfAuthor(@PathVariable Long authorId) {
-        return authorService.getById(authorId).getBooks();
+    public List<Book> getBooksOfAuthor(@PathVariable long authorId) {
+        return authorService.findById(authorId).getBooks();
     }
 }
