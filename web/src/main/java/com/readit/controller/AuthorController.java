@@ -39,12 +39,12 @@ public class AuthorController {
         return authorService.save(author);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/all")
     public void deleteAllAuthors() {
         authorService.deleteAll();
     }
 
-    @DeleteMapping("/{authorId}")
+    @DeleteMapping
     public void deleteAuthor(@RequestBody Author author) {
         authorService.delete(author);
     }

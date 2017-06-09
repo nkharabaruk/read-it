@@ -1,7 +1,6 @@
 package com.readit.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +16,6 @@ public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Ignore
     private long id;
 
     private String firstName;

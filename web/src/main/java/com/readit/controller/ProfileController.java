@@ -34,12 +34,12 @@ public class ProfileController {
         return profileService.save(profile);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/all")
     public void deleteAllProfiles() {
         profileService.deleteAll();
     }
 
-    @DeleteMapping("/{profileId}")
+    @DeleteMapping
     public void deleteProfile(@RequestBody Profile profile) {
         profileService.delete(profile);
     }

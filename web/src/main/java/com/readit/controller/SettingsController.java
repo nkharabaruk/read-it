@@ -33,12 +33,12 @@ public class SettingsController {
         return settingsService.save(settings);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/all")
     public void deleteAllSettings() {
         settingsService.deleteAll();
     }
 
-    @DeleteMapping("/{settingsId}")
+    @DeleteMapping
     public void deleteSettings(@RequestBody Settings settings) {
         settingsService.delete(settings);
     }

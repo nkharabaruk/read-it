@@ -34,12 +34,12 @@ public class QuoteController {
         return quoteService.save(quote);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/all")
     public void deleteAllQuotes() {
         quoteService.deleteAll();
     }
 
-    @DeleteMapping("/{quoteId}")
+    @DeleteMapping
     public void deleteQuote(@RequestBody Quote quote) {
         quoteService.delete(quote);
     }

@@ -56,108 +56,89 @@ public class BookControllerTest {
     @Test
     public void getAllTest() throws Exception {
         // try to get books when they don`t exist
-        List<Book> firstGetResult = Arrays.asList(when().get(URL).then()
-                .statusCode(200).and().extract().as(Book[].class));
+        List<Book> firstGetResult = getBooks();
         assertFalse(firstGetResult.contains(book));
 
-        // save books
-        Book book1 = given().contentType(ContentType.JSON).body(book)
-                .when().post(URL).then()
-                .statusCode(200).and().extract().as(Book.class);
-        Book book2 = given().contentType(ContentType.JSON).body(book)
-                .when().post(URL).then()
-                .statusCode(200).and().extract().as(Book.class);
+        Book book1 = saveBook();
+        Book book2 = saveBook();
 
-        // get books
-        List<Book> secondGetResult = Arrays.asList(when().get(URL).then()
-                .statusCode(200).and().extract().as(Book[].class));
+        List<Book> secondGetResult = getBooks();
         assertTrue(secondGetResult.contains(book1));
         assertTrue(secondGetResult.contains(book2));
 
-        // delete books
-        given().contentType(ContentType.JSON).body(book1)
-                .when().delete(URL).then()
-                .statusCode(200);
-        given().contentType(ContentType.JSON).body(book2)
-                .when().delete(URL).then()
-                .statusCode(200);
+        deleteBooks(book1, book2);
     }
 
     @Test
     public void getByIdTest() throws Exception {
-        // save book
-        Book saveResult = given().contentType(ContentType.JSON).body(book)
-                .when().post(URL).then()
-                .statusCode(200).and().extract().as(Book.class);
+        Book saveResult = saveBook();
 
-        // try to get book
-        Book getResult = when().get(URL + "/" + saveResult.getId()).then()
-                .statusCode(200).and().extract().as(Book.class);
+        Book getResult = getBook(saveResult);
         assertEquals(saveResult, getResult);
 
-        // delete book
-        given().contentType(ContentType.JSON).body(saveResult)
-                .when().delete(URL).then()
-                .statusCode(200);
+        deleteBook(saveResult);
     }
 
     @Test
     public void saveTest() throws Exception {
-        // try to save book
-        Book saveResult = given().contentType(ContentType.JSON).body(book)
-                .when().post(URL).then()
-                .statusCode(200).and().extract().as(Book.class);
+        Book saveResult = saveBook();
         assertEquals(book, saveResult);
 
-        // delete book
-        given().contentType(ContentType.JSON).body(book)
-                .when().delete(URL).then()
-                .statusCode(200);
+        deleteBook(saveResult);
     }
 
     @Test
     public void deleteAllTest() throws Exception {
-        // save books
-        Book book1 = given().contentType(ContentType.JSON).body(book)
-                .when().post(URL).then()
-                .statusCode(200).and().extract().as(Book.class);
-        Book book2 = given().contentType(ContentType.JSON).body(book)
-                .when().post(URL).then()
-                .statusCode(200).and().extract().as(Book.class);
+        Book book1 = saveBook();
+        Book book2 = saveBook();
 
-        // get books
-        List<Book> firstGetResult = Arrays.asList(when().get(URL).then()
-                .statusCode(200).and().extract().as(Book[].class));
+        List<Book> firstGetResult = Arrays.asList(getBook(book1), getBook(book2));
         assertTrue(firstGetResult.contains(book1));
         assertTrue(firstGetResult.contains(book2));
 
-        // delete books
-        given().contentType(ContentType.JSON).body(Arrays.asList(book, book))
-                .when().delete(URL).then()
-                .statusCode(200);
+        deleteBooks(book1, book2);
 
-        // try to get books
-        List<Book> secondGetResult = Arrays.asList(when().get(URL).then()
-                .statusCode(200).and().extract().as(Book[].class));
-        assertFalse(secondGetResult.contains(book));
+        List<Book> secondGetResult = getBooks();
+        assertFalse(secondGetResult.contains(book1));
+        assertFalse(secondGetResult.contains(book2));
     }
 
     @Test
     public void deleteTest() throws Exception {
-        // save book
-        Book saveResult = given().contentType(ContentType.JSON).body(book)
-                .when().post(URL).then()
-                .statusCode(200).and().extract().as(Book.class);
+        Book saveResult = saveBook();
         assertEquals(book, saveResult);
 
-        // delete book
-        given().contentType(ContentType.JSON).body(saveResult)
+        deleteBook(saveResult);
+
+        List<Book> getResult = getBooks();
+        assertFalse(getResult.contains(saveResult));
+    }
+
+    private List<Book> getBooks() {
+        return Arrays.asList(when().get(URL).then()
+                .statusCode(200).and().extract().as(Book[].class));
+    }
+
+    private Book getBook(Book book) {
+        return when().get(URL + "/" + book.getId()).then()
+                .statusCode(200).and().extract().as(Book.class);
+    }
+
+    private Book saveBook() {
+        return given().contentType(ContentType.JSON).body(book)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Book.class);
+    }
+
+    private void deleteBooks(Book...books) {
+        given().contentType(ContentType.JSON).body(Arrays.asList(books))
+                .when().delete(URL + "/all").then()
+                .statusCode(200);
+    }
+
+    private void deleteBook(Book book) {
+        given().contentType(ContentType.JSON).body(book)
                 .when().delete(URL).then()
                 .statusCode(200);
-
-        // try to get books
-        List<Book> getResult = Arrays.asList(when().get(URL).then()
-                .statusCode(200).and().extract().as(Book[].class));
-        assertFalse(getResult.contains(saveResult));
     }
 }

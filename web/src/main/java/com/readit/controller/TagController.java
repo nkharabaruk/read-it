@@ -33,12 +33,12 @@ public class TagController {
         return tagService.save(tag);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/all")
     public void deleteAllTags() {
         tagService.deleteAll();
     }
 
-    @DeleteMapping("/{tagId}")
+    @DeleteMapping
     public void deleteTag(@RequestBody Tag tag) {
         tagService.delete(tag);
     }

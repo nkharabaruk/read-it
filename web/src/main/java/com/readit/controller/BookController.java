@@ -49,12 +49,12 @@ public class BookController {
         return bookService.save(book);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/all")
     public void deleteAllBooks() {
         bookService.deleteAll();
     }
 
-    @DeleteMapping("/{bookId}")
+    @DeleteMapping
     public void deleteBook(@RequestBody Book book) {
         bookService.delete(book);
     }

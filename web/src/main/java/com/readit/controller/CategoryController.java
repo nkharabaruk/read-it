@@ -55,12 +55,12 @@ public class CategoryController {
         return categoryService.save(category);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/all")
     public void deleteAllCategorys() {
         categoryService.deleteAll();
     }
 
-    @DeleteMapping("/{categoryId}")
+    @DeleteMapping
     public void deleteCategory(@RequestBody Category category) {
         categoryService.delete(category);
     }
