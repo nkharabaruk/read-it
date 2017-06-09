@@ -6,7 +6,6 @@ import com.readit.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,16 +22,16 @@ public class SearchController {
 
     @GetMapping("/searchBooksByTitle/{title}")
     public List<Book> searchBooksByTitle(@PathVariable String title) {
-        return searchService.searchBooksByTitle(title);
+        return searchService.findBooksByTitle(title);
     }
 
     @GetMapping("/searchBooksByTag/{tag}")
     public List<Book> searchBooksByTag(@PathVariable String tag) {
-        return searchService.searchBooksByTag(tag);
+        return searchService.findBooksByTag(tag);
     }
 
     @GetMapping("/searchAuthorsByName/{name}")
     public List<Author> searchAuthorsByName(@PathVariable String name) {
-        return searchService.searchAuthorsByName(name);
+        return searchService.findAuthorsByName(name);
     }
 }

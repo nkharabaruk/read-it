@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface FilesService {
 
-    byte[] getImageByteArray(String fileName) throws IOException;
+    byte[] findImageByteArray(String fileName) throws IOException;
 }

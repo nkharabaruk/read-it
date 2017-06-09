@@ -23,15 +23,15 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/page")
-    public Page<Book> getBooksByPage(@RequestParam(value = "page", required = false) Integer pageNumber,
-                                     @RequestParam(value = "size", required = false) Integer pageSize) {
-        return bookService.findPage(new PageRequest(pageNumber, pageSize));
-    }
-
     @GetMapping
     public List<Book> getAllBooks() {
         return bookService.findAll();
+    }
+
+    @GetMapping("/page")
+    public Page<Book> getBooksPage(@RequestParam(value = "page", required = false) Integer pageNumber,
+                                   @RequestParam(value = "size", required = false) Integer pageSize) {
+        return bookService.findPage(new PageRequest(pageNumber, pageSize));
     }
 
     @GetMapping("/{bookId}")
@@ -39,13 +39,28 @@ public class BookController {
         return bookService.findById(bookId);
     }
 
+    @GetMapping("/{bookId}/authors")
+    public List<Author> getAuthorsOfBook(@PathVariable long bookId) {
+        return bookService.findById(bookId).getAuthors();
+    }
+
+    @PostMapping
+    public List<Book> saveBooks(@RequestBody List<Book> books) {
+        return bookService.saveAll(books);
+    }
+
     @PostMapping
     public Book saveBook(@RequestBody Book book) {
         return bookService.save(book);
     }
 
-    @GetMapping("/{bookId}/authors")
-    public List<Author> getAuthorsOfBook(@PathVariable long bookId) {
-        return bookService.findById(bookId).getAuthors();
+    @DeleteMapping
+    public void deleteAllBooks() {
+        bookService.deleteAll();
+    }
+
+    @DeleteMapping
+    public void deleteBook(@RequestBody Book book) {
+        bookService.delete(book);
     }
 }

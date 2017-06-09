@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface SearchService {
 
-    List<Book> searchBooksByTitle(String title);
+    List<Book> findBooksByTitle(String title);
 
-    List<Book> searchBooksByTag(String tag);
+    List<Book> findBooksByTag(String tag);
 
-    List<Author> searchAuthorsByName(String name);
+    List<Author> findAuthorsByName(String name);
 }

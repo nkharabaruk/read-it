@@ -29,13 +29,28 @@ public class AuthorController {
         return authorService.findById(authorId);
     }
 
+    @GetMapping("/{authorId}/books")
+    public List<Book> getBooksOfAuthor(@PathVariable long authorId) {
+        return authorService.findById(authorId).getBooks();
+    }
+
+    @PostMapping
+    public List<Author> saveAuthors(@RequestBody List<Author> authors) {
+        return authorService.saveAll(authors);
+    }
+
     @PostMapping
     public Author saveAuthor(@RequestBody Author author) {
         return authorService.save(author);
     }
 
-    @GetMapping("/{authorId}/books")
-    public List<Book> getBooksOfAuthor(@PathVariable long authorId) {
-        return authorService.findById(authorId).getBooks();
+    @DeleteMapping
+    public void deleteAllAuthors() {
+        authorService.deleteAll();
+    }
+
+    @DeleteMapping
+    public void deleteAuthor(@RequestBody Author author) {
+        authorService.delete(author);
     }
 }

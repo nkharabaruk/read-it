@@ -21,7 +21,7 @@ public class FilesServiceImpl implements FilesService {
         this.env = env;
     }
 
-    public byte[] getImageByteArray(String fileName) throws IOException {
+    public byte[] findImageByteArray(String fileName) throws IOException {
         InputStream inputStream = new FileInputStream(getImagesDir() + fileName);
         byte[] fileBytes = new byte[inputStream.available()];
         inputStream.read(fileBytes);

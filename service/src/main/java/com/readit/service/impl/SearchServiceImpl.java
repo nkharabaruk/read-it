@@ -22,17 +22,17 @@ public class SearchServiceImpl implements SearchService {
         this.authorRepository = authorRepository;
     }
 
-    public List<Book> searchBooksByTitle(String title) {
+    public List<Book> findBooksByTitle(String title) {
 //        return bookRepository.getByTitle(title);
         return null;
     }
 
-    public List<Book> searchBooksByTag(String tag) {
+    public List<Book> findBooksByTag(String tag) {
 //        return bookRepository.getByTag(tag);
         return null;
     }
 
-    public List<Author> searchAuthorsByName(String name) {
+    public List<Author> findAuthorsByName(String name) {
 //        return authorRepository.getByName(name);
         return null;
     }
