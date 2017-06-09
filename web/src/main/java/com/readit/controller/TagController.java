@@ -29,11 +29,6 @@ public class TagController {
     }
 
     @PostMapping
-    public List<Tag> saveTags(@RequestBody List<Tag> tags) {
-        return tagService.saveAll(tags);
-    }
-
-    @PostMapping
     public Tag saveTag(@RequestBody Tag tag) {
         return tagService.save(tag);
     }
@@ -43,7 +38,7 @@ public class TagController {
         tagService.deleteAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{tagId}")
     public void deleteTag(@RequestBody Tag tag) {
         tagService.delete(tag);
     }

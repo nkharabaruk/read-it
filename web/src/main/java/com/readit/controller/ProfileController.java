@@ -30,11 +30,6 @@ public class ProfileController {
     }
 
     @PostMapping
-    public List<Profile> saveProfiles(@RequestBody List<Profile> profiles) {
-        return profileService.saveAll(profiles);
-    }
-
-    @PostMapping
     public Profile saveProfile(@RequestBody Profile profile) {
         return profileService.save(profile);
     }
@@ -44,7 +39,7 @@ public class ProfileController {
         profileService.deleteAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{profileId}")
     public void deleteProfile(@RequestBody Profile profile) {
         profileService.delete(profile);
     }

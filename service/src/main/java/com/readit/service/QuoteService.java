@@ -1,9 +1,11 @@
 package com.readit.service;
 
 import com.readit.entity.Quote;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface QuoteService {
 
     List<Quote> findAll();

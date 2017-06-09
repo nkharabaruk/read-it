@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"id"})
 @Table(name = "COMMENT")
 public class Comment {
 

@@ -20,6 +20,7 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -55,24 +56,110 @@ public class AuthorControllerTest {
     }
 
     @Test
-    public void saveTest() throws Exception {
-        Author result = given().contentType(ContentType.JSON).body(author)
+    public void getAllTest() throws Exception {
+        // try to get authors when they don`t exist
+        List<Author> firstGetResult = Arrays.asList(when().get(URL).then()
+                .statusCode(200).and().extract().as(Author[].class));
+        assertFalse(firstGetResult.contains(author));
+
+        // save authors
+        Author author1 = given().contentType(ContentType.JSON).body(author)
                 .when().post(URL).then()
                 .statusCode(200).and().extract().as(Author.class);
-        assertEquals(author, result);
+        Author author2 = given().contentType(ContentType.JSON).body(author)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Author.class);
+
+        // get authors
+        List<Author> secondGetResult = Arrays.asList(when().get(URL).then()
+                .statusCode(200).and().extract().as(Author[].class));
+        assertTrue(secondGetResult.contains(author1));
+        assertTrue(secondGetResult.contains(author2));
+
+        // delete authors
+        given().contentType(ContentType.JSON).body(author1)
+                .when().delete(URL).then()
+                .statusCode(200);
+        given().contentType(ContentType.JSON).body(author2)
+                .when().delete(URL).then()
+                .statusCode(200);
     }
 
     @Test
     public void getByIdTest() throws Exception {
-        Author result = when().get(URL + "/" + author.getId()).then()
+        // save author
+        Author saveResult = given().contentType(ContentType.JSON).body(author)
+                .when().post(URL).then()
                 .statusCode(200).and().extract().as(Author.class);
-        assertEquals(author, result);
+
+        // try to get author
+        Author getResult = when().get(URL + "/" + saveResult.getId()).then()
+                .statusCode(200).and().extract().as(Author.class);
+        assertEquals(saveResult, getResult);
+
+        // delete author
+        given().contentType(ContentType.JSON).body(saveResult)
+                .when().delete(URL).then()
+                .statusCode(200);
     }
 
     @Test
-    public void getAllTest() throws Exception {
-        List<Author> result = Arrays.asList(when().get(URL).then()
+    public void saveTest() throws Exception {
+        // try to save author
+        Author saveResult = given().contentType(ContentType.JSON).body(author)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Author.class);
+        assertEquals(author, saveResult);
+
+        // delete author
+        given().contentType(ContentType.JSON).body(author)
+                .when().delete(URL).then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void deleteAllTest() throws Exception {
+        // save authors
+        Author author1 = given().contentType(ContentType.JSON).body(author)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Author.class);
+        Author author2 = given().contentType(ContentType.JSON).body(author)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Author.class);
+
+        // get authors
+        List<Author> firstGetResult = Arrays.asList(when().get(URL).then()
                 .statusCode(200).and().extract().as(Author[].class));
-        assertTrue(result.contains(author));
+        assertTrue(firstGetResult.contains(author1));
+        assertTrue(firstGetResult.contains(author2));
+
+        // delete authors
+        given().contentType(ContentType.JSON).body(Arrays.asList(author, author))
+                .when().delete(URL).then()
+                .statusCode(200);
+
+        // try to get authors
+        List<Author> secondGetResult = Arrays.asList(when().get(URL).then()
+                .statusCode(200).and().extract().as(Author[].class));
+        assertFalse(secondGetResult.contains(author));
+    }
+
+    @Test
+    public void deleteTest() throws Exception {
+        // save author
+        Author saveResult = given().contentType(ContentType.JSON).body(author)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Author.class);
+        assertEquals(author, saveResult);
+
+        // delete author
+        given().contentType(ContentType.JSON).body(saveResult)
+                .when().delete(URL).then()
+                .statusCode(200);
+
+        // try to get authors
+        List<Author> getResult = Arrays.asList(when().get(URL).then()
+                .statusCode(200).and().extract().as(Author[].class));
+        assertFalse(getResult.contains(saveResult));
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"authors", "categories"})
+@EqualsAndHashCode(exclude = {"id", "authors", "categories"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "BOOK")
 public class Book {

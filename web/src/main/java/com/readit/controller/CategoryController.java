@@ -51,11 +51,6 @@ public class CategoryController {
     }
 
     @PostMapping
-    public List<Category> saveCategorys(@RequestBody List<Category> categorys) {
-        return categoryService.saveAll(categorys);
-    }
-
-    @PostMapping
     public Category saveCategory(@RequestBody Category category) {
         return categoryService.save(category);
     }
@@ -65,7 +60,7 @@ public class CategoryController {
         categoryService.deleteAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{categoryId}")
     public void deleteCategory(@RequestBody Category category) {
         categoryService.delete(category);
     }

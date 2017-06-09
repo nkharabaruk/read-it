@@ -29,21 +29,16 @@ public class SettingsController {
     }
 
     @PostMapping
-    public List<Settings> saveSettingss(@RequestBody List<Settings> settingss) {
-        return settingsService.saveAll(settingss);
-    }
-
-    @PostMapping
     public Settings saveSettings(@RequestBody Settings settings) {
         return settingsService.save(settings);
     }
 
     @DeleteMapping
-    public void deleteAllSettingss() {
+    public void deleteAllSettings() {
         settingsService.deleteAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{settingsId}")
     public void deleteSettings(@RequestBody Settings settings) {
         settingsService.delete(settings);
     }

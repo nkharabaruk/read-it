@@ -45,11 +45,6 @@ public class BookController {
     }
 
     @PostMapping
-    public List<Book> saveBooks(@RequestBody List<Book> books) {
-        return bookService.saveAll(books);
-    }
-
-    @PostMapping
     public Book saveBook(@RequestBody Book book) {
         return bookService.save(book);
     }
@@ -59,7 +54,7 @@ public class BookController {
         bookService.deleteAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{bookId}")
     public void deleteBook(@RequestBody Book book) {
         bookService.delete(book);
     }

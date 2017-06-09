@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"id"})
 @Table(name = "FILE")
 public class File {
 

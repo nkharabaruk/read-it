@@ -4,9 +4,11 @@ import com.readit.entity.Settings;
 import com.readit.repository.SettingsRepository;
 import com.readit.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SettingsServiceImpl implements SettingsService {
 
     private final SettingsRepository settingsRepository;

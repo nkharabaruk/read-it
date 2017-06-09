@@ -29,11 +29,6 @@ public class UserController {
     }
 
     @PostMapping
-    public List<User> saveUsers(@RequestBody List<User> users) {
-        return userService.saveAll(users);
-    }
-
-    @PostMapping
     public User saveUser(@RequestBody User user) {
         return userService.save(user);
     }
@@ -43,7 +38,7 @@ public class UserController {
         userService.deleteAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{userId}")
     public void deleteUser(@RequestBody User user) {
         userService.delete(user);
     }

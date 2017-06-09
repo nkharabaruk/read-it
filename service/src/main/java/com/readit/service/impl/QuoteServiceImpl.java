@@ -4,9 +4,11 @@ import com.readit.entity.Quote;
 import com.readit.repository.QuoteRepository;
 import com.readit.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class QuoteServiceImpl implements QuoteService {
 
     private final QuoteRepository quoteRepository;

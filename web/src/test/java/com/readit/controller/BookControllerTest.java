@@ -20,6 +20,7 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -53,24 +54,110 @@ public class BookControllerTest {
     }
 
     @Test
-    public void saveTest() throws Exception {
-        Book result = given().contentType(ContentType.JSON).body(book)
+    public void getAllTest() throws Exception {
+        // try to get books when they don`t exist
+        List<Book> firstGetResult = Arrays.asList(when().get(URL).then()
+                .statusCode(200).and().extract().as(Book[].class));
+        assertFalse(firstGetResult.contains(book));
+
+        // save books
+        Book book1 = given().contentType(ContentType.JSON).body(book)
                 .when().post(URL).then()
                 .statusCode(200).and().extract().as(Book.class);
-        assertEquals(book, result);
+        Book book2 = given().contentType(ContentType.JSON).body(book)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Book.class);
+
+        // get books
+        List<Book> secondGetResult = Arrays.asList(when().get(URL).then()
+                .statusCode(200).and().extract().as(Book[].class));
+        assertTrue(secondGetResult.contains(book1));
+        assertTrue(secondGetResult.contains(book2));
+
+        // delete books
+        given().contentType(ContentType.JSON).body(book1)
+                .when().delete(URL).then()
+                .statusCode(200);
+        given().contentType(ContentType.JSON).body(book2)
+                .when().delete(URL).then()
+                .statusCode(200);
     }
 
     @Test
     public void getByIdTest() throws Exception {
-        Book result = when().get(URL + "/" + book.getId()).then()
+        // save book
+        Book saveResult = given().contentType(ContentType.JSON).body(book)
+                .when().post(URL).then()
                 .statusCode(200).and().extract().as(Book.class);
-        assertEquals(book, result);
+
+        // try to get book
+        Book getResult = when().get(URL + "/" + saveResult.getId()).then()
+                .statusCode(200).and().extract().as(Book.class);
+        assertEquals(saveResult, getResult);
+
+        // delete book
+        given().contentType(ContentType.JSON).body(saveResult)
+                .when().delete(URL).then()
+                .statusCode(200);
     }
 
     @Test
-    public void getAllTest() throws Exception {
-        List<Book> result = Arrays.asList(when().get(URL).then()
+    public void saveTest() throws Exception {
+        // try to save book
+        Book saveResult = given().contentType(ContentType.JSON).body(book)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Book.class);
+        assertEquals(book, saveResult);
+
+        // delete book
+        given().contentType(ContentType.JSON).body(book)
+                .when().delete(URL).then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void deleteAllTest() throws Exception {
+        // save books
+        Book book1 = given().contentType(ContentType.JSON).body(book)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Book.class);
+        Book book2 = given().contentType(ContentType.JSON).body(book)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Book.class);
+
+        // get books
+        List<Book> firstGetResult = Arrays.asList(when().get(URL).then()
                 .statusCode(200).and().extract().as(Book[].class));
-        assertTrue(result.contains(book));
+        assertTrue(firstGetResult.contains(book1));
+        assertTrue(firstGetResult.contains(book2));
+
+        // delete books
+        given().contentType(ContentType.JSON).body(Arrays.asList(book, book))
+                .when().delete(URL).then()
+                .statusCode(200);
+
+        // try to get books
+        List<Book> secondGetResult = Arrays.asList(when().get(URL).then()
+                .statusCode(200).and().extract().as(Book[].class));
+        assertFalse(secondGetResult.contains(book));
+    }
+
+    @Test
+    public void deleteTest() throws Exception {
+        // save book
+        Book saveResult = given().contentType(ContentType.JSON).body(book)
+                .when().post(URL).then()
+                .statusCode(200).and().extract().as(Book.class);
+        assertEquals(book, saveResult);
+
+        // delete book
+        given().contentType(ContentType.JSON).body(saveResult)
+                .when().delete(URL).then()
+                .statusCode(200);
+
+        // try to get books
+        List<Book> getResult = Arrays.asList(when().get(URL).then()
+                .statusCode(200).and().extract().as(Book[].class));
+        assertFalse(getResult.contains(saveResult));
     }
 }

@@ -1,9 +1,11 @@
 package com.readit.service;
 
 import com.readit.entity.Tag;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface TagService {
 
     List<Tag> findAll();

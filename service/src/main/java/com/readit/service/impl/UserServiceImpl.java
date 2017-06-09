@@ -4,9 +4,11 @@ import com.readit.entity.User;
 import com.readit.repository.UserRepository;
 import com.readit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;

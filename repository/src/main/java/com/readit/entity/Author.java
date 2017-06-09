@@ -1,6 +1,7 @@
 package com.readit.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,12 +10,14 @@ import java.util.List;
 
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"id"})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "AUTHOR")
 public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Ignore
     private long id;
 
     private String firstName;

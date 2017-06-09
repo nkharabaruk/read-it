@@ -35,11 +35,6 @@ public class AuthorController {
     }
 
     @PostMapping
-    public List<Author> saveAuthors(@RequestBody List<Author> authors) {
-        return authorService.saveAll(authors);
-    }
-
-    @PostMapping
     public Author saveAuthor(@RequestBody Author author) {
         return authorService.save(author);
     }
@@ -49,7 +44,7 @@ public class AuthorController {
         authorService.deleteAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{authorId}")
     public void deleteAuthor(@RequestBody Author author) {
         authorService.delete(author);
     }

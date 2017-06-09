@@ -4,9 +4,11 @@ import com.readit.entity.Profile;
 import com.readit.repository.ProfileRepository;
 import com.readit.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProfileServiceImpl implements ProfileService {
 
     private final ProfileRepository profileRepository;

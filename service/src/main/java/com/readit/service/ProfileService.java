@@ -1,9 +1,11 @@
 package com.readit.service;
 
 import com.readit.entity.Profile;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface ProfileService {
 
     List<Profile> findAll();

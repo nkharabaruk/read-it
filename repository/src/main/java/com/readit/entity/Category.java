@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"id"})
 @Table(name = "CATEGORY")
 public class Category {
 

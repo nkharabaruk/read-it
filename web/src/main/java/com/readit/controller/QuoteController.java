@@ -30,11 +30,6 @@ public class QuoteController {
     }
 
     @PostMapping
-    public List<Quote> saveQuotes(@RequestBody List<Quote> quotes) {
-        return quoteService.saveAll(quotes);
-    }
-
-    @PostMapping
     public Quote saveQuote(@RequestBody Quote quote) {
         return quoteService.save(quote);
     }
@@ -44,7 +39,7 @@ public class QuoteController {
         quoteService.deleteAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{quoteId}")
     public void deleteQuote(@RequestBody Quote quote) {
         quoteService.delete(quote);
     }

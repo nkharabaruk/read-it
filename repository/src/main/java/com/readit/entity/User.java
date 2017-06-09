@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"id"})
 @Table(name = "USER")
 public class User {
 
