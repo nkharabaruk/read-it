@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/settingss")
+@RequestMapping("/settings")
 public class SettingsController {
 
     private final SettingsService settingsService;
@@ -19,7 +19,7 @@ public class SettingsController {
     }
 
     @GetMapping
-    public List<Settings> getAllSettingss() {
+    public List<Settings> getAllSettings() {
         return  settingsService.findAll();
     }
 

@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes = WebApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class AbstractControllerTest<T extends AbstractEntity> {
 
-    protected T entity;
+    T entity;
     private final Class<T> entityType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), AbstractControllerTest.class);
 
     protected abstract String getURL();
@@ -43,87 +43,87 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
     @Test
     public void getAllTest() throws Exception {
         // try to get entities when they don`t exist
-        List<T> firstGetResult = getEntities();
+        List<T> firstGetResult = getAll();
         assertFalse(firstGetResult.contains(entity));
 
-        T entity1 = saveEntity(entity);
-        T entity2 = saveEntity(entity);
+        T entity1 = save(entity);
+        T entity2 = save(entity);
 
-        List<T> secondGetResult = getEntities();
+        List<T> secondGetResult = getAll();
         assertTrue(secondGetResult.contains(entity1));
         assertTrue(secondGetResult.contains(entity2));
 
-        deleteEntity(entity1, entity2);
+        delete(entity1, entity2);
     }
 
     @Test
     public void getByIdTest() throws Exception {
-        T saveResult = saveEntity(entity);
+        T saveResult = save(entity);
 
-        T getResult = getEntity(saveResult);
+        T getResult = get(saveResult);
         assertEquals(saveResult, getResult);
 
-        deleteEntity(saveResult);
+        delete(saveResult);
     }
 
     @Test
     public void saveTest() throws Exception {
-        T saveResult = saveEntity(entity);
+        T saveResult = save(entity);
         assertEquals(entity, saveResult);
 
-        deleteEntity(saveResult);
+        delete(saveResult);
     }
 
     @Test
     public void deleteAllTest() throws Exception {
-        T entity1 = saveEntity(entity);
-        T entity2 = saveEntity(entity);
+        T entity1 = save(entity);
+        T entity2 = save(entity);
 
-        List<T> firstGetResult = Arrays.asList(getEntity(entity1), getEntity(entity2));
+        List<T> firstGetResult = Arrays.asList(get(entity1), get(entity2));
         assertTrue(firstGetResult.contains(entity1));
         assertTrue(firstGetResult.contains(entity2));
 
-        deleteEntity(entity1, entity2);
+        delete(entity1, entity2);
 
-        List<T> secondGetResult = getEntities();
+        List<T> secondGetResult = getAll();
         assertFalse(secondGetResult.contains(entity1));
         assertFalse(secondGetResult.contains(entity2));
     }
 
     @Test
     public void deleteTest() throws Exception {
-        T saveResult = saveEntity(entity);
+        T saveResult = save(entity);
         assertEquals(entity, saveResult);
 
-        deleteEntity(saveResult);
+        delete(saveResult);
 
-        List<T> getResult = getEntities();
+        List<T> getResult = getAll();
         assertFalse(getResult.contains(saveResult));
     }
 
-    private List<T> getEntities() {
+    private List<T> getAll() {
         return Arrays.asList((T[]) when().get(getURL()).then()
                 .statusCode(200).and().extract().as(((T[]) Array.newInstance(entityType, 0)).getClass()));
     }
 
-    private T getEntity(T entity) throws ClassNotFoundException {
+    private T get(T entity) throws ClassNotFoundException {
         return when().get(getURL() + "/" + entity.getId()).then()
                 .statusCode(200).and().extract().as(entityType);
     }
 
-    private T saveEntity(T entity) throws ClassNotFoundException {
+    private T save(T entity) throws ClassNotFoundException {
         return given().contentType(ContentType.JSON).body(entity)
                 .when().post(getURL()).then()
                 .statusCode(200).and().extract().as(entityType);
     }
 
-    private void deleteEntity(T... entities) {
+    private void delete(T... entities) {
         given().contentType(ContentType.JSON).body(Arrays.asList(entities))
                 .when().delete(getURL() + "/all").then()
                 .statusCode(200);
     }
 
-    private void deleteEntity(T entity) {
+    private void delete(T entity) {
         given().contentType(ContentType.JSON).body(entity)
                 .when().delete(getURL()).then()
                 .statusCode(200);

@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "SETTINGS")
-
 public class Settings extends AbstractEntity {
 
     private boolean notificationAboutNewComment;
