@@ -6,13 +6,9 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"id"})
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "QUOTE")
-public class Quote {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Quote extends AbstractEntity {
 
     private String text;
 

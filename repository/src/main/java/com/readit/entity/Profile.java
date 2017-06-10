@@ -7,13 +7,9 @@ import java.util.List;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"id"})
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "PROFILE")
-public class Profile {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Profile extends AbstractEntity {
 
     @OneToMany
     @JoinTable(name = "PROFILE_WANT_TO_READ",

@@ -9,13 +9,9 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"id"})
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "USER")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class User extends AbstractEntity {
 
     private String password;
 

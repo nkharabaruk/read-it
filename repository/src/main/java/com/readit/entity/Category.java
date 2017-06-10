@@ -7,13 +7,9 @@ import java.util.List;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"id"})
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "CATEGORY")
-public class Category {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Category extends AbstractEntity {
 
     private String name;
 

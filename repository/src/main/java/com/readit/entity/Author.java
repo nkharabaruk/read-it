@@ -1,6 +1,5 @@
 package com.readit.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,14 +8,9 @@ import java.util.List;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"id"})
-@JsonIgnoreProperties(ignoreUnknown = true)
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "AUTHOR")
-public class Author {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Author extends AbstractEntity {
 
     private String firstName;
     private String lastName;

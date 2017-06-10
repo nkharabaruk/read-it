@@ -7,13 +7,9 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"id"})
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "FILE")
-public class File {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class File extends AbstractEntity {
 
     private String path;
 

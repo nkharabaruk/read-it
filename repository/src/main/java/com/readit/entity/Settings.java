@@ -6,14 +6,10 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"id"})
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "SETTINGS")
 
-public class Settings {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Settings extends AbstractEntity {
 
     private boolean notificationAboutNewComment;
     private boolean notificationAboutNewBook;

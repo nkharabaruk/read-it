@@ -1,8 +1,8 @@
 package com.readit.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.Year;
@@ -10,14 +10,9 @@ import java.util.List;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"id", "authors", "categories"})
-@JsonIgnoreProperties(ignoreUnknown = true)
+@EqualsAndHashCode(callSuper = false, exclude = {"authors", "categories"})
 @Table(name = "BOOK")
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Book extends AbstractEntity {
 
     private String title;
     private Year yearOfRelease;
