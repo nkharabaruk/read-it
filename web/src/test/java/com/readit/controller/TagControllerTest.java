@@ -11,10 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = WebApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TagControllerTest extends AbstractControllerTest<Tag> {
 
-    public TagControllerTest() {
-        super();
-    }
-
     @Override
     protected String getURL() {
         return "/tags";
@@ -25,9 +21,6 @@ public class TagControllerTest extends AbstractControllerTest<Tag> {
         super.setUp();
 
         entity = new Tag();
-
-        // assume that db is empty
-        entity.setId(1L);
         entity.setTitle("Книги 2017");
         entity.setCount(7);
     }

@@ -21,7 +21,7 @@ public class AuthorController {
 
     @GetMapping
     public List<Author> getAllAuthors() {
-        return  authorService.findAll();
+        return authorService.findAll();
     }
 
     @GetMapping("/{authorId}")

@@ -14,10 +14,6 @@ import java.util.ArrayList;
 @SpringBootTest(classes = WebApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BookControllerTest extends AbstractControllerTest<Book> {
 
-    public BookControllerTest() {
-        super();
-    }
-
     @Override
     protected String getURL() {
         return "/books";
@@ -28,13 +24,9 @@ public class BookControllerTest extends AbstractControllerTest<Book> {
         super.setUp();
 
         entity = new Book();
-
-        // assume that db is empty
         entity.setTitle("Кобзар");
         entity.setDescription("Збірка поетичних творів Тараса Григоровича Шевченка");
         entity.setYearOfRelease(Year.of(1840));
-
-        // initialized to prevent null-[] comparing problems
         entity.setAuthors(new ArrayList<>());
         entity.setCategories(new ArrayList<>());
         entity.setTags(new ArrayList<>());

@@ -1,7 +1,6 @@
 package com.readit.controller;
 
 import com.readit.entity.Quote;
-import com.readit.entity.Book;
 import com.readit.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ public class QuoteController {
 
     @GetMapping
     public List<Quote> getAllQuotes() {
-        return  quoteService.findAll();
+        return quoteService.findAll();
     }
 
     @GetMapping("/{quoteId}")

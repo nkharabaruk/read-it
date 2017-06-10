@@ -6,8 +6,6 @@ import com.readit.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 public class CategoryController {
 
@@ -24,7 +22,7 @@ public class CategoryController {
     public String getAllCategories() throws JsonProcessingException {
         return jsonFilter.processObject(categoryService.findAll(), "parent");
     }
-    
+
     @GetMapping("/getRootCategories")
     public String getRootCategories() throws JsonProcessingException {
         return jsonFilter.processObject(categoryService.findRootCategories(), "parent");

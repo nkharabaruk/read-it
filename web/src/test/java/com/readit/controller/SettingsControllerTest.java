@@ -11,10 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = WebApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SettingsControllerTest extends AbstractControllerTest<Settings> {
 
-    public SettingsControllerTest() {
-        super();
-    }
-
     @Override
     protected String getURL() {
         return "/settings";
@@ -25,9 +21,6 @@ public class SettingsControllerTest extends AbstractControllerTest<Settings> {
         super.setUp();
 
         entity = new Settings();
-
-        // assume that db is empty
-        entity.setId(1L);
         entity.setNotificationAboutNewBook(true);
         entity.setNotificationAboutNewComment(false);
     }

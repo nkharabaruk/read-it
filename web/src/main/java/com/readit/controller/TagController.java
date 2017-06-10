@@ -20,7 +20,7 @@ public class TagController {
 
     @GetMapping
     public List<Tag> getAllTags() {
-        return  tagService.findAll();
+        return tagService.findAll();
     }
 
     @GetMapping("/{tagId}")

@@ -20,7 +20,7 @@ public class SettingsController {
 
     @GetMapping
     public List<Settings> getAllSettings() {
-        return  settingsService.findAll();
+        return settingsService.findAll();
     }
 
     @GetMapping("/{settingsId}")

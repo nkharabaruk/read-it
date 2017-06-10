@@ -1,7 +1,6 @@
 package com.readit.controller;
 
 import com.readit.entity.Profile;
-import com.readit.entity.Book;
 import com.readit.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ public class ProfileController {
 
     @GetMapping
     public List<Profile> getAllProfiles() {
-        return  profileService.findAll();
+        return profileService.findAll();
     }
 
     @GetMapping("/{profileId}")

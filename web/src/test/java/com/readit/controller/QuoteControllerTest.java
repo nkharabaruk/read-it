@@ -11,10 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = WebApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class QuoteControllerTest extends AbstractControllerTest<Quote> {
 
-    public QuoteControllerTest() {
-        super();
-    }
-
     @Override
     protected String getURL() {
         return "/quotes";
@@ -25,8 +21,6 @@ public class QuoteControllerTest extends AbstractControllerTest<Quote> {
         super.setUp();
 
         entity = new Quote();
-
-        // assume that db is empty
         entity.setId(1L);
         entity.setBook(null);
         entity.setBackground(null);

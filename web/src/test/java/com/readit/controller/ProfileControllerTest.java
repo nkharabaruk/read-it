@@ -13,10 +13,6 @@ import java.util.ArrayList;
 @SpringBootTest(classes = WebApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProfileControllerTest extends AbstractControllerTest<Profile> {
 
-    public ProfileControllerTest() {
-        super();
-    }
-
     @Override
     protected String getURL() {
         return "/profiles";
@@ -27,12 +23,7 @@ public class ProfileControllerTest extends AbstractControllerTest<Profile> {
         super.setUp();
 
         entity = new Profile();
-
-        // assume that db is empty
-        entity.setId(1L);
         entity.setSettings(null);
-
-        // initialized to prevent null-[] comparing problems
         entity.setWasRead(new ArrayList<>());
         entity.setIsReading(new ArrayList<>());
         entity.setWantToRead(new ArrayList<>());
