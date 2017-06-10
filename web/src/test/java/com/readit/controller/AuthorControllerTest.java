@@ -30,7 +30,6 @@ public class AuthorControllerTest extends AbstractControllerTest<Author> {
         entity.setDateOfBirth(LocalDate.of(1814, 3, 9));
         entity.setDateOfDeath(LocalDate.of(1861, 3, 10));
         entity.setBiography("Народився в селі Моринці");
-        entity.setBooks(new ArrayList<>());
         entity.setFiles(new ArrayList<>());
     }
 }

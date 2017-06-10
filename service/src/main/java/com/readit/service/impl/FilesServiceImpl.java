@@ -2,6 +2,7 @@ package com.readit.service.impl;
 
 import com.readit.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -11,15 +12,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
-@PropertySource(value = "classpath:db.properties")
 public class FilesServiceImpl implements FilesService {
 
-    private final Environment env;
-
-    @Autowired
-    public FilesServiceImpl(Environment env) {
-        this.env = env;
-    }
+    @Value("${images.path}")
+    private String imagesPath;
 
     public byte[] findImageByteArray(String fileName) throws IOException {
         InputStream inputStream = new FileInputStream(getImagesDir() + fileName);
@@ -36,7 +32,7 @@ public class FilesServiceImpl implements FilesService {
         if (getDataDir() != null) {
             return getDataDir() + "/images/";
         } else {
-            return env.getProperty("images.path");
+            return imagesPath;
         }
     }
 }

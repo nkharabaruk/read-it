@@ -1,5 +1,6 @@
 package com.readit.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Author extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "file_id", referencedColumnName = "id"))
     private List<File> files;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "BOOK_AUTHOR",
             joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
