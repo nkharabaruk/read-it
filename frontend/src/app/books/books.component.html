@@ -1,0 +1,11 @@
+<table>
+  <tr *ngFor="let book of books | async">
+    <td>{{book.title}}</td>
+    <td>{{book.description}}</td>
+    <td>
+      <span *ngFor="let author of book.authors">
+        {{author.firstName + ' ' + author.middleName + ' ' + author.lastName}}&nbsp;
+      </span>
+    </td>
+  </tr>
+</table>
