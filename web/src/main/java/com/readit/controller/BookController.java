@@ -1,8 +1,12 @@
 package com.readit.controller;
 
+import com.readit.controller.exception.AlreadyExistsException;
+import com.readit.controller.exception.NotFoundException;
 import com.readit.entity.Author;
 import com.readit.entity.Book;
 import com.readit.service.BookService;
+import com.readit.service.exception.BookAlreadyExistsException;
+import com.readit.service.exception.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,17 +38,29 @@ public class BookController {
 
     @GetMapping("/{bookId}")
     public Book getBookById(@PathVariable long bookId) {
-        return bookService.findById(bookId);
+        try {
+            return bookService.findById(bookId);
+        } catch (BookNotFoundException e) {
+            throw new NotFoundException("Book doesn`t exist.");
+        }
     }
 
     @GetMapping("/{bookId}/authors")
     public List<Author> getAuthorsOfBook(@PathVariable long bookId) {
-        return bookService.findById(bookId).getAuthors();
+        try {
+            return bookService.findById(bookId).getAuthors();
+        } catch (BookNotFoundException e) {
+            throw new NotFoundException("Book doesn`t exist.");
+        }
     }
 
     @PostMapping
     public Book saveBook(@RequestBody Book book) {
-        return bookService.save(book);
+        try {
+            return bookService.save(book);
+        } catch (BookAlreadyExistsException e) {
+            throw new AlreadyExistsException("Book already exist.");
+        }
     }
 
     @DeleteMapping("/all")
@@ -54,6 +70,10 @@ public class BookController {
 
     @DeleteMapping
     public void deleteBook(@RequestBody Book book) {
-        bookService.delete(book);
+        try {
+            bookService.delete(book);
+        } catch (BookNotFoundException e) {
+            throw new NotFoundException("Cannot delete not existing book.");
+        }
     }
 }

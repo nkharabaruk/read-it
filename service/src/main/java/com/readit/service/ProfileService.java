@@ -1,7 +1,8 @@
 package com.readit.service;
 
 import com.readit.entity.Profile;
-import org.springframework.stereotype.Service;
+import com.readit.service.exception.ProfileAlreadyExistsException;
+import com.readit.service.exception.ProfileNotFoundException;
 
 import java.util.List;
 
@@ -9,13 +10,13 @@ public interface ProfileService {
 
     List<Profile> findAll();
 
-    Profile findById(long id);
+    Profile findById(long id) throws ProfileNotFoundException;
 
     List<Profile> saveAll(List<Profile> list);
 
-    Profile save(Profile profile);
+    Profile save(Profile profile) throws ProfileAlreadyExistsException;
 
     void deleteAll();
 
-    void delete(Profile profile);
+    void delete(Profile profile) throws ProfileNotFoundException;
 }

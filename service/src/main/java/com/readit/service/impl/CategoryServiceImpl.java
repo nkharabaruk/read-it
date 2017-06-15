@@ -4,6 +4,8 @@ import com.readit.entity.Category;
 import com.readit.repository.BookRepository;
 import com.readit.repository.CategoryRepository;
 import com.readit.service.CategoryService;
+import com.readit.service.exception.CategoryAlreadyExistsException;
+import com.readit.service.exception.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +28,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category findById(long id) {
-        return categoryRepository.findOne(id);
+    public Category findById(long id) throws CategoryNotFoundException {
+        Category category = categoryRepository.findOne(id);
+        if (category == null) {
+            throw new CategoryNotFoundException();
+        } else {
+            return category;
+        }
     }
 
     /**
@@ -66,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
         return null;
     }
 
-    public List<Category> findAscendants(long id) {
+    public List<Category> findAscendants(long id) throws CategoryNotFoundException {
         List<Category> parents = new ArrayList<>();
         Category child = findById(id);
         while (child.getParent() != null) {
@@ -77,7 +84,7 @@ public class CategoryServiceImpl implements CategoryService {
         return parents;
     }
 
-    public List<Category> findDescendants(long id) {
+    public List<Category> findDescendants(long id) throws CategoryNotFoundException {
         List<Category> children = new ArrayList<>();
         children.addAll(findById(id).getChildren());
         boolean repeat = true;
@@ -101,8 +108,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category save(Category category) {
-        return categoryRepository.save(category);
+    public Category save(Category category) throws CategoryAlreadyExistsException {
+        if (categoryRepository.findByName(category.getName()).get(0).equals(category)) {
+            throw new CategoryAlreadyExistsException();
+        } else {
+            return categoryRepository.save(category);
+        }
     }
 
     @Override
@@ -111,7 +122,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(Category category) {
-        categoryRepository.delete(category);
+    public void delete(Category category) throws CategoryNotFoundException {
+        if (categoryRepository.findOne(category.getId()) != null) {
+            categoryRepository.delete(category);
+        } else {
+            throw new CategoryNotFoundException();
+        }
     }
 }

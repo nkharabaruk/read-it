@@ -1,8 +1,12 @@
 package com.readit.controller;
 
+import com.readit.controller.exception.AlreadyExistsException;
+import com.readit.controller.exception.NotFoundException;
 import com.readit.entity.Author;
 import com.readit.entity.Book;
 import com.readit.service.AuthorService;
+import com.readit.service.exception.AuthorAlreadyExistsException;
+import com.readit.service.exception.AuthorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,17 +30,30 @@ public class AuthorController {
 
     @GetMapping("/{authorId}")
     public Author getAuthorById(@PathVariable long authorId) {
-        return authorService.findById(authorId);
+        try {
+            return authorService.findById(authorId);
+        } catch (AuthorNotFoundException e) {
+            //TODO: add logger
+            throw new NotFoundException("Author is not found.");
+        }
     }
 
     @GetMapping("/{authorId}/books")
     public List<Book> getBooksOfAuthor(@PathVariable long authorId) {
-        return authorService.findById(authorId).getBooks();
+        try {
+            return authorService.findById(authorId).getBooks();
+        } catch (AuthorNotFoundException e) {
+            throw new NotFoundException("No such author.");
+        }
     }
 
     @PostMapping
     public Author saveAuthor(@RequestBody Author author) {
-        return authorService.save(author);
+        try {
+            return authorService.save(author);
+        } catch (AuthorAlreadyExistsException e) {
+            throw new AlreadyExistsException("Author already exist.");
+        }
     }
 
     @DeleteMapping("/all")
@@ -46,6 +63,10 @@ public class AuthorController {
 
     @DeleteMapping
     public void deleteAuthor(@RequestBody Author author) {
-        authorService.delete(author);
+        try {
+            authorService.delete(author);
+        } catch (AuthorNotFoundException e) {
+            throw new NotFoundException("Cannot delete not existing author.");
+        }
     }
 }

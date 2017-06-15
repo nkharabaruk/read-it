@@ -4,12 +4,14 @@ import com.readit.entity.Book;
 import com.readit.repository.BookRepository;
 import com.readit.service.BookService;
 import com.readit.service.CategoryService;
+import com.readit.service.exception.BookAlreadyExistsException;
+import com.readit.service.exception.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -32,8 +34,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book findById(long id) {
-        return bookRepository.findOne(id);
+    public Book findById(long id) throws BookNotFoundException {
+        Book book = bookRepository.findOne(id);
+        if (book == null) {
+            throw new BookNotFoundException();
+        } else {
+            return book;
+        }
     }
 
     @Override
@@ -42,8 +49,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book save(Book book) {
-        return bookRepository.save(book);
+    public Book save(Book book) throws BookAlreadyExistsException {
+        if (bookRepository.findByTitleAndYearOfRelease(book.getTitle(), book.getYearOfRelease()).get(0).equals(book)) {
+            throw new BookAlreadyExistsException();
+        } else {
+            return bookRepository.save(book);
+        }
     }
 
     @Override
@@ -52,7 +63,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(Book book) {
-        bookRepository.delete(book);
+    public void delete(Book book) throws BookNotFoundException {
+        if (bookRepository.findOne(book.getId()) != null) {
+            bookRepository.delete(book);
+        } else {
+            throw new BookNotFoundException();
+        }
     }
 }

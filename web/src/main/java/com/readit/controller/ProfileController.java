@@ -1,7 +1,11 @@
 package com.readit.controller;
 
+import com.readit.controller.exception.AlreadyExistsException;
+import com.readit.controller.exception.NotFoundException;
 import com.readit.entity.Profile;
 import com.readit.service.ProfileService;
+import com.readit.service.exception.ProfileAlreadyExistsException;
+import com.readit.service.exception.ProfileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +29,20 @@ public class ProfileController {
 
     @GetMapping("/{profileId}")
     public Profile getProfileById(@PathVariable long profileId) {
-        return profileService.findById(profileId);
+        try {
+            return profileService.findById(profileId);
+        } catch (ProfileNotFoundException e) {
+            throw new NotFoundException("Profile doesn`t exist.");
+        }
     }
 
     @PostMapping
     public Profile saveProfile(@RequestBody Profile profile) {
-        return profileService.save(profile);
+        try {
+            return profileService.save(profile);
+        } catch (ProfileAlreadyExistsException e) {
+            throw new AlreadyExistsException("Profile already exist.");
+        }
     }
 
     @DeleteMapping("/all")
@@ -40,6 +52,10 @@ public class ProfileController {
 
     @DeleteMapping
     public void deleteProfile(@RequestBody Profile profile) {
-        profileService.delete(profile);
+        try {
+            profileService.delete(profile);
+        } catch (ProfileNotFoundException e) {
+            throw new NotFoundException("Profile doesn`t exist.");
+        }
     }
 }

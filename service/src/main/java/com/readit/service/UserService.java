@@ -1,7 +1,6 @@
 package com.readit.service;
 
 import com.readit.entity.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

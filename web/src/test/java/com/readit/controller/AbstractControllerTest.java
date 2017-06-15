@@ -1,6 +1,7 @@
 package com.readit.controller;
 
 import com.readit.WebApplication;
+import com.readit.controller.exception.NotFoundException;
 import com.readit.entity.AbstractEntity;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -57,17 +58,23 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
     }
 
     @Test
-    public void getByIdTest() throws Exception {
+    public void getByIdTest() {
+        Exception exceptionResult = getNotExisting(entity);
+        assertEquals(exceptionResult.getClass(), NotFoundException.class);
+        assertTrue(exceptionResult instanceof NotFoundException);
+
         T saveResult = save(entity);
 
-        T getResult = get(saveResult);
-        assertEquals(saveResult, getResult);
+        T getResult2 = get(saveResult);
+        assertEquals(saveResult, getResult2);
 
         delete(saveResult);
     }
 
     @Test
     public void saveTest() throws Exception {
+        // TODO: add saveNotExisting test
+
         T saveResult = save(entity);
         assertEquals(entity, saveResult);
 
@@ -91,7 +98,11 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
     }
 
     @Test
-    public void deleteTest() throws Exception {
+    public void deleteTest() {
+        Exception exceptionResult = deleteNotExisting(entity);
+        assertEquals(exceptionResult.getClass(), NotFoundException.class);
+        assertTrue(exceptionResult instanceof NotFoundException);
+
         T saveResult = save(entity);
         assertEquals(entity, saveResult);
 
@@ -106,12 +117,17 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
                 .statusCode(200).and().extract().as(((T[]) Array.newInstance(entityType, 0)).getClass()));
     }
 
-    private T get(T entity) throws ClassNotFoundException {
+    private T get(T entity) {
         return when().get(getURL() + "/" + entity.getId()).then()
                 .statusCode(200).and().extract().as(entityType);
     }
 
-    private T save(T entity) throws ClassNotFoundException {
+    private NotFoundException getNotExisting(T entity) {
+        return when().get(getURL() + "/" + entity.getId()).then()
+                .statusCode(404).and().extract().as(NotFoundException.class);
+    }
+
+    private T save(T entity) {
         return given().contentType(ContentType.JSON).body(entity)
                 .when().post(getURL()).then()
                 .statusCode(200).and().extract().as(entityType);
@@ -127,5 +143,12 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
         given().contentType(ContentType.JSON).body(entity)
                 .when().delete(getURL()).then()
                 .statusCode(200);
+    }
+
+    // TODO: fix this
+    private NotFoundException deleteNotExisting(T entity) {
+        return given().contentType(ContentType.JSON).body(entity)
+                .when().delete(getURL()).then()
+                .statusCode(404).and().extract().as(NotFoundException.class);
     }
 }

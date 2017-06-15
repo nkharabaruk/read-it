@@ -3,6 +3,7 @@ package com.readit.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.Year;
@@ -10,7 +11,8 @@ import java.util.List;
 
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = false, exclude = {"authors", "categories"})
+@ToString(exclude = {"authors", "categories", "tags"})
+@EqualsAndHashCode(callSuper = false, exclude = {"authors", "categories", "tags"})
 @Table(name = "BOOK")
 public class Book extends AbstractEntity {
 

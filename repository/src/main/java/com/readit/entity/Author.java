@@ -9,7 +9,8 @@ import java.util.List;
 
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = false)
+@ToString(exclude={"books","files"})
+@EqualsAndHashCode(callSuper = false, exclude = {"files","books"})
 @Table(name = "AUTHOR")
 public class Author extends AbstractEntity {
 

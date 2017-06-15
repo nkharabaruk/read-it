@@ -2,8 +2,9 @@ package com.readit.service.impl;
 
 import com.readit.entity.Author;
 import com.readit.repository.AuthorRepository;
-
 import com.readit.service.AuthorService;
+import com.readit.service.exception.AuthorAlreadyExistsException;
+import com.readit.service.exception.AuthorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author findById(long id) {
-        return authorRepository.findOne(id);
+    public Author findById(long id) throws AuthorNotFoundException {
+        Author author = authorRepository.findOne(id);
+        if (author == null) {
+            throw new AuthorNotFoundException();
+        } else {
+            return author;
+        }
     }
 
     @Override
@@ -33,8 +39,12 @@ public class AuthorServiceImpl implements AuthorService {
         return authorRepository.save(list);
     }
 
-    public Author save(Author author) {
-        return authorRepository.save(author);
+    public Author save(Author author) throws AuthorAlreadyExistsException {
+        if (authorRepository.findByFirstNameAndLastName(author.getFirstName(), author.getLastName()).get(0).equals(author)) {
+            throw new AuthorAlreadyExistsException();
+        } else {
+            return authorRepository.save(author);
+        }
     }
 
     @Override
@@ -43,7 +53,11 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void delete(Author author) {
-        authorRepository.delete(author);
+    public void delete(Author author) throws AuthorNotFoundException {
+        if (authorRepository.findOne(author.getId()) != null) {
+            authorRepository.delete(author);
+        } else {
+            throw new AuthorNotFoundException();
+        }
     }
 }
