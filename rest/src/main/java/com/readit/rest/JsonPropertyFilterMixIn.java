@@ -1,4 +1,4 @@
-package com.readit.controller;
+package com.readit.rest;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.core.JsonProcessingException;

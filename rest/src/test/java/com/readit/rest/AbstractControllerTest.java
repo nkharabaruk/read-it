@@ -1,7 +1,7 @@
-package com.readit.controller;
+package com.readit.rest;
 
 import com.readit.WebApplication;
-import com.readit.controller.exception.NotFoundException;
+import com.readit.rest.exception.NotFoundException;
 import com.readit.entity.AbstractEntity;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;

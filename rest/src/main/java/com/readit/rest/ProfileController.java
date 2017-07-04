@@ -1,7 +1,7 @@
-package com.readit.controller;
+package com.readit.rest;
 
-import com.readit.controller.exception.AlreadyExistsException;
-import com.readit.controller.exception.NotFoundException;
+import com.readit.rest.exception.AlreadyExistsException;
+import com.readit.rest.exception.NotFoundException;
 import com.readit.entity.Profile;
 import com.readit.service.ProfileService;
 import com.readit.service.exception.ProfileAlreadyExistsException;
