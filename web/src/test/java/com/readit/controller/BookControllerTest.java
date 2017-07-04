@@ -16,7 +16,7 @@ public class BookControllerTest extends AbstractControllerTest<Book> {
 
     @Override
     protected String getURL() {
-        return "/books";
+        return "/rest/books";
     }
 
     @Before

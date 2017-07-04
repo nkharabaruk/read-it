@@ -13,7 +13,7 @@ public class TagControllerTest extends AbstractControllerTest<Tag> {
 
     @Override
     protected String getURL() {
-        return "/tags";
+        return "/rest/tags";
     }
 
     @Before

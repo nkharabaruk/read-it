@@ -13,7 +13,7 @@ public class UserControllerTest extends AbstractControllerTest<User> {
 
     @Override
     protected String getURL() {
-        return "/users";
+        return "/rest/users";
     }
 
     @Before

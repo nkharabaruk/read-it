@@ -13,7 +13,7 @@ public class SettingsControllerTest extends AbstractControllerTest<Settings> {
 
     @Override
     protected String getURL() {
-        return "/settings";
+        return "/rest/settings";
     }
 
     @Before

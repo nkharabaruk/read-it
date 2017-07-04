@@ -16,7 +16,7 @@ public class AuthorControllerTest extends AbstractControllerTest<Author> {
 
     @Override
     protected String getURL() {
-        return "/authors";
+        return "/rest/authors";
     }
 
     @Before

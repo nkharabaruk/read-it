@@ -17,7 +17,7 @@ public class CategoryControllerTest extends AbstractControllerTest<Category> {
 
     @Override
     protected String getURL() {
-        return "/categories";
+        return "/rest/categories";
     }
 
     @Before

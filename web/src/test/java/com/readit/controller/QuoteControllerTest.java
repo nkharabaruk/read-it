@@ -13,7 +13,7 @@ public class QuoteControllerTest extends AbstractControllerTest<Quote> {
 
     @Override
     protected String getURL() {
-        return "/quotes";
+        return "/rest/quotes";
     }
 
     @Before

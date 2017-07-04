@@ -15,7 +15,7 @@ public class ProfileControllerTest extends AbstractControllerTest<Profile> {
 
     @Override
     protected String getURL() {
-        return "/profiles";
+        return "/rest/profiles";
     }
 
     @Before
