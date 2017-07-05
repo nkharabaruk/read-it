@@ -1,5 +1,5 @@
 package com.readit.service.exception;
 
-public class BookNotFoundException extends Exception {
+public class BookNotFoundException extends NotFoundException {
     
 }

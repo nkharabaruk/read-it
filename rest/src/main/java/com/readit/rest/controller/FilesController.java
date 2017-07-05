@@ -1,4 +1,4 @@
-package com.readit.rest;
+package com.readit.rest.controller;
 
 import com.readit.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.readit.rest;
+package com.readit.rest.controller;
 
 import com.readit.entity.User;
 import com.readit.service.UserService;

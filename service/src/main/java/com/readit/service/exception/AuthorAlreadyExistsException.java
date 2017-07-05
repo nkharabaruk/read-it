@@ -1,5 +1,5 @@
 package com.readit.service.exception;
 
-public class AuthorAlreadyExistsException extends Exception {
+public class AuthorAlreadyExistsException extends AlreadyExistsException {
     
 }

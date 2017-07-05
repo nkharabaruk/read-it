@@ -1,4 +1,4 @@
-package com.readit.rest;
+package com.readit.rest.controller;
 
 import com.readit.entity.Author;
 import com.readit.entity.Book;

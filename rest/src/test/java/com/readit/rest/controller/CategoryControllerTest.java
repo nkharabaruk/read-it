@@ -1,7 +1,7 @@
-package com.readit.rest;
+package com.readit.rest.controller;
 
-import com.readit.WebApplication;
 import com.readit.entity.Category;
+import com.readit.rest.RestApplication;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = WebApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = RestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CategoryControllerTest extends AbstractControllerTest<Category> {
 
     @Override

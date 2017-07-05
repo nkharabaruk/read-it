@@ -1,7 +1,5 @@
-package com.readit.rest;
+package com.readit.rest.controller;
 
-import com.readit.rest.exception.AlreadyExistsException;
-import com.readit.rest.exception.NotFoundException;
 import com.readit.entity.Author;
 import com.readit.entity.Book;
 import com.readit.service.BookService;
@@ -37,30 +35,18 @@ public class BookController {
     }
 
     @GetMapping("/{bookId}")
-    public Book getBookById(@PathVariable long bookId) {
-        try {
-            return bookService.findById(bookId);
-        } catch (BookNotFoundException e) {
-            throw new NotFoundException("Book doesn`t exist.");
-        }
+    public Book getBookById(@PathVariable long bookId) throws BookNotFoundException {
+        return bookService.findById(bookId);
     }
 
     @GetMapping("/{bookId}/authors")
-    public List<Author> getAuthorsOfBook(@PathVariable long bookId) {
-        try {
-            return bookService.findById(bookId).getAuthors();
-        } catch (BookNotFoundException e) {
-            throw new NotFoundException("Book doesn`t exist.");
-        }
+    public List<Author> getAuthorsOfBook(@PathVariable long bookId) throws BookNotFoundException {
+        return bookService.findById(bookId).getAuthors();
     }
 
     @PostMapping
-    public Book saveBook(@RequestBody Book book) {
-        try {
-            return bookService.save(book);
-        } catch (BookAlreadyExistsException e) {
-            throw new AlreadyExistsException("Book already exist.");
-        }
+    public Book saveBook(@RequestBody Book book) throws BookAlreadyExistsException {
+        return bookService.save(book);
     }
 
     @DeleteMapping("/all")
@@ -69,11 +55,7 @@ public class BookController {
     }
 
     @DeleteMapping
-    public void deleteBook(@RequestBody Book book) {
-        try {
-            bookService.delete(book);
-        } catch (BookNotFoundException e) {
-            throw new NotFoundException("Cannot delete not existing book.");
-        }
+    public void deleteBook(@RequestBody Book book) throws BookNotFoundException {
+        bookService.delete(book);
     }
 }

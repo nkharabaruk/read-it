@@ -1,7 +1,5 @@
-package com.readit.rest;
+package com.readit.rest.controller;
 
-import com.readit.rest.exception.AlreadyExistsException;
-import com.readit.rest.exception.NotFoundException;
 import com.readit.entity.Profile;
 import com.readit.service.ProfileService;
 import com.readit.service.exception.ProfileAlreadyExistsException;
@@ -28,21 +26,13 @@ public class ProfileController {
     }
 
     @GetMapping("/{profileId}")
-    public Profile getProfileById(@PathVariable long profileId) {
-        try {
-            return profileService.findById(profileId);
-        } catch (ProfileNotFoundException e) {
-            throw new NotFoundException("Profile doesn`t exist.");
-        }
+    public Profile getProfileById(@PathVariable long profileId) throws ProfileNotFoundException {
+        return profileService.findById(profileId);
     }
 
     @PostMapping
-    public Profile saveProfile(@RequestBody Profile profile) {
-        try {
-            return profileService.save(profile);
-        } catch (ProfileAlreadyExistsException e) {
-            throw new AlreadyExistsException("Profile already exist.");
-        }
+    public Profile saveProfile(@RequestBody Profile profile) throws ProfileAlreadyExistsException {
+        return profileService.save(profile);
     }
 
     @DeleteMapping("/all")
@@ -51,11 +41,7 @@ public class ProfileController {
     }
 
     @DeleteMapping
-    public void deleteProfile(@RequestBody Profile profile) {
-        try {
-            profileService.delete(profile);
-        } catch (ProfileNotFoundException e) {
-            throw new NotFoundException("Profile doesn`t exist.");
-        }
+    public void deleteProfile(@RequestBody Profile profile) throws ProfileNotFoundException {
+        profileService.delete(profile);
     }
 }

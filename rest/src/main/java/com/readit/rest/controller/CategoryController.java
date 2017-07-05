@@ -1,9 +1,8 @@
-package com.readit.rest;
+package com.readit.rest.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.readit.rest.exception.AlreadyExistsException;
-import com.readit.rest.exception.NotFoundException;
 import com.readit.entity.Category;
+import com.readit.rest.util.JsonPropertyFilterMixIn;
 import com.readit.service.CategoryService;
 import com.readit.service.exception.CategoryAlreadyExistsException;
 import com.readit.service.exception.CategoryNotFoundException;
@@ -39,39 +38,23 @@ public class CategoryController {
     }
 
     @GetMapping("/getCategoryWithChildren/{categoryId}")
-    public String getCategoryWithChildren(@PathVariable long categoryId) throws JsonProcessingException {
-        try {
-            return jsonFilter.processObject(categoryService.findById(categoryId), "parent");
-        } catch (CategoryNotFoundException e) {
-            throw new NotFoundException("Category doesn`t exist.");
-        }
+    public String getCategoryWithChildren(@PathVariable long categoryId) throws JsonProcessingException, CategoryNotFoundException {
+        return jsonFilter.processObject(categoryService.findById(categoryId), "parent");
     }
 
     @GetMapping("/getCategoryWithParent/{categoryId}")
-    public String getCategoryWithParent(@PathVariable long categoryId) throws JsonProcessingException {
-        try {
-            return jsonFilter.processObject(categoryService.findById(categoryId), "children");
-        } catch (CategoryNotFoundException e) {
-            throw new NotFoundException("Category doesn`t exist.");
-        }
+    public String getCategoryWithParent(@PathVariable long categoryId) throws JsonProcessingException, CategoryNotFoundException {
+        return jsonFilter.processObject(categoryService.findById(categoryId), "children");
     }
 
     @GetMapping("/{categoryId}")
-    public Category getCategoryById(@PathVariable long categoryId) {
-        try {
-            return categoryService.findById(categoryId);
-        } catch (CategoryNotFoundException e) {
-            throw new NotFoundException("Category doesn`t exist.");
-        }
+    public Category getCategoryById(@PathVariable long categoryId) throws CategoryNotFoundException {
+        return categoryService.findById(categoryId);
     }
 
     @PostMapping
-    public Category saveCategory(@RequestBody Category category) {
-        try {
-            return categoryService.save(category);
-        } catch (CategoryAlreadyExistsException e) {
-            throw new AlreadyExistsException("Category already exists.");
-        }
+    public Category saveCategory(@RequestBody Category category) throws CategoryAlreadyExistsException {
+        return categoryService.save(category);
     }
 
     @DeleteMapping("/all")
@@ -80,12 +63,8 @@ public class CategoryController {
     }
 
     @DeleteMapping
-    public void deleteCategory(@RequestBody Category category) {
-        try {
-            categoryService.delete(category);
-        } catch (CategoryNotFoundException e) {
-            throw new NotFoundException("Category doesn`t exist.");
-        }
+    public void deleteCategory(@RequestBody Category category) throws CategoryNotFoundException {
+        categoryService.delete(category);
     }
 
 }
