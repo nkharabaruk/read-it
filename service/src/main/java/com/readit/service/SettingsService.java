@@ -16,5 +16,5 @@ public interface SettingsService {
 
     void deleteAll();
 
-    void delete(Settings settings);
+    void delete(long id);
 }

@@ -26,5 +26,5 @@ public interface CategoryService {
 
     void deleteAll();
 
-    void delete(Category category) throws CategoryNotFoundException;
+    void delete(long id) throws CategoryNotFoundException;
 }

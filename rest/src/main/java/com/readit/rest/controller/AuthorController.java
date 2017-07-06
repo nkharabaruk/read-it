@@ -41,13 +41,13 @@ public class AuthorController {
         return authorService.save(author);
     }
 
-    @DeleteMapping("/all")
+    @DeleteMapping
     public void deleteAllAuthors() {
         authorService.deleteAll();
     }
 
-    @DeleteMapping
-    public void deleteAuthor(@RequestBody Author author) throws AuthorNotFoundException {
-        authorService.delete(author);
+    @DeleteMapping("/{authorId}")
+    public void deleteAuthor(@PathVariable long authorId) throws AuthorNotFoundException {
+        authorService.delete(authorId);
     }
 }

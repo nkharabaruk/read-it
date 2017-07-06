@@ -64,12 +64,12 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void delete(Profile profile) throws ProfileNotFoundException {
-        if (profileRepository.findOne(profile.getId()) != null) {
-            profileRepository.delete(profile);
+    public void delete(long id) throws ProfileNotFoundException {
+        if (profileRepository.findOne(id) != null) {
+            profileRepository.delete(id);
         } else {
             throw new ProfileNotFoundException();
         }
-        profileRepository.delete(profile);
+        profileRepository.delete(id);
     }
 }

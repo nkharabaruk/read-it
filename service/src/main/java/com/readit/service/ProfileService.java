@@ -18,5 +18,5 @@ public interface ProfileService {
 
     void deleteAll();
 
-    void delete(Profile profile) throws ProfileNotFoundException;
+    void delete(long id) throws ProfileNotFoundException;
 }

@@ -33,13 +33,13 @@ public class UserController {
         return userService.save(user);
     }
 
-    @DeleteMapping("/all")
+    @DeleteMapping
     public void deleteAllUsers() {
         userService.deleteAll();
     }
 
-    @DeleteMapping
-    public void deleteUser(@RequestBody User user) {
-        userService.delete(user);
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable long userId) {
+        userService.delete(userId);
     }
 }

@@ -57,14 +57,14 @@ public class CategoryController {
         return categoryService.save(category);
     }
 
-    @DeleteMapping("/all")
+    @DeleteMapping
     public void deleteAllCategorys() {
         categoryService.deleteAll();
     }
 
-    @DeleteMapping
-    public void deleteCategory(@RequestBody Category category) throws CategoryNotFoundException {
-        categoryService.delete(category);
+    @DeleteMapping("/{categoryId}")
+    public void deleteCategory(@PathVariable long categoryId) throws CategoryNotFoundException {
+        categoryService.delete(categoryId);
     }
 
 }

@@ -22,5 +22,5 @@ public interface BookService {
 
     void deleteAll();
 
-    void delete(Book book) throws BookNotFoundException;
+    void delete(long id) throws BookNotFoundException;
 }

@@ -49,13 +49,13 @@ public class BookController {
         return bookService.save(book);
     }
 
-    @DeleteMapping("/all")
+    @DeleteMapping
     public void deleteAllBooks() {
         bookService.deleteAll();
     }
 
-    @DeleteMapping
-    public void deleteBook(@RequestBody Book book) throws BookNotFoundException {
-        bookService.delete(book);
+    @DeleteMapping("/{bookId}")
+    public void deleteBook(@PathVariable long bookId) throws BookNotFoundException {
+        bookService.delete(bookId);
     }
 }

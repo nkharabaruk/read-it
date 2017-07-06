@@ -35,13 +35,13 @@ public class ProfileController {
         return profileService.save(profile);
     }
 
-    @DeleteMapping("/all")
+    @DeleteMapping
     public void deleteAllProfiles() {
         profileService.deleteAll();
     }
 
-    @DeleteMapping
-    public void deleteProfile(@RequestBody Profile profile) throws ProfileNotFoundException {
-        profileService.delete(profile);
+    @DeleteMapping("/{profileId}")
+    public void deleteProfile(@PathVariable long profileId) throws ProfileNotFoundException {
+        profileService.delete(profileId);
     }
 }

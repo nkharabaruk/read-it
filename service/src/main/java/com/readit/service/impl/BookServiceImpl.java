@@ -63,9 +63,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(Book book) throws BookNotFoundException {
-        if (bookRepository.findOne(book.getId()) != null) {
-            bookRepository.delete(book);
+    public void delete(long id) throws BookNotFoundException {
+        if (bookRepository.findOne(id) != null) {
+            bookRepository.delete(id);
         } else {
             throw new BookNotFoundException();
         }

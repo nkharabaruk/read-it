@@ -18,5 +18,5 @@ public interface AuthorService {
 
     void deleteAll();
 
-    void delete(Author author) throws AuthorNotFoundException;
+    void delete(long id) throws AuthorNotFoundException;
 }

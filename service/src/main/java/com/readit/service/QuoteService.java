@@ -16,5 +16,5 @@ public interface QuoteService {
 
     void deleteAll();
 
-    void delete(Quote quote);
+    void delete(long id);
 }

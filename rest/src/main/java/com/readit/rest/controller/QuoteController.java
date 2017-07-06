@@ -33,13 +33,13 @@ public class QuoteController {
         return quoteService.save(quote);
     }
 
-    @DeleteMapping("/all")
+    @DeleteMapping
     public void deleteAllQuotes() {
         quoteService.deleteAll();
     }
 
-    @DeleteMapping
-    public void deleteQuote(@RequestBody Quote quote) {
-        quoteService.delete(quote);
+    @DeleteMapping("/{quoteId}")
+    public void deleteQuote(@PathVariable long quoteId) {
+        quoteService.delete(quoteId);
     }
 }
