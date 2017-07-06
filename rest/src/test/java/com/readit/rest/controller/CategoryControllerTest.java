@@ -1,7 +1,7 @@
 package com.readit.rest.controller;
 
 import com.readit.entity.Category;
-import com.readit.rest.RestApplication;
+import com.readit.RestApplication;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;

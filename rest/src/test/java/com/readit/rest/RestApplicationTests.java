@@ -1,5 +1,6 @@
 package com.readit.rest;
 
+import com.readit.RestApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

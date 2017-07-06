@@ -1,7 +1,7 @@
 package com.readit.rest.controller;
 
 import com.readit.entity.AbstractEntity;
-import com.readit.rest.RestApplication;
+import com.readit.RestApplication;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;

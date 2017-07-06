@@ -1,7 +1,7 @@
 package com.readit.rest.controller;
 
 import com.readit.entity.User;
-import com.readit.rest.RestApplication;
+import com.readit.RestApplication;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
