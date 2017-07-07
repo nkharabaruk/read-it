@@ -20,8 +20,12 @@ public class TagControllerTest extends AbstractControllerTest<Tag> {
     public void setUp() {
         super.setUp();
 
-        entity = new Tag();
-        entity.setTitle("Книги 2017");
-        entity.setCount(7);
+        entity1 = new Tag();
+        entity1.setTitle("Книги 2017");
+        entity1.setCount(7);
+
+        entity2 = new Tag();
+        entity2.setTitle("Казки");
+        entity2.setCount(17);
     }
 }

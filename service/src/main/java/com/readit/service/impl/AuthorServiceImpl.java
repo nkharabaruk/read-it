@@ -40,7 +40,8 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     public Author save(Author author) throws AuthorAlreadyExistsException {
-        if (authorRepository.findByFirstNameAndLastName(author.getFirstName(), author.getLastName()).get(0).equals(author)) {
+        List<Author> existing = authorRepository.findByFirstNameAndLastName(author.getFirstName(), author.getLastName());
+        if (!existing.isEmpty() && existing.contains(author)) {
             throw new AuthorAlreadyExistsException();
         } else {
             return authorRepository.save(author);

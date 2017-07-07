@@ -50,7 +50,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book save(Book book) throws BookAlreadyExistsException {
-        if (bookRepository.findByTitleAndYearOfRelease(book.getTitle(), book.getYearOfRelease()).get(0).equals(book)) {
+        List<Book> existing = bookRepository.findByTitleAndYearOfRelease(book.getTitle(), book.getYearOfRelease());
+        if (!existing.isEmpty() && existing.contains(book)) {
             throw new BookAlreadyExistsException();
         } else {
             return bookRepository.save(book);

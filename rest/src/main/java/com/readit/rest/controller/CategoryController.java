@@ -9,6 +9,8 @@ import com.readit.service.exception.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryController {
@@ -20,11 +22,6 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService, JsonPropertyFilterMixIn jsonFilter) {
         this.categoryService = categoryService;
         this.jsonFilter = jsonFilter;
-    }
-
-    @GetMapping
-    public String getAllCategories() throws JsonProcessingException {
-        return jsonFilter.processObject(categoryService.findAll(), "parent");
     }
 
     @GetMapping("/getRootCategories")
@@ -52,13 +49,18 @@ public class CategoryController {
         return categoryService.findById(categoryId);
     }
 
+    @GetMapping
+    public List<Category> getAllCategories() throws JsonProcessingException {
+        return categoryService.findAll();
+    }
+
     @PostMapping
     public Category saveCategory(@RequestBody Category category) throws CategoryAlreadyExistsException {
         return categoryService.save(category);
     }
 
     @DeleteMapping
-    public void deleteAllCategorys() {
+    public void deleteAllCategories() {
         categoryService.deleteAll();
     }
 

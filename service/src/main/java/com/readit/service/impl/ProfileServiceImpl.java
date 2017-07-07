@@ -70,6 +70,5 @@ public class ProfileServiceImpl implements ProfileService {
         } else {
             throw new ProfileNotFoundException();
         }
-        profileRepository.delete(id);
     }
 }

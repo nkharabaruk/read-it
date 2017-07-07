@@ -1,7 +1,7 @@
 package com.readit.rest.controller;
 
-import com.readit.entity.User;
 import com.readit.RestApplication;
+import com.readit.entity.User;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,13 +20,14 @@ public class UserControllerTest extends AbstractControllerTest<User> {
     public void setUp() {
         super.setUp();
 
-        entity = new User();
-        entity.setFirstName("Антоніо");
-        entity.setLastName("Бандерас");
-        entity.setGender(null);
-        entity.setDateOfBirth(null);
-        entity.setAvatar(null);
-        entity.setProfile(null);
-        entity.setPassword("1234");
+        entity1 = new User();
+        entity1.setFirstName("Антоніо");
+        entity1.setLastName("Бандерас");
+        entity1.setPassword("1234");
+
+        entity2 = new User();
+        entity2.setFirstName("Гриць");
+        entity2.setLastName("Драпак");
+        entity2.setPassword("100500");
     }
 }

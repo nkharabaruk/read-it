@@ -1,7 +1,7 @@
 package com.readit.rest.controller;
 
-import com.readit.entity.Profile;
 import com.readit.RestApplication;
+import com.readit.entity.Profile;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,10 +22,16 @@ public class ProfileControllerTest extends AbstractControllerTest<Profile> {
     public void setUp() {
         super.setUp();
 
-        entity = new Profile();
-        entity.setSettings(null);
-        entity.setWasRead(new ArrayList<>());
-        entity.setIsReading(new ArrayList<>());
-        entity.setWantToRead(new ArrayList<>());
+        entity1 = new Profile();
+        entity1.setSettings(null);
+        entity1.setWasRead(new ArrayList<>());
+        entity1.setIsReading(new ArrayList<>());
+        entity1.setWantToRead(new ArrayList<>());
+
+        entity2 = new Profile();
+        entity2.setSettings(null);
+        entity2.setWasRead(new ArrayList<>());
+        entity2.setIsReading(new ArrayList<>());
+        entity2.setWantToRead(new ArrayList<>());
     }
 }

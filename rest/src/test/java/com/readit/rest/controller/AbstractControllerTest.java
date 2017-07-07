@@ -1,7 +1,7 @@
 package com.readit.rest.controller;
 
-import com.readit.entity.AbstractEntity;
 import com.readit.RestApplication;
+import com.readit.entity.AbstractEntity;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
@@ -26,8 +26,11 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes = RestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class AbstractControllerTest<T extends AbstractEntity> {
 
-    T entity;
+    T entity1;
+    T entity2;
+
     private final Class<T> entityType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), AbstractControllerTest.class);
+    private final Class<? extends AbstractEntity[]> entityTypeArray = ((T[]) Array.newInstance(entityType, 0)).getClass();
 
     protected abstract String getURL();
 
@@ -38,92 +41,66 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
     public void setUp() {
         RestAssured.port = port;
         RestAssured.defaultParser = Parser.JSON;
+        delete();
     }
 
     @Test
     public void getAllTest() throws Exception {
-        // try to get entities when they don`t exist
-        List<T> firstGetResult = getAll();
-        assertFalse(firstGetResult.contains(entity));
+        save(entity1);
+        save(entity2);
 
-        T entity1 = save(entity);
-        T entity2 = save(entity);
+        List<T> result = getAll();
 
-        List<T> secondGetResult = getAll();
-        assertTrue(secondGetResult.contains(entity1));
-        assertTrue(secondGetResult.contains(entity2));
-
-        delete(entity1, entity2);
+        assertTrue(result.contains(entity1));
+        assertTrue(result.contains(entity2));
     }
 
     @Test
     public void getByIdTest() {
-        Exception exceptionResult = getNotExisting(entity);
-//        assertEquals(exceptionResult.getClass(), NotFoundException.class);
-//        assertTrue(exceptionResult instanceof NotFoundException);
+        long id = save(entity1).getId();
 
-        T saveResult = save(entity);
+        T result = get(id);
 
-        T getResult2 = get(saveResult);
-        assertEquals(saveResult, getResult2);
-
-        delete(saveResult);
+        assertEquals(entity1, result);
     }
 
     @Test
     public void saveTest() throws Exception {
-        // TODO: add saveNotExisting test
+        T result = save(entity1);
 
-        T saveResult = save(entity);
-        assertEquals(entity, saveResult);
-
-        delete(saveResult);
-    }
-
-    @Test
-    public void deleteAllTest() throws Exception {
-        T entity1 = save(entity);
-        T entity2 = save(entity);
-
-        List<T> firstGetResult = Arrays.asList(get(entity1), get(entity2));
-        assertTrue(firstGetResult.contains(entity1));
-        assertTrue(firstGetResult.contains(entity2));
-
-        delete(entity1, entity2);
-
-        List<T> secondGetResult = getAll();
-        assertFalse(secondGetResult.contains(entity1));
-        assertFalse(secondGetResult.contains(entity2));
+        assertEquals(entity1, result);
     }
 
     @Test
     public void deleteTest() {
-        Exception exceptionResult = deleteNotExisting(entity);
-
-
-        T saveResult = save(entity);
-        assertEquals(entity, saveResult);
-
-        delete(saveResult);
+        T savedEntity = save(entity1);
+        delete(savedEntity.getId());
 
         List<T> getResult = getAll();
-        assertFalse(getResult.contains(saveResult));
+
+        assertFalse(getResult.contains(savedEntity));
+    }
+
+    @Test
+    public void deleteAllTest() {
+        T savedEntity1 = save(entity1);
+        T savedEntity2 = save(entity2);
+
+        delete();
+
+        List<T> result = getAll();
+        assertFalse(result.contains(savedEntity1));
+        assertFalse(result.contains(savedEntity2));
+    }
+
+    private T get(long id) {
+        return when().get(getURL() + "/" + id).then()
+                .statusCode(200).and().extract().as(entityType);
     }
 
     private List<T> getAll() {
         return Arrays.asList((T[]) when().get(getURL()).then()
-                .statusCode(200).and().extract().as(((T[]) Array.newInstance(entityType, 0)).getClass()));
-    }
-
-    private T get(T entity) {
-        return when().get(getURL() + "/" + entity.getId()).then()
-                .statusCode(200).and().extract().as(entityType);
-    }
-
-    private Exception getNotExisting(T entity) {
-        // TODO: fix it
-        return when().get(getURL() + "/" + entity.getId()).then()
-                .statusCode(404).and().extract().as(Exception.class);
+                .statusCode(200).and().extract().as(entityTypeArray));
     }
 
     private T save(T entity) {
@@ -132,16 +109,21 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
                 .statusCode(200).and().extract().as(entityType);
     }
 
-    private void delete(T... entities) {
-        given().contentType(ContentType.JSON).body(Arrays.asList(entities))
-                .when().delete(getURL() + "/all").then()
+    private void delete(long id) {
+        given().contentType(ContentType.JSON)
+                .when().delete(getURL() + "/" + id).then()
                 .statusCode(200);
     }
 
-    private void delete(T entity) {
-        given().contentType(ContentType.JSON).body(entity)
-                .when().delete(getURL()).then()
+    private void delete() {
+        when().delete(getURL()).then()
                 .statusCode(200);
+    }
+
+    private Exception getNotExisting(T entity) {
+        // TODO: fix it
+        return when().get(getURL() + "/" + entity.getId()).then()
+                .statusCode(404).and().extract().as(Exception.class);
     }
 
     // TODO: fix this

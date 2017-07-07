@@ -1,7 +1,7 @@
 package com.readit.rest.controller;
 
-import com.readit.entity.Quote;
 import com.readit.RestApplication;
+import com.readit.entity.Quote;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,10 +20,10 @@ public class QuoteControllerTest extends AbstractControllerTest<Quote> {
     public void setUp() {
         super.setUp();
 
-        entity = new Quote();
-        entity.setId(1L);
-        entity.setBook(null);
-        entity.setBackground(null);
-        entity.setText("Мова завжди живе поряд з піснею, сестрою її рідною.");
+        entity1 = new Quote();
+        entity1.setText("Мова завжди живе поряд з піснею, сестрою її рідною.");
+
+        entity2 = new Quote();
+        entity2.setText("Книги - морська глибина.");
     }
 }

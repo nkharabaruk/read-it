@@ -1,7 +1,7 @@
 package com.readit.rest.controller;
 
-import com.readit.entity.Settings;
 import com.readit.RestApplication;
+import com.readit.entity.Settings;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,8 +20,12 @@ public class SettingsControllerTest extends AbstractControllerTest<Settings> {
     public void setUp() {
         super.setUp();
 
-        entity = new Settings();
-        entity.setNotificationAboutNewBook(true);
-        entity.setNotificationAboutNewComment(false);
+        entity1 = new Settings();
+        entity1.setNotificationAboutNewBook(true);
+        entity1.setNotificationAboutNewComment(false);
+
+        entity2 = new Settings();
+        entity2.setNotificationAboutNewBook(false);
+        entity2.setNotificationAboutNewComment(true);
     }
 }
