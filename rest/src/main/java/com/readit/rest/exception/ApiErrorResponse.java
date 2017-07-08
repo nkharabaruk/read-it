@@ -3,11 +3,13 @@ package com.readit.rest.exception;
 import com.readit.service.exception.AlreadyExistsException;
 import com.readit.service.exception.NotFoundException;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Data
+@NoArgsConstructor
 public class ApiErrorResponse {
     private long timestamp;
     private int status;
@@ -29,6 +31,6 @@ public class ApiErrorResponse {
         this.timestamp = System.currentTimeMillis();
         this.exception = e.getClass().getName();
         this.message = e.getMessage();
-        this.path = request.getServletPath();
+        this.path = request.getRequestURI();
     }
 }

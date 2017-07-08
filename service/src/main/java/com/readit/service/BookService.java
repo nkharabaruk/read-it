@@ -1,8 +1,6 @@
 package com.readit.service;
 
 import com.readit.entity.Book;
-import com.readit.service.exception.BookAlreadyExistsException;
-import com.readit.service.exception.BookNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,13 +12,13 @@ public interface BookService {
 
     Page<Book> findPage(Pageable pageable);
 
-    Book findById(long id) throws BookNotFoundException;
+    Book findById(long id);
 
     List<Book> saveAll(List<Book> books);
 
-    Book save(Book book) throws BookAlreadyExistsException;
+    Book save(Book book);
 
     void deleteAll();
 
-    void delete(long id) throws BookNotFoundException;
+    void delete(long id);
 }

@@ -3,7 +3,9 @@ package com.readit.service.impl;
 import com.readit.entity.Quote;
 import com.readit.repository.QuoteRepository;
 import com.readit.service.QuoteService;
+import com.readit.service.exception.QuoteNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +27,9 @@ public class QuoteServiceImpl implements QuoteService {
 
     @Override
     public Quote findById(long id) {
-        return quoteRepository.findOne(id);
+        Quote quote = quoteRepository.findOne(id);
+        if (quote == null) throw new QuoteNotFoundException(id);
+        return quote;
     }
 
     @Override
@@ -45,6 +49,10 @@ public class QuoteServiceImpl implements QuoteService {
 
     @Override
     public void delete(long id) {
-        quoteRepository.delete(id);
+        try {
+            quoteRepository.delete(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new QuoteNotFoundException(id);
+        }
     }
 }

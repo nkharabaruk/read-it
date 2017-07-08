@@ -1,8 +1,6 @@
 package com.readit.service;
 
 import com.readit.entity.Author;
-import com.readit.service.exception.AuthorAlreadyExistsException;
-import com.readit.service.exception.AuthorNotFoundException;
 
 import java.util.List;
 
@@ -10,13 +8,13 @@ public interface AuthorService {
 
     List<Author> findAll();
 
-    Author findById(long id) throws AuthorNotFoundException;
+    Author findById(long id);
 
     List<Author> saveAll(List<Author> list);
 
-    Author save(Author author) throws AuthorAlreadyExistsException;
+    Author save(Author author);
 
     void deleteAll();
 
-    void delete(long id) throws AuthorNotFoundException;
+    void delete(long id);
 }

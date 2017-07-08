@@ -7,6 +7,7 @@ import com.readit.service.CategoryService;
 import com.readit.service.exception.CategoryAlreadyExistsException;
 import com.readit.service.exception.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -28,13 +29,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category findById(long id) throws CategoryNotFoundException {
+    public Category findById(long id) {
         Category category = categoryRepository.findOne(id);
-        if (category == null) {
-            throw new CategoryNotFoundException();
-        } else {
-            return category;
-        }
+        if (category == null) throw new CategoryNotFoundException(id);
+        return category;
     }
 
     /**
@@ -73,7 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
         return null;
     }
 
-    public List<Category> findAscendants(long id) throws CategoryNotFoundException {
+    public List<Category> findAscendants(long id) {
         List<Category> parents = new ArrayList<>();
         Category child = findById(id);
         while (child.getParent() != null) {
@@ -84,7 +82,7 @@ public class CategoryServiceImpl implements CategoryService {
         return parents;
     }
 
-    public List<Category> findDescendants(long id) throws CategoryNotFoundException {
+    public List<Category> findDescendants(long id) {
         List<Category> children = new ArrayList<>();
         children.addAll(findById(id).getChildren());
         boolean repeat = true;
@@ -108,10 +106,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category save(Category category) throws CategoryAlreadyExistsException {
+    public Category save(Category category) {
         List<Category> existing = categoryRepository.findByName(category.getName());
         if (!existing.isEmpty() && existing.contains(category)) {
-            throw new CategoryAlreadyExistsException();
+            throw new CategoryAlreadyExistsException(category);
         } else {
             return categoryRepository.save(category);
         }
@@ -123,11 +121,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(long id) throws CategoryNotFoundException {
-        if (categoryRepository.findOne(id) != null) {
+    public void delete(long id) {
+        try {
             categoryRepository.delete(id);
-        } else {
-            throw new CategoryNotFoundException();
+        } catch (EmptyResultDataAccessException e) {
+            throw new CategoryNotFoundException(id);
         }
     }
 }

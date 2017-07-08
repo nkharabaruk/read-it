@@ -6,6 +6,7 @@ import com.readit.service.AuthorService;
 import com.readit.service.exception.AuthorAlreadyExistsException;
 import com.readit.service.exception.AuthorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,13 +26,11 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author findById(long id) throws AuthorNotFoundException {
+    public Author findById(long id) {
         Author author = authorRepository.findOne(id);
-        if (author == null) {
-            throw new AuthorNotFoundException();
-        } else {
-            return author;
-        }
+        if (author == null) throw new AuthorNotFoundException(id);
+        return author;
+
     }
 
     @Override
@@ -39,10 +38,10 @@ public class AuthorServiceImpl implements AuthorService {
         return authorRepository.save(list);
     }
 
-    public Author save(Author author) throws AuthorAlreadyExistsException {
+    public Author save(Author author) {
         List<Author> existing = authorRepository.findByFirstNameAndLastName(author.getFirstName(), author.getLastName());
         if (!existing.isEmpty() && existing.contains(author)) {
-            throw new AuthorAlreadyExistsException();
+            throw new AuthorAlreadyExistsException(author);
         } else {
             return authorRepository.save(author);
         }
@@ -54,11 +53,11 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void delete(long id) throws AuthorNotFoundException {
-        if (authorRepository.findOne(id) != null) {
+    public void delete(long id) {
+        try {
             authorRepository.delete(id);
-        } else {
-            throw new AuthorNotFoundException();
+        } catch (EmptyResultDataAccessException e) {
+            throw new AuthorNotFoundException(id);
         }
     }
 }

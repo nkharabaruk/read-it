@@ -2,6 +2,7 @@ package com.readit.rest.controller;
 
 import com.readit.RestApplication;
 import com.readit.entity.AbstractEntity;
+import com.readit.rest.exception.ApiErrorResponse;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
@@ -26,6 +27,11 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes = RestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class AbstractControllerTest<T extends AbstractEntity> {
 
+    private static final long NOT_EXISTING_ID = 100500;
+    private static final int NOT_FOUND_EXCEPTION_STATUS = 404;
+    private static final String NOT_FOUND_EXCEPTION_CLASS = "com.readit.service.exception.%sNotFoundException";
+    private static final String NOT_FOUND_EXCEPTION_MESSAGE = "%s with id = %d doesn't exist";
+
     T entity1;
     T entity2;
 
@@ -33,6 +39,10 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
     private final Class<? extends AbstractEntity[]> entityTypeArray = ((T[]) Array.newInstance(entityType, 0)).getClass();
 
     protected abstract String getURL();
+
+    private String getURL(long id) {
+        return getURL() + "/" + id;
+    }
 
     @Value("${local.server.port}")
     protected int port;
@@ -45,6 +55,30 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
     }
 
     @Test
+    public void getByIdTest() {
+        long id = save(entity1).getId();
+
+        T result = get(id);
+
+        assertEquals(entity1, result);
+    }
+
+    @Test
+    public void getByIdNotExisting() {
+        ApiErrorResponse response = getNotExisting(NOT_EXISTING_ID);
+
+        verifyNotFoundResponse(response);
+    }
+
+    private void verifyNotFoundResponse(ApiErrorResponse result) {
+        assertEquals(NOT_FOUND_EXCEPTION_STATUS, result.getStatus());
+        assertEquals(String.format(NOT_FOUND_EXCEPTION_CLASS, entityType.getSimpleName()), result.getException());
+        assertEquals(getURL(NOT_EXISTING_ID), result.getPath());
+        assertEquals(String.format(NOT_FOUND_EXCEPTION_MESSAGE, entityType.getSimpleName(), NOT_EXISTING_ID), result.getMessage());
+        assertEquals((double) System.currentTimeMillis(), (double) result.getTimestamp(), 1000);
+    }
+
+    @Test
     public void getAllTest() throws Exception {
         save(entity1);
         save(entity2);
@@ -53,15 +87,6 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
 
         assertTrue(result.contains(entity1));
         assertTrue(result.contains(entity2));
-    }
-
-    @Test
-    public void getByIdTest() {
-        long id = save(entity1).getId();
-
-        T result = get(id);
-
-        assertEquals(entity1, result);
     }
 
     @Test
@@ -82,6 +107,13 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
     }
 
     @Test
+    public void deleteNotExistingTest() {
+        ApiErrorResponse response = deleteNotExisting(NOT_EXISTING_ID);
+
+        verifyNotFoundResponse(response);
+    }
+
+    @Test
     public void deleteAllTest() {
         T savedEntity1 = save(entity1);
         T savedEntity2 = save(entity2);
@@ -96,6 +128,11 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
     private T get(long id) {
         return when().get(getURL() + "/" + id).then()
                 .statusCode(200).and().extract().as(entityType);
+    }
+
+    private ApiErrorResponse getNotExisting(long id) {
+        return when().get(getURL() + "/" + id).then()
+                .statusCode(404).and().extract().as(ApiErrorResponse.class);
     }
 
     private List<T> getAll() {
@@ -115,21 +152,13 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
                 .statusCode(200);
     }
 
+    private ApiErrorResponse deleteNotExisting(long id) {
+        return when().delete(getURL() + "/" + id).then()
+                .statusCode(404).and().extract().as(ApiErrorResponse.class);
+    }
+
     private void delete() {
         when().delete(getURL()).then()
                 .statusCode(200);
-    }
-
-    private Exception getNotExisting(T entity) {
-        // TODO: fix it
-        return when().get(getURL() + "/" + entity.getId()).then()
-                .statusCode(404).and().extract().as(Exception.class);
-    }
-
-    // TODO: fix this
-    private Exception deleteNotExisting(T entity) {
-        return given().contentType(ContentType.JSON).body(entity)
-                .when().delete(getURL()).then()
-                .statusCode(404).and().extract().as(Exception.class);
     }
 }

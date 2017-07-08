@@ -3,7 +3,9 @@ package com.readit.service.impl;
 import com.readit.entity.Settings;
 import com.readit.repository.SettingsRepository;
 import com.readit.service.SettingsService;
+import com.readit.service.exception.SettingsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +27,9 @@ public class SettingsServiceImpl implements SettingsService {
 
     @Override
     public Settings findById(long id) {
-        return settingsRepository.findOne(id);
+        Settings settings = settingsRepository.findOne(id);
+        if (settings == null) throw new SettingsNotFoundException(id);
+        return settings;
     }
 
     @Override
@@ -45,6 +49,10 @@ public class SettingsServiceImpl implements SettingsService {
 
     @Override
     public void delete(long id) {
-        settingsRepository.delete(id);
+        try {
+            settingsRepository.delete(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new SettingsNotFoundException(id);
+        }
     }
 }

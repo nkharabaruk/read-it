@@ -3,10 +3,10 @@ package com.readit.service.impl;
 import com.readit.entity.Book;
 import com.readit.repository.BookRepository;
 import com.readit.service.BookService;
-import com.readit.service.CategoryService;
 import com.readit.service.exception.BookAlreadyExistsException;
 import com.readit.service.exception.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,12 +17,10 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
-    private final CategoryService categoryService;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, CategoryService categoryService) {
+    public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.categoryService = categoryService;
     }
 
     public List<Book> findAll() {
@@ -34,13 +32,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book findById(long id) throws BookNotFoundException {
+    public Book findById(long id) {
         Book book = bookRepository.findOne(id);
-        if (book == null) {
-            throw new BookNotFoundException();
-        } else {
-            return book;
-        }
+        if (book == null) throw new BookNotFoundException(id);
+        return book;
     }
 
     @Override
@@ -49,10 +44,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book save(Book book) throws BookAlreadyExistsException {
+    public Book save(Book book) {
         List<Book> existing = bookRepository.findByTitleAndYearOfRelease(book.getTitle(), book.getYearOfRelease());
         if (!existing.isEmpty() && existing.contains(book)) {
-            throw new BookAlreadyExistsException();
+            throw new BookAlreadyExistsException(book);
         } else {
             return bookRepository.save(book);
         }
@@ -64,11 +59,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(long id) throws BookNotFoundException {
-        if (bookRepository.findOne(id) != null) {
+    public void delete(long id) {
+        try {
             bookRepository.delete(id);
-        } else {
-            throw new BookNotFoundException();
+        } catch (EmptyResultDataAccessException e) {
+            throw new BookNotFoundException(id);
         }
     }
 }

@@ -3,7 +3,9 @@ package com.readit.service.impl;
 import com.readit.entity.Tag;
 import com.readit.repository.TagRepository;
 import com.readit.service.TagService;
+import com.readit.service.exception.TagNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +27,9 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag findById(long id) {
-        return tagRepository.findOne(id);
+        Tag tag = tagRepository.findOne(id);
+        if (tag == null) throw new TagNotFoundException(id);
+        return tag;
     }
 
     @Override
@@ -45,6 +49,10 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void delete(long id) {
-        tagRepository.delete(id);
+        try {
+            tagRepository.delete(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new TagNotFoundException(id);
+        }
     }
 }

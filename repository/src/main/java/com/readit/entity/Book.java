@@ -36,7 +36,7 @@ public class Book extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
     private List<Category> categories;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(name = "BOOK_TAG",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
