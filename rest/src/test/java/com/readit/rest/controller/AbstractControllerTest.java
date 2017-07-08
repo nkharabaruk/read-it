@@ -28,9 +28,13 @@ import static org.junit.Assert.*;
 public abstract class AbstractControllerTest<T extends AbstractEntity> {
 
     private static final long NOT_EXISTING_ID = 100500;
+    private static final long SECOND = 1000;
     private static final int NOT_FOUND_EXCEPTION_STATUS = 404;
     private static final String NOT_FOUND_EXCEPTION_CLASS = "com.readit.service.exception.%sNotFoundException";
     private static final String NOT_FOUND_EXCEPTION_MESSAGE = "%s with id = %d doesn't exist";
+    private static final int ALREADY_EXIST_EXCEPTION_STATUS = 409;
+    private static final String ALREADY_EXIST_EXCEPTION_CLASS = "com.readit.service.exception.%sAlreadyExistsException";;
+    private static final String ALREADY_EXIST_EXCEPTION_MESSAGE = "%s already exists. %s";
 
     T entity1;
     T entity2;
@@ -70,14 +74,6 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
         verifyNotFoundResponse(response);
     }
 
-    private void verifyNotFoundResponse(ApiErrorResponse result) {
-        assertEquals(NOT_FOUND_EXCEPTION_STATUS, result.getStatus());
-        assertEquals(String.format(NOT_FOUND_EXCEPTION_CLASS, entityType.getSimpleName()), result.getException());
-        assertEquals(getURL(NOT_EXISTING_ID), result.getPath());
-        assertEquals(String.format(NOT_FOUND_EXCEPTION_MESSAGE, entityType.getSimpleName(), NOT_EXISTING_ID), result.getMessage());
-        assertEquals((double) System.currentTimeMillis(), (double) result.getTimestamp(), 1000);
-    }
-
     @Test
     public void getAllTest() throws Exception {
         save(entity1);
@@ -94,6 +90,15 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
         T result = save(entity1);
 
         assertEquals(entity1, result);
+    }
+
+    @Test
+    public void saveDuplicateTest() {
+        T entity = save(entity1);
+
+        ApiErrorResponse response = saveDuplicate(entity1);
+
+        verifyDuplicateResponse(response, entity);
     }
 
     @Test
@@ -146,6 +151,12 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
                 .statusCode(200).and().extract().as(entityType);
     }
 
+    private ApiErrorResponse saveDuplicate(T entity) {
+        return given().contentType(ContentType.JSON).body(entity)
+                .when().post(getURL()).then()
+                .statusCode(409).and().extract().as(ApiErrorResponse.class);
+    }
+
     private void delete(long id) {
         given().contentType(ContentType.JSON)
                 .when().delete(getURL() + "/" + id).then()
@@ -160,5 +171,21 @@ public abstract class AbstractControllerTest<T extends AbstractEntity> {
     private void delete() {
         when().delete(getURL()).then()
                 .statusCode(200);
+    }
+
+    private void verifyNotFoundResponse(ApiErrorResponse result) {
+        assertEquals(NOT_FOUND_EXCEPTION_STATUS, result.getStatus());
+        assertEquals(String.format(NOT_FOUND_EXCEPTION_CLASS, entityType.getSimpleName()), result.getException());
+        assertEquals(getURL(NOT_EXISTING_ID), result.getPath());
+        assertEquals(String.format(NOT_FOUND_EXCEPTION_MESSAGE, entityType.getSimpleName(), NOT_EXISTING_ID), result.getMessage());
+        assertTrue(System.currentTimeMillis() - result.getTimestamp() <= SECOND);
+    }
+
+    private void verifyDuplicateResponse(ApiErrorResponse result, T entity) {
+        assertEquals(ALREADY_EXIST_EXCEPTION_STATUS, result.getStatus());
+        assertEquals(String.format(ALREADY_EXIST_EXCEPTION_CLASS, entityType.getSimpleName()), result.getException());
+        assertEquals(getURL(), result.getPath());
+        assertEquals(String.format(ALREADY_EXIST_EXCEPTION_MESSAGE, entityType.getSimpleName(), entity.toString()), result.getMessage());
+        assertTrue(System.currentTimeMillis() - result.getTimestamp() <= SECOND);
     }
 }
