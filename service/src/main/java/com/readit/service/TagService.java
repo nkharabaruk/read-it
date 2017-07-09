@@ -10,7 +10,7 @@ public interface TagService {
 
     Tag findById(long id);
 
-    List<Tag> saveAll(List<Tag> list);
+    Tag findByTitle(String title);
 
     Tag save(Tag tag);
 

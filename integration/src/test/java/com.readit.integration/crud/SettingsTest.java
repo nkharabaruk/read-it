@@ -29,4 +29,9 @@ public class SettingsTest extends BaseTest<Settings> {
         entity2.setNotificationAboutNewBook(false);
         entity2.setNotificationAboutNewComment(true);
     }
+
+    @Override
+    public void saveDuplicateTest() {
+        // nothing to do here
+    }
 }

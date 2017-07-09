@@ -3,6 +3,7 @@ package com.readit.service.impl;
 import com.readit.entity.User;
 import com.readit.repository.UserRepository;
 import com.readit.service.UserService;
+import com.readit.service.exception.UserAlreadyExistsException;
 import com.readit.service.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,12 +34,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> saveAll(List<User> list) {
-        return userRepository.save(list);
+    public User findByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) throw new UserNotFoundException("email", email);
+        return user;
     }
 
     @Override
     public User save(User user) {
+        User existing = userRepository.findByEmail(user.getEmail());
+        if (existing != null) throw new UserAlreadyExistsException(user);
         return userRepository.save(user);
     }
 

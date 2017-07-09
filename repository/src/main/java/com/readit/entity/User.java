@@ -1,7 +1,8 @@
 package com.readit.entity;
 
 import com.readit.entity.enums.Gender;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 @Table(name = "USER")
 public class User extends AbstractEntity {
 
+    private String email;
     private String password;
 
     private String firstName;

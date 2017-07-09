@@ -24,11 +24,13 @@ public class UserTest extends BaseTest<User> {
         entity1 = new User();
         entity1.setFirstName("Антоніо");
         entity1.setLastName("Бандерас");
+        entity1.setEmail("antonio@gmail.com");
         entity1.setPassword("1234");
 
         entity2 = new User();
         entity2.setFirstName("Гриць");
         entity2.setLastName("Драпак");
+        entity2.setEmail("grycko@i.ua");
         entity2.setPassword("100500");
     }
 }

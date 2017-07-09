@@ -3,6 +3,7 @@ package com.readit.service.impl;
 import com.readit.entity.Tag;
 import com.readit.repository.TagRepository;
 import com.readit.service.TagService;
+import com.readit.service.exception.TagAlreadyExistsException;
 import com.readit.service.exception.TagNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,12 +34,16 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> saveAll(List<Tag> list) {
-        return tagRepository.save(list);
+    public Tag findByTitle(String title) {
+        Tag tag = tagRepository.findByTitle(title);
+        if (tag == null) throw new TagNotFoundException("title", title);
+        return tag;
     }
 
     @Override
     public Tag save(Tag tag) {
+        Tag existing = tagRepository.findByTitle(tag.getTitle());
+        if (existing != null) throw new TagAlreadyExistsException(tag);
         return tagRepository.save(tag);
     }
 

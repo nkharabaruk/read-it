@@ -35,4 +35,9 @@ public class ProfileTest extends BaseTest<Profile> {
         entity2.setIsReading(new ArrayList<>());
         entity2.setWantToRead(new ArrayList<>());
     }
+
+    @Override
+    public void saveDuplicateTest() {
+        // nothing to do here
+    }
 }
