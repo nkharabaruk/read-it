@@ -1,19 +1,20 @@
-package com.readit.rest.controller;
+package com.readit.integration.crud;
 
-import com.readit.RestApplication;
 import com.readit.entity.Category;
+import com.readit.integration.client.CategoryClient;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CategoryControllerTest extends AbstractControllerTest<Category> {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+public class CategoryTest extends BaseTest<Category> {
 
-    @Override
-    protected String getURL() {
-        return "/rest/categories";
+    @Autowired
+    public void setClient(CategoryClient client) {
+        this.client = client;
     }
 
     @Before

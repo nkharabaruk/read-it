@@ -1,11 +1,10 @@
 package com.readit.integration.client;
 
-
-import com.readit.entity.Author;
+import com.readit.entity.Tag;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.stereotype.Service;
 
 @Service
-@FeignClient(name = "authors", url = "${feign.client.url}/authors")
-public interface AuthorClient extends Client<Author> {
+@FeignClient(name = "tags", url = "${feign.client.url}/tags")
+public interface TagClient extends Client<Tag> {
 }

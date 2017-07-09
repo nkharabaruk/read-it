@@ -1,19 +1,20 @@
-package com.readit.rest.controller;
+package com.readit.integration.crud;
 
-import com.readit.RestApplication;
 import com.readit.entity.User;
+import com.readit.integration.client.UserClient;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserControllerTest extends AbstractControllerTest<User> {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+public class UserTest extends BaseTest<User> {
 
-    @Override
-    protected String getURL() {
-        return "/rest/users";
+    @Autowired
+    public void setClient(UserClient client) {
+        this.client = client;
     }
 
     @Before

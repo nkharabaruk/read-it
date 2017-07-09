@@ -1,21 +1,23 @@
-package com.readit.rest.controller;
+package com.readit.integration.crud;
 
-import com.readit.RestApplication;
 import com.readit.entity.Book;
+import com.readit.integration.client.BookClient;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.Year;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BookControllerTest extends AbstractControllerTest<Book> {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+public class BookTest extends BaseTest<Book> {
 
-    @Override
-    protected String getURL() {
-        return "/rest/books";
+
+    @Autowired
+    public void setClient(BookClient client) {
+        this.client = client;
     }
 
     @Before

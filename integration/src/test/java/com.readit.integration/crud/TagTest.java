@@ -1,19 +1,20 @@
-package com.readit.rest.controller;
+package com.readit.integration.crud;
 
-import com.readit.RestApplication;
 import com.readit.entity.Tag;
+import com.readit.integration.client.TagClient;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TagControllerTest extends AbstractControllerTest<Tag> {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+public class TagTest extends BaseTest<Tag> {
 
-    @Override
-    protected String getURL() {
-        return "/rest/tags";
+    @Autowired
+    public void setClient(TagClient client) {
+        this.client = client;
     }
 
     @Before

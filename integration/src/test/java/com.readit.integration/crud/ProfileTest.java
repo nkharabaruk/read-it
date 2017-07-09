@@ -1,21 +1,22 @@
-package com.readit.rest.controller;
+package com.readit.integration.crud;
 
-import com.readit.RestApplication;
 import com.readit.entity.Profile;
+import com.readit.integration.client.ProfileClient;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProfileControllerTest extends AbstractControllerTest<Profile> {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+public class ProfileTest extends BaseTest<Profile> {
 
-    @Override
-    protected String getURL() {
-        return "/rest/profiles";
+    @Autowired
+    public void setClient(ProfileClient client) {
+        this.client = client;
     }
 
     @Before

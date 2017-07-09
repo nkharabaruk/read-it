@@ -1,21 +1,22 @@
-package com.readit.rest.controller;
+package com.readit.integration.crud;
 
-import com.readit.RestApplication;
 import com.readit.entity.Author;
+import com.readit.integration.client.AuthorClient;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AuthorControllerTest extends AbstractControllerTest<Author> {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+public class AuthorTest extends BaseTest<Author> {
 
-    @Override
-    protected String getURL() {
-        return "/rest/authors";
+    @Autowired
+    public void setClient(AuthorClient client) {
+        this.client = client;
     }
 
     @Before
@@ -38,4 +39,5 @@ public class AuthorControllerTest extends AbstractControllerTest<Author> {
         entity2.setDateOfDeath(LocalDate.of(1916, 5, 28));
         entity2.setBiography("Народився в селі Нагуєвичі");
     }
+
 }
