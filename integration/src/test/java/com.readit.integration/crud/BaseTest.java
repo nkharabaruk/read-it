@@ -94,6 +94,26 @@ public abstract class BaseTest<T extends AbstractEntity> {
     }
 
     @Test
+    public void updateTest() {
+        T saved = client.save(entity1);
+
+        T updated = client.update(saved.getId(), entity2);
+
+        assertEquals(entity2, updated);
+    }
+
+    @Test
+    public void updateNotExistingTest() {
+        ApiErrorResponse response = null;
+        try {
+            client.update(NOT_EXISTING_ID, entity1);
+        } catch (ApiErrorResponseException e) {
+            response = e.getResponse();
+        }
+        verifyNotFoundResponse(response);
+    }
+
+    @Test
     public void deleteTest() {
         T savedEntity = client.save(entity1);
         client.delete(savedEntity.getId());

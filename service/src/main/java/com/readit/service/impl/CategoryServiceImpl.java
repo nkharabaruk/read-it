@@ -116,6 +116,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category update(long id, Category category) {
+        Category existing = categoryRepository.findOne(id);
+        if (existing == null) throw new CategoryNotFoundException(id);
+        category.setId(existing.getId());
+        return categoryRepository.save(category);
+    }
+
+    @Override
     public void deleteAll() {
         categoryRepository.deleteAll();
     }

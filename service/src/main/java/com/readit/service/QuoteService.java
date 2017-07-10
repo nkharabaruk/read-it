@@ -14,6 +14,8 @@ public interface QuoteService {
 
     Quote save(Quote quote);
 
+    Quote update(long id, Quote quote);
+
     void deleteAll();
 
     void delete(long id);

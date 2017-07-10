@@ -16,6 +16,9 @@ public interface Client<T extends AbstractEntity> {
     @PostMapping
     T save(@RequestBody T entity);
 
+    @PutMapping("/{id}")
+    T update(@PathVariable("id") long id, @RequestBody T entity);
+
     @DeleteMapping("/{id}")
     void delete(@PathVariable("id") long id);
 

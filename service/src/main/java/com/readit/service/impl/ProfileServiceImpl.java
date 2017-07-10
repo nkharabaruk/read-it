@@ -57,6 +57,14 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
+    public Profile update(long id, Profile profile) {
+        Profile existing = profileRepository.findOne(id);
+        if (existing == null) throw new ProfileNotFoundException(id);
+        profile.setId(existing.getId());
+        return profileRepository.save(profile);
+    }
+
+    @Override
     public void deleteAll() {
         profileRepository.deleteAll();
     }

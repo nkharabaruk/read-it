@@ -59,6 +59,11 @@ public class CategoryController {
         return categoryService.save(category);
     }
 
+    @PutMapping("/{categoryId}")
+    public Category updateCategory(@PathVariable long categoryId, @RequestBody Category category) throws CategoryNotFoundException {
+        return categoryService.update(categoryId, category);
+    }
+
     @DeleteMapping
     public void deleteAllCategories() {
         categoryService.deleteAll();

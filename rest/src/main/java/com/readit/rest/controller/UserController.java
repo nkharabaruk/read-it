@@ -2,6 +2,7 @@ package com.readit.rest.controller;
 
 import com.readit.entity.User;
 import com.readit.service.UserService;
+import com.readit.service.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,11 @@ public class UserController {
     @PostMapping
     public User saveUser(@RequestBody User user) {
         return userService.save(user);
+    }
+
+    @PutMapping("/{userId}")
+    public User updateUser(@PathVariable long userId, @RequestBody User user) throws UserNotFoundException {
+        return userService.update(userId, user);
     }
 
     @DeleteMapping

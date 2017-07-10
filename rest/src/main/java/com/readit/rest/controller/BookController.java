@@ -49,6 +49,11 @@ public class BookController {
         return bookService.save(book);
     }
 
+    @PutMapping("/{bookId}")
+    public Book updateBook(@PathVariable long bookId, @RequestBody Book book) throws BookNotFoundException {
+        return bookService.update(bookId, book);
+    }
+
     @DeleteMapping
     public void deleteAllBooks() {
         bookService.deleteAll();

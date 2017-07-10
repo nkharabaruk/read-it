@@ -14,6 +14,8 @@ public interface SettingsService {
 
     Settings save(Settings settings);
 
+    Settings update(long id, Settings settings);
+
     void deleteAll();
 
     void delete(long id);

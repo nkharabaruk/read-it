@@ -41,6 +41,11 @@ public class AuthorController {
         return authorService.save(author);
     }
 
+    @PutMapping("/{authorId}")
+    public Author updateAuthor(@PathVariable long authorId, @RequestBody Author author) throws AuthorNotFoundException {
+        return authorService.update(authorId, author);
+    }
+
     @DeleteMapping
     public void deleteAllAuthors() {
         authorService.deleteAll();

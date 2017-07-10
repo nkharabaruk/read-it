@@ -48,6 +48,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User update(long id, User user) {
+        User existing = userRepository.findOne(id);
+        if (existing == null) throw new UserNotFoundException(id);
+        user.setId(existing.getId());
+        return userRepository.save(user);
+    }
+
+    @Override
     public void deleteAll() {
         userRepository.deleteAll();
     }

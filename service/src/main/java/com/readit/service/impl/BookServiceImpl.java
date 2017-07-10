@@ -54,6 +54,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Book update(long id, Book book) {
+        Book existing = bookRepository.findOne(id);
+        if (existing == null) throw new BookNotFoundException(id);
+        book.setId(existing.getId());
+        return bookRepository.save(book);
+    }
+
+    @Override
     public void deleteAll() {
         bookRepository.deleteAll();
     }

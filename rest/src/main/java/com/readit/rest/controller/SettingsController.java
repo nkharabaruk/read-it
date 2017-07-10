@@ -2,6 +2,7 @@ package com.readit.rest.controller;
 
 import com.readit.entity.Settings;
 import com.readit.service.SettingsService;
+import com.readit.service.exception.SettingsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,11 @@ public class SettingsController {
     @PostMapping
     public Settings saveSettings(@RequestBody Settings settings) {
         return settingsService.save(settings);
+    }
+
+    @PutMapping("/{settingsId}")
+    public Settings updateSettings(@PathVariable long settingsId, @RequestBody Settings settings) throws SettingsNotFoundException {
+        return settingsService.update(settingsId, settings);
     }
 
     @DeleteMapping

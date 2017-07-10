@@ -43,6 +43,14 @@ public class SettingsServiceImpl implements SettingsService {
     }
 
     @Override
+    public Settings update(long id, Settings settings) {
+        Settings existing = settingsRepository.findOne(id);
+        if (existing == null) throw new SettingsNotFoundException(id);
+        settings.setId(existing.getId());
+        return settingsRepository.save(settings);
+    }
+
+    @Override
     public void deleteAll() {
         settingsRepository.deleteAll();
     }

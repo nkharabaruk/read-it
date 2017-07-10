@@ -2,6 +2,7 @@ package com.readit.rest.controller;
 
 import com.readit.entity.Quote;
 import com.readit.service.QuoteService;
+import com.readit.service.exception.QuoteNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,11 @@ public class QuoteController {
     @PostMapping
     public Quote saveQuote(@RequestBody Quote quote) {
         return quoteService.save(quote);
+    }
+
+    @PutMapping("/{quoteId}")
+    public Quote updateQuote(@PathVariable long quoteId, @RequestBody Quote quote) throws QuoteNotFoundException {
+        return quoteService.update(quoteId, quote);
     }
 
     @DeleteMapping

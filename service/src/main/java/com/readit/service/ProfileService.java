@@ -14,6 +14,8 @@ public interface ProfileService {
 
     Profile save(Profile profile);
 
+    Profile update(long id, Profile profile);
+
     void deleteAll();
 
     void delete(long id);

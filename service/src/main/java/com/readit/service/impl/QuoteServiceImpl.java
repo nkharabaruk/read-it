@@ -43,6 +43,14 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
+    public Quote update(long id, Quote quote) {
+        Quote existing = quoteRepository.findOne(id);
+        if (existing == null) throw new QuoteNotFoundException(id);
+        quote.setId(existing.getId());
+        return quoteRepository.save(quote);
+    }
+
+    @Override
     public void deleteAll() {
         quoteRepository.deleteAll();
     }

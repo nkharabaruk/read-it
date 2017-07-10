@@ -48,6 +48,14 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public Tag update(long id, Tag tag) {
+        Tag existing = tagRepository.findOne(id);
+        if (existing == null) throw new TagNotFoundException(id);
+        tag.setId(existing.getId());
+        return tagRepository.save(tag);
+    }
+
+    @Override
     public void deleteAll() {
         tagRepository.deleteAll();
     }

@@ -35,6 +35,11 @@ public class ProfileController {
         return profileService.save(profile);
     }
 
+    @PutMapping("/{profileId}")
+    public Profile updateProfile(@PathVariable long profileId, @RequestBody Profile profile) throws ProfileNotFoundException {
+        return profileService.update(profileId, profile);
+    }
+
     @DeleteMapping
     public void deleteAllProfiles() {
         profileService.deleteAll();

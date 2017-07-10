@@ -2,6 +2,7 @@ package com.readit.rest.controller;
 
 import com.readit.entity.Tag;
 import com.readit.service.TagService;
+import com.readit.service.exception.TagNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,11 @@ public class TagController {
     @PostMapping
     public Tag saveTag(@RequestBody Tag tag) {
         return tagService.save(tag);
+    }
+
+    @PutMapping("/{tagId}")
+    public Tag updateTag(@PathVariable long tagId, @RequestBody Tag tag) throws TagNotFoundException {
+        return tagService.update(tagId, tag);
     }
 
     @DeleteMapping

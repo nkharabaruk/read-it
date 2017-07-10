@@ -48,6 +48,14 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    public Author update(long id, Author author) {
+        Author existing = authorRepository.findOne(id);
+        if (existing == null) throw new AuthorNotFoundException(id);
+        author.setId(existing.getId());
+        return authorRepository.save(author);
+    }
+
+    @Override
     public void deleteAll() {
         authorRepository.deleteAll();
     }
