@@ -28,6 +28,8 @@ public abstract class BaseTest<T extends AbstractEntity> {
     private static final int ALREADY_EXIST_EXCEPTION_STATUS = 409;
     private static final String ALREADY_EXIST_EXCEPTION_CLASS = "com.readit.service.exception.%sAlreadyExistsException";
     private static final String ALREADY_EXIST_EXCEPTION_MESSAGE = "%s already exists. %s";
+    private static final String DTO = "DTO";
+    private static final String EMPTY_STRING = "";
 
     private final Class<T> entityType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseTest.class);
     private final Class<? extends AbstractEntity[]> entityTypeArray = ((T[]) Array.newInstance(entityType, 0)).getClass();
@@ -148,15 +150,24 @@ public abstract class BaseTest<T extends AbstractEntity> {
 
     private void verifyNotFoundResponse(ApiErrorResponse response) {
         assertEquals(NOT_FOUND_EXCEPTION_STATUS, response.getStatus());
-        assertEquals(String.format(NOT_FOUND_EXCEPTION_CLASS, entityType.getSimpleName()), response.getException());
-        assertEquals(String.format(NOT_FOUND_EXCEPTION_MESSAGE, entityType.getSimpleName(), NOT_EXISTING_ID), response.getMessage());
+        assertEquals(String.format(NOT_FOUND_EXCEPTION_CLASS,
+                entityType.getSimpleName().replace(DTO, EMPTY_STRING)),
+                response.getException());
+        assertEquals(String.format(NOT_FOUND_EXCEPTION_MESSAGE,
+                entityType.getSimpleName().replace(DTO, EMPTY_STRING), NOT_EXISTING_ID),
+                response.getMessage());
         assertTrue(System.currentTimeMillis() - response.getTimestamp() <= SECOND);
     }
 
     private void verifyDuplicateResponse(ApiErrorResponse response, T entity) {
         assertEquals(ALREADY_EXIST_EXCEPTION_STATUS, response.getStatus());
-        assertEquals(String.format(ALREADY_EXIST_EXCEPTION_CLASS, entityType.getSimpleName()), response.getException());
-        assertEquals(String.format(ALREADY_EXIST_EXCEPTION_MESSAGE, entityType.getSimpleName(), entity.toString()), response.getMessage());
+        assertEquals(String.format(ALREADY_EXIST_EXCEPTION_CLASS,
+                entityType.getSimpleName().replace(DTO, EMPTY_STRING)),
+                response.getException());
+        assertEquals(String.format(ALREADY_EXIST_EXCEPTION_MESSAGE,
+                entityType.getSimpleName().replace(DTO, EMPTY_STRING),
+                entity.toString().replace(DTO, EMPTY_STRING)),
+                response.getMessage());
         assertTrue(System.currentTimeMillis() - response.getTimestamp() <= SECOND);
     }
 }

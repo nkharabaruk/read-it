@@ -1,10 +1,10 @@
 package com.readit.integration.client;
 
-import com.readit.entity.Category;
+import com.readit.rest.dto.CategoryDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.stereotype.Service;
 
 @Service
 @FeignClient(name = "categories", url = "${feign.client.url}/categories")
-public interface CategoryClient extends Client<Category> {
+public interface CategoryClient extends Client<CategoryDTO> {
 }

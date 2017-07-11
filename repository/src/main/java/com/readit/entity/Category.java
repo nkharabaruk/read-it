@@ -1,32 +1,31 @@
 package com.readit.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import org.springframework.context.annotation.Lazy;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@Lazy
 @Data
 @Entity
-@ToString(exclude = {"parent","children","books"})
-@EqualsAndHashCode(callSuper = false, exclude = {"books", "parent", "children"})
+@ToString(exclude = {"parent"})
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "CATEGORY")
 public class Category extends AbstractEntity {
 
     private String name;
 
-    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.ALL})
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
-    private List<Category> children;
+    private List<Category> children = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "BOOK_CATEGORY",
             joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 }

@@ -1,8 +1,8 @@
 package com.readit.rest.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.readit.entity.Category;
-import com.readit.rest.util.JsonPropertyFilterMixIn;
+import com.readit.rest.dto.CategoryDTO;
+import com.readit.service.BookService;
 import com.readit.service.CategoryService;
 import com.readit.service.exception.CategoryAlreadyExistsException;
 import com.readit.service.exception.CategoryNotFoundException;
@@ -10,58 +10,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
-    private final JsonPropertyFilterMixIn jsonFilter;
+    private final BookService bookService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService, JsonPropertyFilterMixIn jsonFilter) {
+    public CategoryController(CategoryService categoryService, BookService bookService) {
         this.categoryService = categoryService;
-        this.jsonFilter = jsonFilter;
-    }
-
-    @GetMapping("/getRootCategories")
-    public String getRootCategories() throws JsonProcessingException {
-        return jsonFilter.processObject(categoryService.findRootCategories(), "parent");
-    }
-
-    @GetMapping("/getBookCategories/{bookId}")
-    public String getBookCategories(@PathVariable long bookId) throws JsonProcessingException {
-        return jsonFilter.processObject(categoryService.findBookCategories(bookId), "parent");
-    }
-
-    @GetMapping("/getCategoryWithChildren/{categoryId}")
-    public String getCategoryWithChildren(@PathVariable long categoryId) throws JsonProcessingException, CategoryNotFoundException {
-        return jsonFilter.processObject(categoryService.findById(categoryId), "parent");
-    }
-
-    @GetMapping("/getCategoryWithParent/{categoryId}")
-    public String getCategoryWithParent(@PathVariable long categoryId) throws JsonProcessingException, CategoryNotFoundException {
-        return jsonFilter.processObject(categoryService.findById(categoryId), "children");
+        this.bookService = bookService;
     }
 
     @GetMapping("/{categoryId}")
-    public Category getCategoryById(@PathVariable long categoryId) throws CategoryNotFoundException {
-        return categoryService.findById(categoryId);
+    public CategoryDTO getCategoryById(@PathVariable long categoryId) throws CategoryNotFoundException {
+        return CategoryDTO.from(categoryService.findById(categoryId));
     }
 
     @GetMapping
-    public List<Category> getAllCategories() throws JsonProcessingException {
-        return categoryService.findAll();
+    public List<CategoryDTO> getAllCategories() {
+        return categoryService.findAll().stream().map(CategoryDTO::from).collect(Collectors.toList());
     }
 
     @PostMapping
-    public Category saveCategory(@RequestBody Category category) throws CategoryAlreadyExistsException {
-        return categoryService.save(category);
+    public CategoryDTO saveCategory(@RequestBody CategoryDTO categoryDTO) throws CategoryAlreadyExistsException {
+        return CategoryDTO.from(categoryService.save(mapToCategory(categoryDTO)));
     }
 
     @PutMapping("/{categoryId}")
-    public Category updateCategory(@PathVariable long categoryId, @RequestBody Category category) throws CategoryNotFoundException {
-        return categoryService.update(categoryId, category);
+    public CategoryDTO updateCategory(@PathVariable long categoryId, @RequestBody CategoryDTO categoryDTO) throws CategoryNotFoundException {
+        return CategoryDTO.from(categoryService.update(categoryId, mapToCategory(categoryDTO)));
     }
 
     @DeleteMapping
@@ -74,4 +55,12 @@ public class CategoryController {
         categoryService.delete(categoryId);
     }
 
+    private Category mapToCategory(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        category.setId(categoryDTO.getId());
+        category.setName(categoryDTO.getName());
+        category.setChildren(categoryDTO.getChildren().stream().map(this::mapToCategory).collect(Collectors.toList()));
+        category.setBooks(categoryDTO.getBooks().stream().map(bookService::findById).collect(Collectors.toList()));
+        return category;
+    }
 }
