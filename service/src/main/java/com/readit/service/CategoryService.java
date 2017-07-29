@@ -10,13 +10,7 @@ public interface CategoryService {
 
     Category findById(long id);
 
-    List<Category> findBookCategories(long bookId);
-
     List<Category> findRootCategories();
-
-    List<Category> findAscendants(long id);
-
-    List<Category> findDescendants(long id);
 
     List<Category> saveAll(List<Category> list);
 

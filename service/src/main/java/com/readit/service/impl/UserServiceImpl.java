@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         User existing = userRepository.findByEmail(user.getEmail());
-        if (existing != null) throw new UserAlreadyExistsException(user);
+        if (existing != null) throw new UserAlreadyExistsException(existing);
         return userRepository.save(user);
     }
 

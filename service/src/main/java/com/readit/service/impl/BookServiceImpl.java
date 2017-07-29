@@ -47,7 +47,7 @@ public class BookServiceImpl implements BookService {
     public Book save(Book book) {
         List<Book> existing = bookRepository.findByTitleAndYearOfRelease(book.getTitle(), book.getYearOfRelease());
         if (!existing.isEmpty() && existing.contains(book)) {
-            throw new BookAlreadyExistsException(book);
+            throw new BookAlreadyExistsException(existing.get(0));
         } else {
             return bookRepository.save(book);
         }

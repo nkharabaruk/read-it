@@ -49,7 +49,7 @@ public class ProfileServiceImpl implements ProfileService {
         if (!profilesInDB.isEmpty()) {
             for (Profile prof : profilesInDB) {
                 if (prof.equals(profile)) {
-                    throw new ProfileAlreadyExistsException(profile);
+                    throw new ProfileAlreadyExistsException(prof);
                 }
             }
         }

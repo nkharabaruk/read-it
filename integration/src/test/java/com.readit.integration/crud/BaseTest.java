@@ -27,7 +27,7 @@ public abstract class BaseTest<T extends AbstractEntity> {
     private static final String NOT_FOUND_EXCEPTION_MESSAGE = "%s with id = %d doesn't exist";
     private static final int ALREADY_EXIST_EXCEPTION_STATUS = 409;
     private static final String ALREADY_EXIST_EXCEPTION_CLASS = "com.readit.service.exception.%sAlreadyExistsException";
-    private static final String ALREADY_EXIST_EXCEPTION_MESSAGE = "%s already exists. %s";
+    private static final String ALREADY_EXIST_EXCEPTION_MESSAGE = "%s already exists with id %d";
     private static final String DTO = "DTO";
     private static final String EMPTY_STRING = "";
 
@@ -166,7 +166,7 @@ public abstract class BaseTest<T extends AbstractEntity> {
                 response.getException());
         assertEquals(String.format(ALREADY_EXIST_EXCEPTION_MESSAGE,
                 entityType.getSimpleName().replace(DTO, EMPTY_STRING),
-                entity.toString().replace(DTO, EMPTY_STRING)),
+                entity.getId()),
                 response.getMessage());
         assertTrue(System.currentTimeMillis() - response.getTimestamp() <= SECOND);
     }

@@ -43,7 +43,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag save(Tag tag) {
         Tag existing = tagRepository.findByTitle(tag.getTitle());
-        if (existing != null) throw new TagAlreadyExistsException(tag);
+        if (existing != null) throw new TagAlreadyExistsException(existing);
         return tagRepository.save(tag);
     }
 

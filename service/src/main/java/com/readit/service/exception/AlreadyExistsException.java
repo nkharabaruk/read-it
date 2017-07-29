@@ -9,6 +9,6 @@ public class AlreadyExistsException extends RuntimeException {
     }
 
     private static String getMessage(AbstractEntity entity) {
-        return entity.getClass().getSimpleName() + " already exists. " + entity.toString();
+        return entity.getClass().getSimpleName() + " already exists with id " + entity.getId();
     }
 }
