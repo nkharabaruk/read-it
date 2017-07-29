@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @Entity
-@ToString(exclude = {"parent"})
+@ToString(exclude = {"parent", "children"})
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "CATEGORY")
 public class Category extends AbstractEntity {
