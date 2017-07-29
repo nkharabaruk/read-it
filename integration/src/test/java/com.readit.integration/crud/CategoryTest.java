@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Collections;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class CategoryTest extends BaseTest<CategoryDTO> {
@@ -28,6 +26,5 @@ public class CategoryTest extends BaseTest<CategoryDTO> {
 
         entity2 = new CategoryDTO();
         entity2.setName("Українська");
-        entity2.setChildren(Collections.singletonList(entity1));
     }
 }

@@ -2,6 +2,7 @@ package com.readit.rest.controller;
 
 import com.readit.entity.Category;
 import com.readit.rest.dto.CategoryDTO;
+import com.readit.rest.dto.CategoryTree;
 import com.readit.service.BookService;
 import com.readit.service.CategoryService;
 import com.readit.service.exception.CategoryAlreadyExistsException;
@@ -55,11 +56,22 @@ public class CategoryController {
         categoryService.delete(categoryId);
     }
 
+    @GetMapping("/tree")
+    public CategoryTree getCategoryTreeFromRoot() {
+        Category root = new Category();
+        root.setChildren(categoryService.findRootCategories());
+        return CategoryTree.fromCategory(root);
+    }
+
+    @GetMapping("/tree/{categoryId}")
+    public CategoryTree getCategoryTree(@PathVariable long categoryId) {
+        return CategoryTree.fromCategory(categoryService.findById(categoryId));
+    }
+
     private Category mapToCategory(CategoryDTO categoryDTO) {
         Category category = new Category();
         category.setId(categoryDTO.getId());
         category.setName(categoryDTO.getName());
-        category.setChildren(categoryDTO.getChildren().stream().map(this::mapToCategory).collect(Collectors.toList()));
         category.setBooks(categoryDTO.getBooks().stream().map(bookService::findById).collect(Collectors.toList()));
         return category;
     }

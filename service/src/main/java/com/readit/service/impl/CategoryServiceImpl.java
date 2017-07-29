@@ -24,6 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
         this.bookRepository = bookRepository;
     }
 
+    @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
@@ -33,6 +34,11 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findOne(id);
         if (category == null) throw new CategoryNotFoundException(id);
         return category;
+    }
+
+    @Override
+    public List<Category> findRootCategories() {
+        return categoryRepository.findByParent(null);
     }
 
     /**
@@ -64,11 +70,6 @@ public class CategoryServiceImpl implements CategoryService {
         }
         Collections.sort(bookCategoriesInverse, (c1, c2) -> (c1.getId() > c2.getId()) ? 1 : -1);
         return bookCategoriesInverse;
-    }
-
-    public List<Category> findRootCategories() {
-//        return categoryRepository.findRootCategories();
-        return null;
     }
 
     public List<Category> findAscendants(long id) {
