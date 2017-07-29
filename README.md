@@ -1,1 +1,3 @@
-<h4>You can preview it <a href="http://readit-stefandriy.rhcloud.com/">here</a></h4>
+When using MySQL, it's important to create DB with UTF-8 encoding as default. Please use the following line:
+
+<code>CREATE DATABASE readit DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_unicode_ci;</code>

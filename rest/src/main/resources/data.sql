@@ -1,17 +1,17 @@
-INSERT INTO "AUTHOR" ("ID", "BIOGRAPHY", "FIRST_NAME", "MIDDLE_NAME", "LAST_NAME")
+INSERT INTO `author` (`id`, `biography`, `first_name`, `middle_name`, `last_name`)
 VALUES
   (1, 'Народився в Моринцях', 'Тарас', 'Григорович', 'Шевченко'),
   (2, 'Народився в Нагуєвичах', 'Іван', 'Якович', 'Франко');
 
-INSERT INTO "BOOK" ("ID", "DESCRIPTION", "TITLE") VALUES
+INSERT INTO `book` (`id`, `description`, `title`) VALUES
   (1, 'Шевченків Кобзар', 'Кобзар'),
   (2, 'Лис Микита', 'Фарбований лис');
 
-INSERT INTO "BOOK_AUTHOR" ("BOOK_ID", "AUTHOR_ID") VALUES
+INSERT INTO `book_author` (`book_id`, `author_id`) VALUES
   (1, 1),
   (2, 2);
 
-INSERT INTO "CATEGORY" ("ID", "NAME", "PARENT_ID") VALUES
+INSERT INTO `category` (`id`, `name`, `parent_id`) VALUES
   (1, 'Українська', NULL),
   (2, 'Зарубіжна', NULL),
   (3, 'Класика', 1),
@@ -33,17 +33,17 @@ INSERT INTO "CATEGORY" ("ID", "NAME", "PARENT_ID") VALUES
   (20, 'Поезія', 3),
   (21, 'Автобіграфії', 6);
 
-INSERT INTO "BOOK_CATEGORY" ("BOOK_ID", "CATEGORY_ID") VALUES
+INSERT INTO `book_category` (`book_id`, `category_id`) VALUES
   (1, 20),
   (2, 9);
 
-INSERT INTO "TAG" ("ID", "TITLE") VALUES
+INSERT INTO `tag` (`id`, `title`) VALUES
   (1, 'казки'),
   (2, 'лірика'),
   (3, 'про_тварин'),
   (4, 'Шевченко');
 
-INSERT INTO "BOOK_TAG" ("BOOK_ID", "TAG_ID") VALUES
+INSERT INTO `book_tag` (`book_id`, `tag_id`) VALUES
   (1, 2),
   (1, 4),
   (2, 1),
