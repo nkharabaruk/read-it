@@ -16,12 +16,14 @@ import java.util.stream.Collectors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CategoryDTO extends AbstractEntity {
     private String name;
+    private Long parentId;
     private List<Long> books = new ArrayList<>();
 
     public static CategoryDTO from(Category category) {
         CategoryDTO dto = new CategoryDTO();
         dto.setId(category.getId());
         dto.name = category.getName();
+        dto.parentId = category.getParent() != null ? category.getParent().getId() : null;
         dto.books = category.getBooks().stream().map(Book::getId).collect(Collectors.toList());
         return dto;
     }

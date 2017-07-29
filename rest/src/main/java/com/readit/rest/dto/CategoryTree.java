@@ -3,12 +3,14 @@ package com.readit.rest.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.readit.entity.AbstractEntity;
 import com.readit.entity.Category;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = false)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CategoryTree extends AbstractEntity {
     private String name;

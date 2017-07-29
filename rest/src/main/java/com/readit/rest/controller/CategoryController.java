@@ -72,6 +72,7 @@ public class CategoryController {
         Category category = new Category();
         category.setId(categoryDTO.getId());
         category.setName(categoryDTO.getName());
+        category.setParent(categoryDTO.getParentId() != null ? categoryService.findById(categoryDTO.getParentId()) : null);
         category.setBooks(categoryDTO.getBooks().stream().map(bookService::findById).collect(Collectors.toList()));
         return category;
     }

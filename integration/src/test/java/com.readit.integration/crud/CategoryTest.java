@@ -26,5 +26,6 @@ public class CategoryTest extends BaseTest<CategoryDTO> {
 
         entity2 = new CategoryDTO();
         entity2.setName("Українська");
+        entity2.setParentId(entity1.getId());
     }
 }
