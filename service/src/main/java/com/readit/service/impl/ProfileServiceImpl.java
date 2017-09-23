@@ -10,6 +10,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -28,9 +29,8 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Profile findById(long id) {
-        Profile profile = profileRepository.findOne(id);
-        if (profile == null) throw new ProfileNotFoundException(id);
-        return profile;
+        return Optional.ofNullable(profileRepository.findOne(id))
+                .orElseThrow(() -> new ProfileNotFoundException(id));
     }
 
     @Override
@@ -41,26 +41,21 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     // TODO: to test it
     public Profile save(Profile profile) {
-        List<Profile> profilesInDB = profileRepository
-                .findByWasReadAndIsReadingAndWantToRead(
-                        profile.getWasRead(),
-                        profile.getIsReading(),
-                        profile.getWantToRead());
-        if (!profilesInDB.isEmpty()) {
-            for (Profile prof : profilesInDB) {
-                if (prof.equals(profile)) {
-                    throw new ProfileAlreadyExistsException(prof);
-                }
-            }
-        }
+        profileRepository.findByWasReadAndIsReadingAndWantToRead(
+                profile.getWasRead(),
+                profile.getIsReading(),
+                profile.getWantToRead()).stream()
+                .filter(prof -> prof.equals(profile))
+                .findAny()
+                .ifPresent(ProfileAlreadyExistsException::new);
         return profileRepository.save(profile);
     }
 
     @Override
     public Profile update(long id, Profile profile) {
-        Profile existing = profileRepository.findOne(id);
-        if (existing == null) throw new ProfileNotFoundException(id);
-        profile.setId(existing.getId());
+    Optional.ofNullable(profileRepository.findOne(id))
+                .map(prof -> {profile.setId(prof.getId()); return profile;})
+                .orElseThrow(() -> new ProfileNotFoundException(id));
         return profileRepository.save(profile);
     }
 
