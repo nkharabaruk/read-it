@@ -1,6 +1,6 @@
-<table class="table table-bordered table-hover">
-  <tr *ngFor="let author of authors | async">
-    <td>{{author.firstName + ' ' + author.middleName + ' ' + author.lastName}}&nbsp;</td>
-    <td>{{author.biography}}</td>
-  </tr>
-</table>
+<div class="row">
+  <div class="col-md-4" *ngFor="let author of authors | async">
+    <h4>{{author.firstName + ' ' + author.middleName + ' ' + author.lastName}}</h4>
+    <p>{{author.biography}}</p>
+  </div>
+</div>

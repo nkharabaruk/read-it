@@ -1,11 +1,11 @@
-<table class="table table-bordered table-hover">
-  <tr *ngFor="let book of books | async">
-    <td>{{book.title}}</td>
-    <td>{{book.description}}</td>
-    <td>
+<div class="row">
+  <div class="col-md-4" *ngFor="let book of books | async">
+    <h4>{{book.title}}</h4>
+    <h6>
       <span *ngFor="let author of book.authors">
         {{author.firstName + ' ' + author.middleName + ' ' + author.lastName}}&nbsp;
       </span>
-    </td>
-  </tr>
-</table>
+    </h6>
+    <p>{{book.description}}</p>
+  </div>
+</div>
