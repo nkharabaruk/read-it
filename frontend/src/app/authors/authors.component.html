@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col-md-4" *ngFor="let author of authors | async">
-    <h4>{{author.firstName + ' ' + author.middleName + ' ' + author.lastName}}</h4>
-    <p>{{author.biography}}</p>
+  <div class="col-md-6" *ngFor="let author of authors | async">
+    <author-card [author]="author"></author-card>
+    &nbsp;
   </div>
 </div>

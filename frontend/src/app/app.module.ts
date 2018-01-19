@@ -11,13 +11,17 @@ import {AuthorsComponent} from "./authors/authors.component";
 import {RoutingModule} from "./routing.module";
 import {BookService} from "../shared/service/book.service";
 import {AuthorService} from "../shared/service/author.service";
+import {AuthorCardComponent} from "../shared/component/author-card/author-card.component";
+import {BookCardComponent} from "../shared/component/book-card/book-card.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     BooksComponent,
-    AuthorsComponent
+    AuthorsComponent,
+    AuthorCardComponent,
+    BookCardComponent
   ],
   imports: [
     BrowserModule,

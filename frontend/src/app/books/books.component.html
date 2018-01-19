@@ -1,11 +1,5 @@
 <div class="row">
   <div class="col-md-4" *ngFor="let book of books | async">
-    <h4>{{book.title}}</h4>
-    <h6>
-      <span *ngFor="let author of book.authors">
-        {{author.firstName + ' ' + author.middleName + ' ' + author.lastName}}&nbsp;
-      </span>
-    </h6>
-    <p>{{book.description}}</p>
+    <book-card [book]="book"></book-card>
   </div>
 </div>
