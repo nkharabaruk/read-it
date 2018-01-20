@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Author} from "../../model/author.model";
+import {Author} from "../../models/author.model";
 
 @Component({
   selector: 'author-card',

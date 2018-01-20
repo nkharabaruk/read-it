@@ -1,7 +1,7 @@
 import {Http} from "@angular/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs/Observable";
-import {Book} from "../model/book.model";
+import {Book} from "../models/book.model";
 import "rxjs/add/operator/map";
 import {Injectable} from "@angular/core";
 

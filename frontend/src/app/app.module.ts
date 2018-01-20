@@ -5,23 +5,28 @@ import {HttpModule} from "@angular/http";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from "./app.component";
-import {HomeComponent} from "./home/home.component";
-import {BooksComponent} from "./books/books.component";
-import {AuthorsComponent} from "./authors/authors.component";
+
 import {RoutingModule} from "./routing.module";
-import {BookService} from "../shared/service/book.service";
-import {AuthorService} from "../shared/service/author.service";
-import {AuthorCardComponent} from "../shared/component/author-card/author-card.component";
-import {BookCardComponent} from "../shared/component/book-card/book-card.component";
+import {BookService} from "./services/book.service";
+import {AuthorService} from "./services/author.service";
+import {AuthorCardComponent} from "./components/author-card/author-card.component";
+import {BookCardComponent} from "./components/book-card/book-card.component";
+import {AuthorsListPage} from "./pages/authors-list/authors-list.page";
+import {HomePage} from "./pages/home/home.page";
+import {BooksListPage} from "./pages/books-list/books-list.page";
+import {AuthorPage} from "./pages/author/author.page";
+import {BookPage} from "./pages/book/book.page";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    BooksComponent,
-    AuthorsComponent,
     AuthorCardComponent,
-    BookCardComponent
+    BookCardComponent,
+    HomePage,
+    BooksListPage,
+    BookPage,
+    AuthorsListPage,
+    AuthorPage
   ],
   imports: [
     BrowserModule,

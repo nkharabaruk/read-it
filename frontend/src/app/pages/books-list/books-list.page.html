@@ -1,0 +1,7 @@
+<div class="row">
+  <book-card class="col-3"
+             *ngFor="let book of books | async"
+             [book]="book"
+             routerLink="/books/{{book.id}}">
+  </book-card>
+</div>
