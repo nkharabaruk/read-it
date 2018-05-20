@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import 'rxjs/add/operator/switchMap';
-import {Book} from "../../models/book.model";
-import {BookService} from "../../services/book.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Book } from '../../../models/book.model';
+import { BookService } from '../../../services/book.service';
 
 @Component({
   templateUrl: './book.page.html',
@@ -14,7 +13,7 @@ export class BookPage implements OnInit {
   book: Book = <Book>{};
 
   constructor(route: ActivatedRoute, private bookService: BookService) {
-    this.id = parseInt(route.snapshot.paramMap.get('id'));
+    this.id = parseInt(route.snapshot.paramMap.get('id'), 10);
   }
 
   ngOnInit() {

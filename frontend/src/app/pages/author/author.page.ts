@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs/Observable";
-import 'rxjs/add/operator/switchMap';
-import {AuthorService} from "../../services/author.service";
-import {Author} from "../../models/author.model";
-import {Book} from "../../models/book.model";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Author } from '../../../models/author.model';
+import { Book } from '../../../models/book.model';
+import { AuthorService } from '../../../services/author.service';
 
 @Component({
   templateUrl: './author.page.html',
@@ -17,7 +16,7 @@ export class AuthorPage implements OnInit {
   books: Observable<Book[]>;
 
   constructor(route: ActivatedRoute, private authorService: AuthorService) {
-    this.id = parseInt(route.snapshot.paramMap.get('id'));
+    this.id = parseInt(route.snapshot.paramMap.get('id'), 10);
   }
 
   ngOnInit() {

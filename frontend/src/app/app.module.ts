@@ -1,21 +1,17 @@
-import {BrowserModule} from "@angular/platform-browser";
-import {NgModule} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
-import {AppComponent} from "./app.component";
-
-import {RoutingModule} from "./routing.module";
-import {BookService} from "./services/book.service";
-import {AuthorService} from "./services/author.service";
-import {AuthorCardComponent} from "./components/author-card/author-card.component";
-import {BookCardComponent} from "./components/book-card/book-card.component";
-import {AuthorsListPage} from "./pages/authors-list/authors-list.page";
-import {HomePage} from "./pages/home/home.page";
-import {BooksListPage} from "./pages/books-list/books-list.page";
-import {AuthorPage} from "./pages/author/author.page";
-import {BookPage} from "./pages/book/book.page";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { HomePage } from './pages/home/home.page';
+import { BookListPage } from './pages/books-list/book-list-page.component';
+import { AuthorListPage } from './pages/authors-list/author-list-page.component';
+import { BookPage } from './pages/book/book.page';
+import { AuthorPage } from './pages/author/author.page';
+import { AuthorCardComponent } from './components/author-card/author-card.component';
+import { BookCardComponent } from './components/book-card/book-card.component';
+import { RoutingModule } from './routing.module';
+import { AuthorService } from '../services/author.service';
+import { BookService } from '../services/book.service';
+import { Http, HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -23,17 +19,15 @@ import {BookPage} from "./pages/book/book.page";
     AuthorCardComponent,
     BookCardComponent,
     HomePage,
-    BooksListPage,
-    BookPage,
-    AuthorsListPage,
-    AuthorPage
+    AuthorListPage,
+    AuthorPage,
+    BookListPage,
+    BookPage
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
     HttpModule,
-    RoutingModule,
-    NgbModule.forRoot()
+    BrowserModule,
+    RoutingModule
   ],
   providers: [
     AuthorService,

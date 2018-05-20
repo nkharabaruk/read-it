@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Author} from "../../models/author.model";
+import { Component, Input, OnInit } from '@angular/core';
+import { Author } from '../../../models/author.model';
 
 @Component({
-  selector: 'author-card',
+  selector: 'app-author-card',
   templateUrl: './author-card.component.html',
   styleUrls: ['./author-card.component.scss']
 })
