@@ -9,7 +9,7 @@ public class RedirectController {
 
     @GetMapping("/**")
     public ClassPathResource redirectToIndex() {
-        return new ClassPathResource("static/index.html");
+        return new ClassPathResource("public/index.html");
     }
 
 }
