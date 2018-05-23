@@ -1,5 +1,7 @@
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
+plugins {
+    id 'java'
+    id 'org.springframework.boot'
+}
 
 sourceCompatibility = 10
 targetCompatibility = 10
@@ -7,12 +9,12 @@ targetCompatibility = 10
 dependencies {
     compile project(':rest')
 
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-feign', version: '1.3.1.RELEASE'
-    compile('org.springframework.boot:spring-boot-starter-web')
-//    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
-    compileOnly files('../lib/lombok-edge.jar')
-    compile 'javax.xml.bind:jaxb-api:2.3.0'
+    compile "org.springframework.cloud:spring-cloud-starter-feign:${feignVersion}"
+    compile 'org.springframework.boot:spring-boot-starter-web'
+//    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    compileOnly files('../lib/lombok-edge.jar') //TODO: replace with maven central when it will be available
+    compile "javax.xml.bind:jaxb-api:${jaxbVersion}"
 
 
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

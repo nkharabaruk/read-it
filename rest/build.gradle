@@ -1,5 +1,7 @@
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
+plugins {
+    id 'java'
+    id 'org.springframework.boot'
+}
 
 sourceCompatibility = 10
 targetCompatibility = 10
@@ -7,15 +9,15 @@ targetCompatibility = 10
 dependencies {
     compile project(':service')
 
-    compile('org.springframework.boot:spring-boot-starter')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.8.5'
-    compile 'javax.xml.bind:jaxb-api:2.3.0'
-//    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
-    compileOnly files('../lib/lombok-edge.jar')
+    compile 'org.springframework.boot:spring-boot-starter'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonJsrVersion}"
+    compile "javax.xml.bind:jaxb-api:${jaxbVersion}"
+//    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    compileOnly files('../lib/lombok-edge.jar') //TODO: replace with maven central when it will be available
 
-    compile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.1'
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile "io.rest-assured:rest-assured:${restAssuredVersion}"
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
 processResources {
