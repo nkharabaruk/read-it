@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/settings")
+@RequestMapping("rest/settings")
 public class SettingsController {
 
     private final SettingsService settingsService;

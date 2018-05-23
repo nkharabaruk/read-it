@@ -15,3 +15,11 @@ dependencies {
     compile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.1'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+processResources {
+    dependsOn ':frontend:build'
+
+    from ("${project(':frontend').projectDir}/dist") {
+        into 'public'
+    }
+}
