@@ -1,8 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 10
+targetCompatibility = 10
 
 bootRepackage.enabled = false
 

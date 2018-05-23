@@ -1,8 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 10
+targetCompatibility = 10
 
 bootRepackage.enabled = false
 
@@ -13,7 +13,8 @@ dependencies {
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.8.5'
     compile('mysql:mysql-connector-java')
     compile group: 'com.h2database', name: 'h2', version: '1.4.193'
-    compileOnly('org.projectlombok:lombok')
+//    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+    compileOnly files('../lib/lombok-edge.jar')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
