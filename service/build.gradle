@@ -12,7 +12,7 @@ dependencies {
     compile project(':repository')
 
     compile 'org.springframework.boot:spring-boot-starter'
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonJsrVersion}"
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

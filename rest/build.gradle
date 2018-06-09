@@ -11,7 +11,7 @@ dependencies {
 
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonJsrVersion}"
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     compile "javax.xml.bind:jaxb-api:${jaxbVersion}"
 //    compileOnly "org.projectlombok:lombok:${lombokVersion}"
     compileOnly files('../lib/lombok-edge.jar') //TODO: replace with maven central when it will be available
