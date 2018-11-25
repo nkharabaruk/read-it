@@ -7,6 +7,7 @@ import com.readit.service.exception.TagAlreadyExistsException;
 import com.readit.service.exception.TagNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,9 +29,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag findById(long id) {
-        Tag tag = tagRepository.findOne(id);
-        if (tag == null) throw new TagNotFoundException(id);
-        return tag;
+        return tagRepository.findById(id).orElseThrow(() -> new TagNotFoundException(id));
     }
 
     @Override
@@ -49,10 +48,13 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag update(long id, Tag tag) {
-        Tag existing = tagRepository.findOne(id);
-        if (existing == null) throw new TagNotFoundException(id);
-        tag.setId(existing.getId());
-        return tagRepository.save(tag);
+        try {
+            Tag existing = tagRepository.getOne(id);
+            tag.setId(existing.getId());
+            return tagRepository.save(tag);
+        } catch (JpaObjectRetrievalFailureException e) {
+            throw new TagNotFoundException(id);
+        }
     }
 
     @Override
@@ -63,7 +65,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public void delete(long id) {
         try {
-            tagRepository.delete(id);
+            tagRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new TagNotFoundException(id);
         }

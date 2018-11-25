@@ -7,10 +7,10 @@ import com.readit.service.exception.ProfileAlreadyExistsException;
 import com.readit.service.exception.ProfileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -29,13 +29,12 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Profile findById(long id) {
-        return Optional.ofNullable(profileRepository.findOne(id))
-                .orElseThrow(() -> new ProfileNotFoundException(id));
+        return profileRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException(id));
     }
 
     @Override
     public List<Profile> saveAll(List<Profile> list) {
-        return profileRepository.save(list);
+        return profileRepository.saveAll(list);
     }
 
     @Override
@@ -53,10 +52,13 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Profile update(long id, Profile profile) {
-    Optional.ofNullable(profileRepository.findOne(id))
-                .map(prof -> {profile.setId(prof.getId()); return profile;})
-                .orElseThrow(() -> new ProfileNotFoundException(id));
-        return profileRepository.save(profile);
+        try {
+            Profile existed = profileRepository.getOne(id);
+            profile.setId(existed.getId());
+            return profileRepository.save(profile);
+        } catch (JpaObjectRetrievalFailureException e) {
+            throw new ProfileNotFoundException(id);
+        }
     }
 
     @Override
@@ -67,7 +69,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public void delete(long id) {
         try {
-            profileRepository.delete(id);
+            profileRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new ProfileNotFoundException(id);
         }

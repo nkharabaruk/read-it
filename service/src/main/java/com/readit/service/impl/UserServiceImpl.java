@@ -7,6 +7,7 @@ import com.readit.service.exception.UserAlreadyExistsException;
 import com.readit.service.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,9 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(long id) {
-        User user = userRepository.findOne(id);
-        if (user == null) throw new UserNotFoundException(id);
-        return user;
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Override
@@ -49,10 +48,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(long id, User user) {
-        User existing = userRepository.findOne(id);
-        if (existing == null) throw new UserNotFoundException(id);
-        user.setId(existing.getId());
-        return userRepository.save(user);
+        try {
+            User existing = userRepository.getOne(id);
+            user.setId(existing.getId());
+            return userRepository.save(user);
+        } catch (JpaObjectRetrievalFailureException e) {
+            throw new UserNotFoundException(id);
+        }
     }
 
     @Override
@@ -63,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(long id) {
         try {
-            userRepository.delete(id);
+            userRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new UserNotFoundException(id);
         }

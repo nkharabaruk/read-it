@@ -1,15 +1,17 @@
 plugins {
     id 'java'
     id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
 }
 
 sourceCompatibility = 10
 targetCompatibility = 10
 
+jar { enabled = true }
+
 dependencies {
     compile project(':rest')
-
-    compile "org.springframework.cloud:spring-cloud-starter-feign:${feignVersion}"
+    compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
     compile 'org.springframework.boot:spring-boot-starter-web'
 //    compileOnly "org.projectlombok:lombok:${lombokVersion}"
     compileOnly files('../lib/lombok-edge.jar') //TODO: replace with maven central when it will be available
@@ -17,4 +19,10 @@ dependencies {
 
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }

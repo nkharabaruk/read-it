@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,14 +34,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findById(long id) {
-        Book book = bookRepository.findOne(id);
-        if (book == null) throw new BookNotFoundException(id);
-        return book;
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
     }
 
     @Override
     public List<Book> saveAll(List<Book> books) {
-        return bookRepository.save(books);
+        return bookRepository.saveAll(books);
     }
 
     @Override
@@ -55,10 +54,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book update(long id, Book book) {
-        Book existing = bookRepository.findOne(id);
-        if (existing == null) throw new BookNotFoundException(id);
-        book.setId(existing.getId());
-        return bookRepository.save(book);
+        try {
+            Book existing = bookRepository.getOne(id);
+            book.setId(existing.getId());
+            return bookRepository.save(book);
+        } catch (JpaObjectRetrievalFailureException e) {
+            throw new BookNotFoundException(id);
+        }
     }
 
     @Override
@@ -69,7 +71,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void delete(long id) {
         try {
-            bookRepository.delete(id);
+            bookRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new BookNotFoundException(id);
         }

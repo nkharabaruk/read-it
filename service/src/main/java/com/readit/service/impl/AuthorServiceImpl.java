@@ -27,15 +27,12 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author findById(long id) {
-        Author author = authorRepository.findOne(id);
-        if (author == null) throw new AuthorNotFoundException(id);
-        return author;
-
+        return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException(id));
     }
 
     @Override
     public List<Author> saveAll(List<Author> list) {
-        return authorRepository.save(list);
+        return authorRepository.saveAll(list);
     }
 
     public Author save(Author author) {
@@ -49,8 +46,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author update(long id, Author author) {
-        Author existing = authorRepository.findOne(id);
-        if (existing == null) throw new AuthorNotFoundException(id);
+        Author existing = findById(id);
         author.setId(existing.getId());
         return authorRepository.save(author);
     }
@@ -63,7 +59,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void delete(long id) {
         try {
-            authorRepository.delete(id);
+            authorRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new AuthorNotFoundException(id);
         }

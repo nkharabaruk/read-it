@@ -6,6 +6,7 @@ import com.readit.service.QuoteService;
 import com.readit.service.exception.QuoteNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,14 +28,12 @@ public class QuoteServiceImpl implements QuoteService {
 
     @Override
     public Quote findById(long id) {
-        Quote quote = quoteRepository.findOne(id);
-        if (quote == null) throw new QuoteNotFoundException(id);
-        return quote;
+        return quoteRepository.findById(id).orElseThrow(() -> new QuoteNotFoundException(id));
     }
 
     @Override
     public List<Quote> saveAll(List<Quote> list) {
-        return quoteRepository.save(list);
+        return quoteRepository.saveAll(list);
     }
 
     @Override
@@ -44,10 +43,13 @@ public class QuoteServiceImpl implements QuoteService {
 
     @Override
     public Quote update(long id, Quote quote) {
-        Quote existing = quoteRepository.findOne(id);
-        if (existing == null) throw new QuoteNotFoundException(id);
-        quote.setId(existing.getId());
-        return quoteRepository.save(quote);
+        try {
+            Quote existing = quoteRepository.getOne(id);
+            quote.setId(existing.getId());
+            return quoteRepository.save(quote);
+        } catch (JpaObjectRetrievalFailureException e) {
+            throw new QuoteNotFoundException(id);
+        }
     }
 
     @Override
@@ -58,7 +60,7 @@ public class QuoteServiceImpl implements QuoteService {
     @Override
     public void delete(long id) {
         try {
-            quoteRepository.delete(id);
+            quoteRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new QuoteNotFoundException(id);
         }

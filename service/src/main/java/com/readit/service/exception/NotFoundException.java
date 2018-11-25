@@ -3,8 +3,8 @@ package com.readit.service.exception;
 import com.readit.entity.AbstractEntity;
 
 public class NotFoundException extends RuntimeException {
-    private static final String MESSAGE = "%s with %s = %s doesn't exist";
 
+    private static final String MESSAGE = "%s with %s = %s doesn't exist";
 
     NotFoundException(Class<? extends AbstractEntity> type, long id) {
         super(getMessage(type, "id", id));

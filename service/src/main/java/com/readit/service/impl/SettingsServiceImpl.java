@@ -6,6 +6,7 @@ import com.readit.service.SettingsService;
 import com.readit.service.exception.SettingsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,14 +28,12 @@ public class SettingsServiceImpl implements SettingsService {
 
     @Override
     public Settings findById(long id) {
-        Settings settings = settingsRepository.findOne(id);
-        if (settings == null) throw new SettingsNotFoundException(id);
-        return settings;
+        return settingsRepository.findById(id).orElseThrow(() -> new SettingsNotFoundException(id));
     }
 
     @Override
     public List<Settings> saveAll(List<Settings> list) {
-        return settingsRepository.save(list);
+        return settingsRepository.saveAll(list);
     }
 
     @Override
@@ -44,10 +43,13 @@ public class SettingsServiceImpl implements SettingsService {
 
     @Override
     public Settings update(long id, Settings settings) {
-        Settings existing = settingsRepository.findOne(id);
-        if (existing == null) throw new SettingsNotFoundException(id);
-        settings.setId(existing.getId());
-        return settingsRepository.save(settings);
+        try {
+            Settings existing = settingsRepository.getOne(id);
+            settings.setId(existing.getId());
+            return settingsRepository.save(settings);
+        } catch (JpaObjectRetrievalFailureException e) {
+            throw new SettingsNotFoundException(id);
+        }
     }
 
     @Override
@@ -58,7 +60,7 @@ public class SettingsServiceImpl implements SettingsService {
     @Override
     public void delete(long id) {
         try {
-            settingsRepository.delete(id);
+            settingsRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new SettingsNotFoundException(id);
         }

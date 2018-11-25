@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 @Data
 @NoArgsConstructor
 public class ApiErrorResponse {
+
     private long timestamp;
     private int status;
     private String exception;

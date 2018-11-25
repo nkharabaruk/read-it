@@ -25,7 +25,7 @@ public class StaticResourcesHandlerConfig extends WebMvcConfigurerAdapter {
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         registry.addResourceHandler(STATIC_RESOURCES)
                 .addResourceLocations(resourceProperties.getStaticLocations())
-                .setCachePeriod(resourceProperties.getCachePeriod());
+                .setCachePeriod(31556926);
     }
 
     @Override

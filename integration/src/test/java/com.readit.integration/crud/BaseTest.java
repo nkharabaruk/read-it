@@ -65,7 +65,7 @@ public abstract class BaseTest<T extends AbstractEntity> {
     }
 
     @Test
-    public void getAllTest() throws Exception {
+    public void getAllTest() {
         client.save(entity1);
         client.save(entity2);
 
@@ -76,7 +76,7 @@ public abstract class BaseTest<T extends AbstractEntity> {
     }
 
     @Test
-    public void saveTest() throws Exception {
+    public void saveTest() {
         T result = client.save(entity1);
 
         assertEquals(entity1, result);

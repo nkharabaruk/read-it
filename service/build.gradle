@@ -1,12 +1,14 @@
 plugins {
     id 'java'
     id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
 }
 
 sourceCompatibility = 10
 targetCompatibility = 10
 
-bootRepackage.enabled = false
+bootJar.enabled = false
+jar {enabled = true}
 
 dependencies {
     compile project(':repository')

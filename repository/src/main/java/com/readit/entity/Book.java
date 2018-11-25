@@ -1,6 +1,7 @@
 package com.readit.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @ToString(exclude = {"authors", "categories", "tags"})
 @EqualsAndHashCode(callSuper = false, exclude = {"authors", "categories", "tags"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "BOOK")
 public class Book extends AbstractEntity {
 

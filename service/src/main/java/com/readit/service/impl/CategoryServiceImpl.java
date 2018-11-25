@@ -8,6 +8,7 @@ import com.readit.service.exception.CategoryAlreadyExistsException;
 import com.readit.service.exception.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +17,10 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
-    private final BookRepository bookRepository;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository, BookRepository bookRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.bookRepository = bookRepository;
     }
 
     @Override
@@ -31,9 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(long id) {
-        Category category = categoryRepository.findOne(id);
-        if (category == null) throw new CategoryNotFoundException(id);
-        return category;
+        return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
     @Override
@@ -43,7 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> saveAll(List<Category> list) {
-        return categoryRepository.save(list);
+        return categoryRepository.saveAll(list);
     }
 
     @Override
@@ -58,10 +55,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(long id, Category category) {
-        Category existing = categoryRepository.findOne(id);
-        if (existing == null) throw new CategoryNotFoundException(id);
-        category.setId(existing.getId());
-        return categoryRepository.save(category);
+        try {
+            Category existing = categoryRepository.getOne(id);
+            category.setId(existing.getId());
+            return categoryRepository.save(category);
+        } catch (JpaObjectRetrievalFailureException e) {
+            throw new CategoryNotFoundException(id);
+        }
     }
 
     @Override
@@ -72,7 +72,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(long id) {
         try {
-            categoryRepository.delete(id);
+            categoryRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new CategoryNotFoundException(id);
         }

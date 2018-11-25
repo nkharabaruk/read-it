@@ -1,5 +1,6 @@
 package com.readit.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = false)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "PROFILE")
 public class Profile extends AbstractEntity {
 
