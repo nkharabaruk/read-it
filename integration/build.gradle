@@ -13,11 +13,9 @@ dependencies {
     compile project(':rest')
     compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
     compile 'org.springframework.boot:spring-boot-starter-web'
-//    compileOnly "org.projectlombok:lombok:${lombokVersion}"
-    compileOnly files('../lib/lombok-edge.jar') //TODO: replace with maven central when it will be available
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
     compile "javax.xml.bind:jaxb-api:${jaxbVersion}"
-
-
+    
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 

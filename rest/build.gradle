@@ -16,8 +16,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     compile "javax.xml.bind:jaxb-api:${jaxbVersion}"
-//    compileOnly "org.projectlombok:lombok:${lombokVersion}"
-    compileOnly files('../lib/lombok-edge.jar') //TODO: replace with maven central when it will be available
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
     compile "io.rest-assured:rest-assured:${restAssuredVersion}"
     testCompile 'org.springframework.boot:spring-boot-starter-test'

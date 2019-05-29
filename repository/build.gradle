@@ -17,8 +17,7 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     compile 'mysql:mysql-connector-java'
     compile 'com.h2database:h2'
-//    compileOnly "org.projectlombok:lombok:${lombokVersion}"
-    compileOnly files('../lib/lombok-edge.jar') //TODO: replace with maven central when it will be available
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
