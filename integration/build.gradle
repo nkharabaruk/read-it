@@ -4,8 +4,8 @@ plugins {
     id 'io.spring.dependency-management'
 }
 
-sourceCompatibility = 10
-targetCompatibility = 10
+sourceCompatibility = 11
+targetCompatibility = 11
 
 jar { enabled = true }
 
@@ -15,7 +15,8 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     compile "javax.xml.bind:jaxb-api:${jaxbVersion}"
-    
+    compile "org.javassist:javassist:${javassistVersion}"
+
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 

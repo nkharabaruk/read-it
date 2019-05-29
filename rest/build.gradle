@@ -4,8 +4,8 @@ plugins {
     id 'io.spring.dependency-management'
 }
 
-sourceCompatibility = 10
-targetCompatibility = 10
+sourceCompatibility = 11
+targetCompatibility = 11
 
 jar { enabled = true }
 
@@ -17,6 +17,7 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     compile "javax.xml.bind:jaxb-api:${jaxbVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    compile "org.javassist:javassist:${javassistVersion}"
 
     compile "io.rest-assured:rest-assured:${restAssuredVersion}"
     testCompile 'org.springframework.boot:spring-boot-starter-test'
