@@ -1,5 +1,6 @@
 package com.readit.integration.crud;
 
+import static org.junit.Assert.*;
 import com.readit.entity.AbstractEntity;
 import com.readit.integration.client.Client;
 import com.readit.integration.exception.ApiErrorResponseException;
@@ -10,15 +11,13 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.lang.reflect.Array;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 @SuppressWarnings("unchecked")
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+        properties = "spring.main.allow-bean-definition-overriding=true")
 public abstract class BaseTest<T extends AbstractEntity> {
     private static final long NOT_EXISTING_ID = 100500;
     private static final long SECOND = 1000;

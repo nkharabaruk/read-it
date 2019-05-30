@@ -3,17 +3,10 @@ package com.readit.integration.crud;
 import com.readit.entity.Book;
 import com.readit.integration.client.BookClient;
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.time.Year;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class BookTest extends BaseTest<Book> {
-
 
     @Autowired
     public void setClient(BookClient client) {

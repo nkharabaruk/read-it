@@ -1,5 +1,6 @@
 package com.readit.integration.crud;
 
+import static junit.framework.TestCase.assertEquals;
 import com.readit.integration.client.CategoryClient;
 import com.readit.integration.client.CategoryTreeClient;
 import com.readit.rest.dto.CategoryDTO;
@@ -11,10 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static junit.framework.TestCase.assertEquals;
-
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+        properties = "spring.main.allow-bean-definition-overriding=true")
 public class CategoryTreeTest {
 
     @Autowired
